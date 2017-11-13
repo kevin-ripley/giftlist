@@ -1,0 +1,27 @@
+<!-- Themes Login + logo -->
+<ion-content has-header white-background>
+    <ion-grid >
+        <ion-row wrap padding>
+            <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
+                
+                <!---Logo-->
+                <img src="assets/imgs/gift_list_lg.svg"/>
+                <!---Input field username-->
+                <ion-item no-padding transparent>
+                    <ion-label floating>Email</ion-label>
+                    <ion-input required type="text" [(ngModel)]="user.email"></ion-input>
+                </ion-item>
+                <!---Input field password-->
+                <ion-item no-padding transparent>
+                    <ion-label floating>Password</ion-label>
+                    <ion-input required type="password" [(ngModel)]="user.password"></ion-input>
+                </ion-item>
+                <!---Login button-->
+                <button ion-button button-clear-outline block outline (click)="login(user)">Login</button>
+                <!---Register button-->
+                <button ion-button button-clear-outline block outline (click)="register()">Register</button>
+            </ion-col>
+            
+        </ion-row>
+    </ion-grid>
+</ion-content>

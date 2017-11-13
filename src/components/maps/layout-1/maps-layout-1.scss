@@ -1,0 +1,14 @@
+/*  #GMAPS + Location  Details
+================================================*/
+maps-layout-1 {
+  .sebm-google-map-container {
+    height: 350px;
+  }
+  [map-header] ion-item {
+    text-align: center;
+    p {
+      color: theme-colors('textColors', 'primary') !important;
+    }
+  }
+
+}

@@ -1,0 +1,38 @@
+page-login {
+  ion-col {
+    position: relative;
+    [button-clear] {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+  img {
+    max-width: 200px;
+    max-height: 150px;
+    display: block;
+    margin: 10px auto 10px;
+  }
+  .item-inner {
+    border-bottom-color: theme-colors('mainColors', 'primary') !important;
+    box-shadow: none !important;
+  }
+  [button-clear-outline] {
+    margin-top: 5%;
+    display: block;
+    float: left;
+  }
+  [social] {
+    margin: 20px auto 0;
+    overflow: hidden;
+    button {
+      margin: 1%;
+      width: 48.5%;
+      display: block;
+      float: left;
+    }
+    >button:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+// Style Google Maps Gmaps + About Us
+maps-layout-2 {
+  .sebm-google-map-container {
+    height: 300px;
+  }
+  [maps-title], [title]{
+    color: theme-colors('textColors', 'accent') !important;
+  }
+  [maps-subtitle]{
+    color: theme-colors('textColors', 'accent') !important;
+  }
+}
