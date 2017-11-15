@@ -5,7 +5,7 @@
               <!--Form-->
               <div class="form">
                   <!--Form Title-->
-                  <h1 title text-right>Register</h1>
+                  <h1 title text-center>REGISTER</h1>
                   <!---Input field email-->
                   <ion-item no-padding>
                     <ion-label floating>Email</ion-label>
@@ -19,14 +19,14 @@
                   
                   
                   <!---Register button-->
-                  <button ion-button block clear button-clear (click)="register(user)">Sign Up</button>
-
+                  <button ion-button block button-clear-outline outline (click)="register(user)">Sign Up</button>
+                <p text-center>Already have an Account?</p>
                   <!---back button-->
-                  <button ion-button block clear button-clear (click)="cancel()">Login</button>
+                  <button ion-button block button-clear-outline color="primary" (click)="cancel()">Login</button>
               </div>
               <div logo>
                   <!---Logo-->
-                  <img left src ="assets/imgs/gift_list_lg.svg"/>
+                  <img src ="assets/imgs/gift_list_lg.svg"/>
               </div>
           </ion-col>
       </ion-row>

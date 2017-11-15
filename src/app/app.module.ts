@@ -1,4 +1,5 @@
-import { SplashScreenLayout1 } from './../components/splash-screen/layout-1/splash-screen-layout-1';
+import { ProductsProvider } from './../providers/products/products';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -6,10 +7,15 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { AngularFireModule } from 'angularfire2';
 import { MyApp } from './app.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { Network } from '@ionic-native/network';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Camera } from '@ionic-native/camera';
+import { HttpClientModule } from '@angular/common/http';
+
+
+
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCyuoAZIfoEZuEB5ZfOTmKFCEU-vqfqBE4",
@@ -19,14 +25,14 @@ export const firebaseConfig = {
   storageBucket: "gift-list-58d8f.appspot.com",
   messagingSenderId: "498265981425"
 };
+
 @NgModule({
   declarations: [
-    MyApp,
-    SplashScreenLayout1
-    
+    MyApp
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
@@ -34,16 +40,17 @@ export const firebaseConfig = {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    SplashScreenLayout1
-    
+    MyApp
   ],
   providers: [
     StatusBar,
     Network,
     SplashScreen,
     SpinnerDialog,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    BarcodeScanner,
+    Camera,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ProductsProvider
   ]
 })
 export class AppModule {}

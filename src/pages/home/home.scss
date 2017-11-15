@@ -1,3 +1,38 @@
+/*  #Style First Screen (Home)
+================================================*/
 page-home {
-
-}
+    .default-background {
+      background-image: url('https://firebasestorage.googleapis.com/v0/b/ionic2blue.appspot.com/o/background%2F29.jpg?alt=media&token=0cf6c404-eb1c-4718-9302-c63077a83662');
+      height: 100%;
+      width: 100%;
+      display: table;
+  
+      .ionic-descript {
+        display: table-cell;
+        vertical-align: middle;
+  
+        h2[item-title] {
+          margin: 0;
+        }
+        [button-clear-outline] {
+          margin-top: 5%;
+          display: block;
+          float: left;
+        }
+  
+        p[item-subtitle] {
+          color: theme-colors('mainColors', 'primary') !important;
+        }
+      }
+  
+      a {
+        color: theme-colors('textColors', 'accent') !important;
+        text-decoration: underline;
+        visibility: visible !important;
+        position: absolute;
+        bottom: 25px;
+        left: 25px;
+      }
+    }
+  }
+  

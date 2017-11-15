@@ -1,0 +1,30 @@
+
+    <ion-content>
+        <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
+        <div *ngIf="searching" class="spinner-container">
+            <ion-spinner></ion-spinner>
+        </div>
+        <ion-grid no-padding *ngIf="items != null">
+            <ion-row>
+                <ion-col col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 *ngFor="let item of items;let i = index">
+                    <ion-card text-left (click)="openDetails(item)">
+                        <div card-image>
+                            <img src="{{item.largeImage}}" />
+                        </div>
+                        <ion-card-content>
+                            <ion-card-title>
+                                <h1 card-title>{{item.name}}</h1>
+                            </ion-card-title>
+                            <p card-body-text>{{item.shortDescription}}</p>
+                        </ion-card-content>
+                        <button ion-button margin-top button-clear-outline round outline large left (click)="addToList()">
+                Add To List
+              </button>
+                        
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-content>
+
+
