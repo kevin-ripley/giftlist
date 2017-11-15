@@ -19,14 +19,15 @@ export class ShopPage {
   searchControl: FormControl;
   items: any;
   searching: any = false;
-
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public provide: ProductsProvider) {
     this.searchControl = new FormControl();
-    this.setFilteredItems();
+    
   }
   
 
   ionViewDidLoad() {
+    this.setFilteredItems();
     this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
       this.searching = false;
       this.setFilteredItems();
@@ -35,10 +36,11 @@ export class ShopPage {
 
   onSearchInput() {
     this.searching = true;
+    this.setFilteredItems();
   }
 
+  // Grabbing Items from the Products Provider
   setFilteredItems() {
-    
     this.provide.getWalmart(this.searchTerm)
     .then(data => {
       this.items = data.items;
@@ -46,7 +48,7 @@ export class ShopPage {
     });
     
   }
-
+  // If Item is clicked then push to Browse Products Page with Detail
   openDetails(item) {
     this.navCtrl.push('BrowseProductsPage', {item: item});
   }
@@ -55,7 +57,4 @@ export class ShopPage {
     this.navCtrl.pop();
   }
 
-  addToList(){
-
-  }
 }

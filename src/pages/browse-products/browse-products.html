@@ -1,37 +1,36 @@
-
 <ion-header>
-    
-      <ion-navbar>
-        <ion-title>Product Information</ion-title>
-      </ion-navbar>
-    
-    </ion-header>
-    
+
+  <ion-navbar>
+    <ion-title>Product Information</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
 <ion-content no-bounce overflow-scroll="false">
-    
-        <ion-list>
-    
-            <img [src]= item.largeImage>
-    
-    
-            <ion-list-header>
-                {{ item.name }}
-            </ion-list-header>
-            <ion-item class="item-text-wrap">
-                    Description: {{ item.shortDescription }}
-                
-            </ion-item>
-    
-           
-            <ion-item>
-                <ion-icon name='pricetag' item-start style="color: #30e920"></ion-icon>
-                Sale Price:$ {{ item.salePrice }}
-            </ion-item>
-            <ion-item>
-                <ion-icon name='add-circle' item-start></ion-icon>
-                Add To List
-            </ion-item>
-            </ion-list>
-    
-    
-    </ion-content>
+
+  <ion-list>
+
+    <img [src]= item.largeImage>
+
+
+    <ion-list-header>
+      {{ item.name }}
+    </ion-list-header>
+    <ion-item class="item-text-wrap">
+      Description: {{ item.shortDescription }}
+
+    </ion-item>
+
+
+    <ion-item>
+      <ion-icon name='pricetag' item-start style="color: #30e920"></ion-icon>
+      Sale Price:$ {{ item.salePrice }}
+    </ion-item>
+    <button ion-item round outline large (click)="addToList(item)" >
+      <ion-icon name='add-circle' item-start></ion-icon>
+      Add To List
+    </button>
+  </ion-list>
+
+
+</ion-content>

@@ -27,8 +27,7 @@ export class ProductsProvider {
     return new Promise(resolve => {
       this.http.get('http://api.walmartlabs.com/v1/search?query='+data +'&format=json&apiKey=kzejb2ckufsrgv27c43anc59')
         .subscribe(data => {
-          this.items = data;
-          resolve(this.items);
+          resolve(data);
         });
       });
     

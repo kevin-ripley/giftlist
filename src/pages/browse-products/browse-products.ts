@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ListItem } from '../../models/listItem';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 /**
  * Generated class for the BrowseProductsPage page.
@@ -16,13 +19,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class BrowseProductsPage {
 
   item: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  listItem = {} as ListItem;
+
+  constructor(private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase, public navCtrl: NavController, public navParams: NavParams) {
     this.item = this.navParams.get('item');
     
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProductPage');
+  addToList(listItem: ListItem){
+    this.afAuth.authState.take(1).subscribe(auth => {
+      this.afDatabase.object(`items/${auth.uid}`).set(this.listItem)
+      .then(() => this.navCtrl.pop());
+
+    })
   }
 
   goBack() {

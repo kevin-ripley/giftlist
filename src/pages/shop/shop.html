@@ -6,7 +6,7 @@
         </div>
         <ion-grid no-padding *ngIf="items != null">
             <ion-row>
-                <ion-col col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 *ngFor="let item of items;let i = index">
+                <ion-col col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 *ngFor="let item of items;let i = index" >
                     <ion-card text-left (click)="openDetails(item)">
                         <div card-image>
                             <img src="{{item.largeImage}}" />
@@ -15,12 +15,12 @@
                             <ion-card-title>
                                 <h1 card-title>{{item.name}}</h1>
                             </ion-card-title>
-                            <p card-body-text>{{item.shortDescription}}</p>
+                            <p card-body-text>{{item.salePrice}}</p>
                         </ion-card-content>
-                        <button ion-button margin-top button-clear-outline round outline large left (click)="addToList()">
-                Add To List
-              </button>
-                        
+                        <button ion-item round outline large (click)="openDetails(item)" >
+                            <ion-icon name='list' item-start></ion-icon>
+                            View Details
+                          </button>
                     </ion-card>
                 </ion-col>
             </ion-row>
