@@ -1,0 +1,28 @@
+<ion-content has-header background-size default-background>
+  <ion-grid>
+      <ion-row wrap padding>
+          <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
+              <!--Form-->
+              <div class="form">
+                  <!--Form Title-->
+                  <h1 title text-center>New List!</h1>
+                  <!---Input field list name-->
+                  <ion-item no-padding>
+                      <ion-label floating>List Name</ion-label>
+                      <ion-input required type="text" [(ngModel)]="list.name"></ion-input>
+                  </ion-item>
+                  <!---Input field expiration date-->
+                  <ion-item no-padding>
+                      <ion-label floating>Expiration Date</ion-label>
+                      <ion-datetime required type="datetime" [(ngModel)]="list.expiration_date"></ion-datetime>
+                  </ion-item>
+                 
+                  
+                  <!---Add List button-->
+                  <button ion-button right clear button-clear (click)="addList()">New List</button>
+              </div>
+              
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>

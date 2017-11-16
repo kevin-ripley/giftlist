@@ -1,5 +1,9 @@
+import { List } from './../../models/list';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ItemSliding } from 'ionic-angular';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+
 
 /**
  * Generated class for the ListsPage page.
@@ -10,16 +14,35 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-lists',
+  selector: 'page-lists', 
   templateUrl: 'lists.html',
 })
 export class ListsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  list = {} as List;
+  listRef$: FirebaseListObservable<List[]>;
+  refresher: any;
+
+  constructor(public navCtrl: NavController, private firebaseService: FirebaseServiceProvider) {
+    this.listRef$ = this.firebaseService.getLists();
+  }
+  
+
+  undo = (slidingItem: ItemSliding) => {
+    slidingItem.close();
+}
+  newList(){
+    this.navCtrl.push('ListCreatePage');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ListsPage');
+  removeList(id){
+    this.firebaseService.removeLists(id);
   }
+
+  seeItems(){
+
+  }
+
+
 
 }

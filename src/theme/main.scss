@@ -592,7 +592,7 @@ $searchbar-md-input-clear-icon-color: theme-colors('textColors', 'secondary');
 //Background Size
 [background-size] {
   background-size: cover !important;
-  background-position: center !important;
+  background-position: center bottom !important;
   background-repeat: no-repeat !important;
 }
 [white-background] {

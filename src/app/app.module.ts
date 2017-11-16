@@ -1,3 +1,6 @@
+import { FilePath } from '@ionic-native/file-path';
+import { FileChooser } from '@ionic-native/file-chooser';
+import { File } from '@ionic-native/file';
 import { ProductsProvider } from './../providers/products/products';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,6 +16,10 @@ import { Network } from '@ionic-native/network';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera } from '@ionic-native/camera';
 import { HttpClientModule } from '@angular/common/http';
+import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
+import { GroupsProvider } from '../providers/groups/groups';
+import { ImagehandlerProvider } from '../providers/imagehandler/imagehandler';
+
 
 
 
@@ -45,12 +52,18 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     Network,
+    File,
+    FileChooser,
+    FilePath,
     SplashScreen,
     SpinnerDialog,
     BarcodeScanner,
     Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ProductsProvider
+    ProductsProvider,
+    FirebaseServiceProvider,
+    GroupsProvider,
+    ImagehandlerProvider
   ]
 })
 export class AppModule {}

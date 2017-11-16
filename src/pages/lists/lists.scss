@@ -1,3 +1,14 @@
 page-lists {
-
+    [background-size] {
+        height: 150px;
+        @include black-white-mode;
+      }
+      [item-title], [item-subtitle] {
+        color: theme-colors('mainColors', 'accent') !important;
+        position: relative;
+        z-index: 5;
+      }
+      ion-item-options {
+        border-bottom: 1px solid theme-colors('mainColors', 'secondary') !important;
+      }
 }
