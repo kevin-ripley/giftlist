@@ -3,7 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
-import { Profile } from '../../models/profile';
+import { AuthProvider } from '../../providers/auth/auth';
 
 
 @IonicPage()
@@ -12,10 +12,9 @@ import { Profile } from '../../models/profile';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  profileData: FirebaseObjectObservable<Profile>
   user = {} as User;
 
-  constructor(public navCtrl: NavController, private afDatabase: AngularFireDatabase, public navParams: NavParams, private afAuth: AngularFireAuth) {
+  constructor(public navCtrl: NavController, private afDatabase: AngularFireDatabase, public navParams: NavParams, private authService: AuthProvider) {
   }
 
   ionViewDidLoad() {
@@ -23,26 +22,23 @@ export class LoginPage {
   }
 
 
-async login(user: User){
- try{ 
-  const result = await this.afAuth.auth.signInWithEmailAndPassword(this.user.email, this.user.password);
-  if(result){
-    this.profileData = this.afDatabase.object(`profile/${result.uid}`)
-    console.log(result.uid);
-    if(this.profileData){
+ login(){
+  this.authService.login(this.user).then((res: any) => {
+    if (!res.code)
       this.navCtrl.setRoot('TabsPage');
-    } else{
-      this.navCtrl.push('ProfilePage');
-    }
-  }
+    else
+      alert(res);
+  })
  }
  catch(e){
    console.error(e);
  }
-}
 
 register(){
   this.navCtrl.push('RegisterPage');
+}
+passwordreset() {
+  this.navCtrl.push('PasswordResetPage');
 }
 
 

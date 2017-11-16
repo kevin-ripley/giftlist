@@ -1,14 +1,13 @@
 /*  #Style Register + logo
 ================================================*/
-register-layout-1 {
+page-register {
   [default-background] {
-    background-image: url("../assets/images/background/29.jpg");
-    @include darkening-blend-mode;
+    background-image: url("../assets/images/bg.jpg");
   }
 
   img {
-    max-width: 50px;
-    max-height: 50px;
+    max-width: 200px;
+    max-height: 200px;
   }
 
   .form {
@@ -38,7 +37,7 @@ register-layout-1 {
 
   [logo] {
     [button-clear] {
-      color: theme-colors('textColors', 'accent-first') !important;
+      
       font-weight: 300;
     }
   }

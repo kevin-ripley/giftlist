@@ -1,5 +1,9 @@
-<ion-content has-header background-size default-background>
+<ion-content background-size default-background no-bounce overflow-scroll="false">
   <ion-grid>
+        <div text-center>
+                <!---Logo-->
+                <img src ="assets/imgs/gift_list_lg.svg"/>
+            </div>
       <ion-row wrap padding>
           <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
               <!--Form-->
@@ -16,18 +20,35 @@
                       <ion-label floating>Password</ion-label>
                       <ion-input required type="password" [(ngModel)]="user.password"></ion-input>
                   </ion-item>
+                  <!---Input field password-->
+                  <ion-item no-padding>
+                        <ion-label floating>Username</ion-label>
+                        <ion-input required type="text" [(ngModel)]="user.username"></ion-input>
+                    </ion-item>
+                    <!---Input field password-->
+                  <ion-item no-padding>
+                        <ion-label floating>First Name</ion-label>
+                        <ion-input required type="text" [(ngModel)]="user.firstName"></ion-input>
+                    </ion-item>
+                    <!---Input field password-->
+                  <ion-item no-padding>
+                        <ion-label floating>Last Name</ion-label>
+                        <ion-input required type="text" [(ngModel)]="user.lastName"></ion-input>
+                    </ion-item>
+                    <!---Input field password-->
+                  <ion-item no-padding>
+                        <ion-label floating>Birthdate</ion-label>
+                        <ion-datetime required [(ngModel)]="user.birthDate"></ion-datetime>
+                    </ion-item>
                   
                   
                   <!---Register button-->
-                  <button ion-button block button-clear-outline outline (click)="register(user)">Sign Up</button>
+                  <button ion-button block button-clear-outline outline (click)="signUp()">Sign Up</button>
                 <p text-center>Already have an Account?</p>
                   <!---back button-->
-                  <button ion-button block button-clear-outline color="primary" (click)="cancel()">Login</button>
+                  <button ion-button block button-clear-outline outline (click)="goBack()">Login</button>
               </div>
-              <div logo>
-                  <!---Logo-->
-                  <img src ="assets/imgs/gift_list_lg.svg"/>
-              </div>
+            
           </ion-col>
       </ion-row>
   </ion-grid>

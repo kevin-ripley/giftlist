@@ -10,7 +10,9 @@ page-home {
       .ionic-descript {
         display: table-cell;
         vertical-align: middle;
-  
+        img[no-padding]{
+          size: 75%;
+        }
         h2[item-title] {
           margin: 0;
         }

@@ -19,7 +19,7 @@ export class GroupCreatePage {
 
   newgroup = {
     groupName: 'GroupName',
-    groupPic: "assets/images/default_group.png"
+    groupPic: "https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/default_group.png?alt=media&token=f81a22e4-4188-4b7d-a193-c3e48e55e496"
   }
   constructor(public groupservice: GroupsProvider,public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private imghandler: ImagehandlerProvider, private loadingCtrl: LoadingController) {
   }

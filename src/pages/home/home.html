@@ -1,8 +1,14 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only right (click)="logout()"><ion-icon name="exit"></ion-icon></button>
+  </ion-navbar>
+</ion-header>
+
 <ion-content no-bounce overflow-scroll="false">
   <div background-size class="default-background">
     <div class="ionic-descript" text-center>
-        <img no-padding src="assets/imgs/gift_list_lg.svg" />
-      <h2 item-title>Welcome {{(profileData | async)?.firstName}}!</h2>  
+        <img no-padding src="assets/images/logo.png" />
+       
       <h2 item-title><ion-icon start name="star"></ion-icon>Add Lists</h2>
       <h2 item-title><ion-icon start name="star"></ion-icon>Create Groups</h2>
       <p item-subtitle>And Share Your Gift Lists!</p>
@@ -17,6 +23,5 @@
         </button>
     </div>
   </div>
-  
 
 </ion-content>

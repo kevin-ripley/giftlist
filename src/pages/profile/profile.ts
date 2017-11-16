@@ -2,7 +2,7 @@ import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Profile } from '../../models/profile';
+import { User } from '../../models/user';
 
 
 /**
@@ -19,17 +19,10 @@ import { Profile } from '../../models/profile';
 })
 export class ProfilePage {
   
- profile = {} as Profile;
-
+user = {} as User;
   constructor(private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase, public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  createProfile(){
-    this.afAuth.authState.take(1).subscribe(auth => {
-      this.afDatabase.object(`profile/${auth.uid}`).set(this.profile)
-      .then(() => this.navCtrl.push('HomePage'));
-
-    })
-  }
+  
 
 }

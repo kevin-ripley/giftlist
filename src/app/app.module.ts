@@ -19,6 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
 import { GroupsProvider } from '../providers/groups/groups';
 import { ImagehandlerProvider } from '../providers/imagehandler/imagehandler';
+import { AuthProvider } from '../providers/auth/auth';
+import { UserProvider } from '../providers/user/user';
 
 
 
@@ -63,7 +65,9 @@ export const firebaseConfig = {
     ProductsProvider,
     FirebaseServiceProvider,
     GroupsProvider,
-    ImagehandlerProvider
+    ImagehandlerProvider,
+    AuthProvider,
+    UserProvider
   ]
 })
 export class AppModule {}

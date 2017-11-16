@@ -2,7 +2,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
-import { Profile } from '../../models/profile';
 import { BarcodeScanner ,BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
 
@@ -13,20 +12,13 @@ import { BarcodeScanner ,BarcodeScannerOptions } from '@ionic-native/barcode-sca
 })
 export class HomePage {
 
-  profileData: FirebaseObjectObservable<Profile>
   scanData : {};
   options :BarcodeScannerOptions;
 
   constructor(private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private barcodeScanner: BarcodeScanner) {
   }
 
-  ionViewWillLoad() {
-    this.afAuth.authState.subscribe(data =>{
-    this.profileData = this.afDatabase.object(`profile/${data.uid}`)
-    console.log(this.profileData)
-  });
   
-  }
   scan(){
     this.options = {
       prompt : "Scan your Wish! "
@@ -43,6 +35,11 @@ export class HomePage {
 
   shop(){
     this.navCtrl.push('ShopPage');
+  }
+
+  logout(){
+    this.afAuth.auth.signOut();
+    this.navCtrl.setRoot('LoginPage');
   }
 
 }
