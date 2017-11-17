@@ -1,8 +1,11 @@
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, NgZone } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { User } from '../../models/user';
+import { ImagehandlerProvider } from '../../providers/imagehandler/imagehandler';
+import { UserProvider } from '../../providers/user/user';
+import firebase from 'firebase';
 
 
 /**
@@ -18,11 +21,50 @@ import { User } from '../../models/user';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  
-user = {} as User;
-  constructor(private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase, public navCtrl: NavController, public navParams: NavParams) {
+  avatar: string;
+  displayName: string;
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public userservice: UserProvider, public zone: NgZone, public alertCtrl: AlertController,
+    public imghandler: ImagehandlerProvider) {
   }
 
-  
+  ionViewWillEnter() {
+    this.loaduserdetails();
+  }
 
+  loaduserdetails() {
+    this.userservice.getuserdetails().then((res: any) => {
+      this.displayName = res.displayName;
+      this.zone.run(() => {
+        this.avatar = res.photoURL;
+      })
+    })
+  }
+  editimage() {
+    let statusalert = this.alertCtrl.create({
+      buttons: ['okay']
+    });
+    this.imghandler.uploadimage().then((url: any) => {
+      this.userservice.updateimage(url).then((res: any) => {
+        if (res.success) {
+          statusalert.setTitle('Updated');
+          statusalert.setSubTitle('Your Profile Image Was Changed!');
+          statusalert.present();
+          this.zone.run(() => {
+          this.avatar = url;
+        })  
+        }  
+      }).catch((err) => {
+          statusalert.setTitle('Failed');
+          statusalert.setSubTitle('There Was An Error Changing Your Image');
+          statusalert.present();
+      })
+      })
+  }
+
+  logout(){
+    firebase.auth().signOut().then(() => {
+      this.navCtrl.parent.parent.setRoot('LoginPage');
+    })
+  }
 }

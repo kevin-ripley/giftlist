@@ -343,9 +343,9 @@ $icon-size:(
 }
 
 [button-clear-outline] {
-  color: theme-colors('textColors', 'secondary') !important;
+  color: theme-colors('textColors', 'primary') !important;
   font-size: font-size-text('h5') !important;
-  border: 1px solid theme-colors('mainColors', 'primary') !important;
+  border: 1px solid theme-colors('mainColors', 'secondary') !important;
   padding: 15px 25px !important;
   font-weight: bold !important;
 }

@@ -23,7 +23,7 @@ export class AuthProvider {
         reject(err);
        })
     })
- 
+
     return promise;
     
   }

@@ -2,7 +2,7 @@
 ================================================*/
 page-home {
     .default-background {
-      background-image: url('https://firebasestorage.googleapis.com/v0/b/ionic2blue.appspot.com/o/background%2F29.jpg?alt=media&token=0cf6c404-eb1c-4718-9302-c63077a83662');
+      background-image: url('../assets/images/bg_purple.jpg');
       height: 100%;
       width: 100%;
       display: table;
@@ -15,6 +15,7 @@ page-home {
         }
         h2[item-title] {
           margin: 0;
+          color: theme-colors('mainColors', 'secondary') !important;
         }
         [button-clear-outline] {
           margin-top: 5%;
@@ -23,12 +24,12 @@ page-home {
         }
   
         p[item-subtitle] {
-          color: theme-colors('mainColors', 'primary') !important;
+          color: theme-colors('mainColors', 'secondary') !important;
         }
       }
   
       a {
-        color: theme-colors('textColors', 'accent') !important;
+        color: theme-colors('mainColors', 'secondary') !important;
         text-decoration: underline;
         visibility: visible !important;
         position: absolute;

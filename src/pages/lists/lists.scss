@@ -1,7 +1,14 @@
 page-lists {
+
+  .default-background {
+    background-image: url('../assets/images/bg_purple.jpg');
+    height: 100%;
+    width: 100%;
+    display: table;
+  }
     [background-size] {
         height: 150px;
-        @include black-white-mode;
+        @include darkening-blend-mode;
       }
       [item-title], [item-subtitle] {
         color: theme-colors('mainColors', 'accent') !important;

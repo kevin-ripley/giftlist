@@ -21,6 +21,7 @@ import { GroupsProvider } from '../providers/groups/groups';
 import { ImagehandlerProvider } from '../providers/imagehandler/imagehandler';
 import { AuthProvider } from '../providers/auth/auth';
 import { UserProvider } from '../providers/user/user';
+import { RequestsProvider } from '../providers/requests/requests';
 
 
 
@@ -67,7 +68,8 @@ export const firebaseConfig = {
     GroupsProvider,
     ImagehandlerProvider,
     AuthProvider,
-    UserProvider
+    UserProvider,
+    RequestsProvider
   ]
 })
 export class AppModule {}
