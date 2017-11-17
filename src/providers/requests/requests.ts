@@ -22,6 +22,12 @@ export class RequestsProvider {
   }
 
   sendrequest(req: req) {
+    this.firefriends.child(req.recipient).on('value', (snapshot) => {
+      let friends = snapshot.val();
+      if (friends){
+        console.log("user exists!");
+    } return 'Error';
+ });
     var promise = new Promise((resolve, reject) => {
       this.firereq.child(req.recipient).push().set({
       sender: req.sender

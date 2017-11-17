@@ -1,11 +1,16 @@
-<ion-content has-header background-size default-background>
+<ion-header>
+    <ion-navbar>
+        <ion-title text-center>New List</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content background-size default-background>
   <ion-grid>
       <ion-row wrap padding>
           <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
               <!--Form-->
               <div class="form">
                   <!--Form Title-->
-                  <h1 title text-center>New List!</h1>
                   <!---Input field list name-->
                   <ion-item no-padding>
                       <ion-label floating>List Name</ion-label>
@@ -19,7 +24,7 @@
                  
                   
                   <!---Add List button-->
-                  <button ion-button right clear button-clear (click)="addList()">New List</button>
+                  <button ion-button outline block color="secondary" (click)="addList()">New List</button>
               </div>
               
           </ion-col>

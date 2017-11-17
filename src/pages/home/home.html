@@ -1,21 +1,22 @@
-
 <ion-content no-bounce overflow-scroll="false">
   <div background-size class="default-background">
     <div class="ionic-descript" text-center>
-        <img no-padding src="assets/images/logo.png" />
-       
-      <h2 item-title><ion-icon start name="star"></ion-icon>Add Lists</h2>
-      <h2 item-title><ion-icon start name="star"></ion-icon>Create Groups</h2>
+      <img no-padding src="assets/images/logo.png" />
+
+      <h2 item-title>
+        <ion-icon start name="star"></ion-icon>Add Lists</h2>
+      <h2 item-title>
+        <ion-icon start name="star"></ion-icon>Create Groups</h2>
       <p item-subtitle>And Share Your Gift Lists!</p>
-      <button ion-button button-clear-outline block outline icon-left (click)="scan()">
-          <ion-icon name="barcode"></ion-icon>
-          Scan
-        </button>
-      
-        <button ion-button button-clear-outline block outline icon-left (click)="shop()">
-          <ion-icon name="search"></ion-icon>
-          Search
-        </button>
+      <button ion-button color="secondary" block outline icon-left (click)="scan()">
+        <ion-icon name="barcode"></ion-icon>
+        Scan
+      </button>
+
+      <button ion-button color="secondary" block outline icon-left (click)="shop()">
+        <ion-icon name="search"></ion-icon>
+        Search
+      </button>
     </div>
   </div>
 

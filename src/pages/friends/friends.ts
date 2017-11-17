@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { RequestsProvider } from '../../providers/requests/requests';
 import { req } from '../../models/request';
@@ -19,16 +19,23 @@ export class FriendsPage {
   newrequest = {} as req;
   temparr = [];
   filteredusers = [];
+  myfriends;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public userservice: UserProvider, public alertCtrl: AlertController,
-    public requestservice: RequestsProvider) {
+    public requestservice: RequestsProvider, public events: Events) {
     this.userservice.getallusers().then((res: any) => {
       this.filteredusers = res;
       this.temparr = res;
    })
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
+    this.requestservice.getmyfriends();
+    this.myfriends = [];
+    this.events.subscribe('friends', () => {
+      this.myfriends = [];
+      this.myfriends = this.requestservice.myfriends;
+    })
 
   }
 
@@ -52,6 +59,7 @@ export class FriendsPage {
     this.newrequest.recipient = recipient.uid;
     if (this.newrequest.sender === this.newrequest.recipient)
       alert('You are your friend always');
+    
     else {
       let successalert = this.alertCtrl.create({
         title: 'Request sent',
