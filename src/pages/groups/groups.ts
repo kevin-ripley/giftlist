@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, LoadingController } from 'ionic-angular';
 import { GroupsProvider } from '../../providers/groups/groups';
-
 /**
  * Generated class for the GroupsPage page.
  *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
  */
-
 @IonicPage()
 @Component({
   selector: 'page-groups',
@@ -27,18 +25,23 @@ export class GroupsPage {
     loader.present();
     this.groupservice.getmygroups();
     loader.dismiss();
-    this.events.subscribe('newgroup', () => {
+    this.events.subscribe('allmygroups', () => {
       this.allmygroups = this.groupservice.mygroups;
     })
+    console.log(this.allmygroups);
   }
 
   ionViewDidLeave() {
-    this.events.unsubscribe('newgroup');
+    this.events.unsubscribe('allmygroups');
   }
 
-
-  addGroup(){
+  addGroup() {
     this.navCtrl.push('GroupCreatePage');
+  }
+
+  openChat(group) {
+    alert('Groupchat ' + group.groupName);
+
   }
 
 }

@@ -22,8 +22,8 @@ export class GroupsProvider {
   addgroup(newGroup) {
     var promise = new Promise((resolve, reject) => {
       this.firegroup.child(firebase.auth().currentUser.uid).child(newGroup.groupName).set({
-        groupimage: newGroup.groupPic,
-        owner: firebase.auth().currentUser.uid
+        groupPic: newGroup.groupPic,
+        creator: firebase.auth().currentUser.uid
       }).then(() => {
         resolve(true);
         }).catch((err) => {
@@ -41,12 +41,12 @@ export class GroupsProvider {
         for (var key in temp) {
           var newgroup = {
             groupName: key,
-            groupimage: temp[key].groupimage
+            groupPic: temp[key].groupPic
           }
           this.mygroups.push(newgroup);
         }
       }
-      this.events.publish('newgroup');
+      this.events.publish('allmygroups');
     })
     
   }
@@ -87,7 +87,7 @@ export class GroupsProvider {
   getgroupimage() {
     return new Promise((resolve, reject) => {
       this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).once('value', (snapshot) => {
-        this.grouppic = snapshot.val().groupimage;
+        this.grouppic = snapshot.val().groupPic;
         resolve(true);
     })
     })
@@ -98,8 +98,8 @@ export class GroupsProvider {
     this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('members').push(newmember).then(() => {
       this.getgroupimage().then(() => {
         this.firegroup.child(newmember.uid).child(this.currentgroupname).set({
-          groupimage: this.grouppic,
-          owner: firebase.auth().currentUser.uid
+          groupPic: this.grouppic,
+          creator: firebase.auth().currentUser.uid
         }).catch((err) => {
           console.log(err);
         })

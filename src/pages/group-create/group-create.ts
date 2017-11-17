@@ -28,7 +28,7 @@ export class GroupCreatePage {
     this.groupservice.addgroup(this.newgroup).then(() => {
       this.navCtrl.pop();
     }).catch((err) => {
-      alert(JSON.stringify(err));
+      alert(err);
     })
   }
 
@@ -79,8 +79,9 @@ export class GroupCreatePage {
         loader.present();
         this.imghandler.grouppicstore(this.newgroup.groupName).then((res: any) => {
           loader.dismiss();
-          if(res)
-            this.newgroup.groupPic = res;  
+          if(res){
+            this.newgroup.groupPic = res;
+          }
         }).catch((err) => {
           alert(err);
         })

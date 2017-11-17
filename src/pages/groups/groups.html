@@ -1,29 +1,31 @@
-  
-  <!-- Themes Swipe To Dismiss Products + CTA footer -->
-  <ion-content>
-      <div background-size class="default-background">
-    <ion-grid>
-      <ion-row>
-        <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
-          <ion-list>
-            <ion-item-sliding *ngFor="let group of groupRef$ | async" #slidingItem>
-              <ion-item no-padding no-lines no-margins background-size>
-                <h2 item-title text-center>Group Name</h2>
-                
-              </ion-item>
-             
-            </ion-item-sliding>
-          </ion-list>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <ion-fab #fab bottom right>
-        <button button-ion-fab ion-fab (click)="addGroup()">
-          <ion-icon name="add"></ion-icon>
-        </button>
-      </ion-fab>
-      </div>
-  </ion-content>
-  <!-- Fab Button -->
-  
-  
+<!-- Themes Swipe To Dismiss Products + CTA footer -->
+<ion-header>
+
+  <ion-navbar color="hcolor">
+    <ion-title>Groups</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list no-lines>
+    <ion-list-header>
+      My Groups
+    </ion-list-header>
+    <ion-item *ngFor="let item of allmygroups">
+      <ion-avatar item-left>
+        <img src="{{item.groupPic}}">
+      </ion-avatar>
+      <h3 (click)="openChat(item)">{{item.groupName}}</h3>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab #fab bottom right>
+    <button button-ion-fab ion-fab (click)="addGroup()">
+      <ion-icon name="contacts"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>
+<!-- Fab Button -->
