@@ -15,7 +15,7 @@ import { GroupsProvider } from '../../providers/groups/groups';
 export class GroupsPage {
   allmygroups;
   constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events,
-              public loadingCtrl: LoadingController, public groupservice: GroupsProvider) {
+    public loadingCtrl: LoadingController, public groupservice: GroupsProvider) {
   }
 
   ionViewWillEnter() {
@@ -40,8 +40,10 @@ export class GroupsPage {
   }
 
   openChat(group) {
-    alert('Groupchat ' + group.groupName);
-
+    this.groupservice.getintogroup(group.groupName);
+    this.navCtrl.push('GroupchatPage', { groupName: group.groupName });
   }
+
+
 
 }

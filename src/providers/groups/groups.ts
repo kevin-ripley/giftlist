@@ -70,7 +70,7 @@ export class GroupsProvider {
   getownership(groupname) {
     var promise = new Promise((resolve, reject) => {
       this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).once('value', (snapshot) => {
-        var temp = snapshot.val().owner;
+        var temp = snapshot.val().creator;
         if (temp == firebase.auth().currentUser.uid) {
           resolve(true);
         }
@@ -106,6 +106,30 @@ export class GroupsProvider {
       })
       this.getintogroup(this.currentgroupname);
     })
+  }
+
+  deletemember(member) {           
+    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname)
+      .child('members').orderByChild('uid').equalTo(member.uid).once('value', (snapshot) => {
+        snapshot.ref.remove().then(() => {
+          this.firegroup.child(member.uid).child(this.currentgroupname).remove().then(() => {
+            this.getintogroup(this.currentgroupname);
+          })
+        })
+      })
+  }
+
+  getgroupmembers() {
+    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).once('value', (snapshot) => {
+      var tempdata = snapshot.val().creator;
+      this.firegroup.child(tempdata).child(this.currentgroupname).child('members').once('value', (snapshot) => {
+        var tempvar = snapshot.val();
+        for (var key in tempvar) {
+          this.currentgroup.push(tempvar[key]);
+        }
+      })
+    })
+    this.events.publish('gotmembers');
   }
 
 }
