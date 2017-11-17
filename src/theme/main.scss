@@ -183,14 +183,14 @@ $item-body-background-color: theme-colors('mainColors', 'accent') !default;
 
 // Black&White Avatar and Image
 ion-avatar, ion-thumbnail {
-  -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
+  -webkit-filter: grayscale(1%);
+    filter: grayscale(1%);
 }
 
 
 [images-filter] {
-  -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
+  -webkit-filter: grayscale(90%);
+    filter: grayscale(90%);
 }
 
 // Divider Settings

@@ -22,6 +22,7 @@ import { ImagehandlerProvider } from '../providers/imagehandler/imagehandler';
 import { AuthProvider } from '../providers/auth/auth';
 import { UserProvider } from '../providers/user/user';
 import { RequestsProvider } from '../providers/requests/requests';
+import { ChatProvider } from '../providers/chat/chat';
 
 
 
@@ -69,7 +70,8 @@ export const firebaseConfig = {
     ImagehandlerProvider,
     AuthProvider,
     UserProvider,
-    RequestsProvider
+    RequestsProvider,
+    ChatProvider
   ]
 })
 export class AppModule {}

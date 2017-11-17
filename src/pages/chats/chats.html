@@ -14,7 +14,7 @@
    <ion-content padding>
    <ion-list no-lines>
      <ion-list-header>
-       Requests
+       REQUESTS
      </ion-list-header>
      <ion-item-sliding *ngFor="let item of myrequests">
        <ion-item>
@@ -34,5 +34,14 @@
          </button>
        </ion-item-options>
      </ion-item-sliding>
-   </ion-list>
+     <ion-list-header>
+        FRIENDS
+      </ion-list-header>
+      <ion-item *ngFor="let item of myfriends" (click)="friendchat(item)">
+        <ion-avatar item-left>
+          <img src={{item.photoURL}}>
+        </ion-avatar>
+        <h3>{{item.displayName}}</h3>
+      </ion-item>
+    </ion-list>
    </ion-content>
