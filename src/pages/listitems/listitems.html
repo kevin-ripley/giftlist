@@ -23,7 +23,7 @@
             </div>
             <div item-bottom>
               
-              <div span-medium right text-right>{{data.price}}</div>
+              <div span-medium right text-right>$ {{data.price}}</div>
               <!-- Products + CTA header Seller And Shipping-->
               <h3 item-subtitle left padding-left>{{data.seller}}</h3>
             </div>
@@ -32,10 +32,11 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-</ion-content>
-<!-- Fab Button -->
+  <!-- Fab Button -->
 <ion-fab #fab bottom right>
-  <button button-ion-fab ion-fab (click)="manualAddItem()">
-    <ion-icon name="add"></ion-icon>
-  </button>
-</ion-fab>
+    <button button-ion-fab ion-fab (click)="manualAddItem()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+  
+</ion-content>

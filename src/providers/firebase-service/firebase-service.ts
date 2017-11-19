@@ -47,7 +47,7 @@ export class FirebaseServiceProvider {
   }
 
   addItem(listItem: ListItem) {
-    this.afDatabase.list('lists/'+ this.afAuth.auth.currentUser.uid + '/' + this.key + '/items').push(listItem);
+    this.afDatabase.list('lists/'+ this.afAuth.auth.currentUser.uid + '/' + listItem.listshared + '/items').push(listItem);
   }
 
 

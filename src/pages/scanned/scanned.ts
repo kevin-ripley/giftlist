@@ -1,3 +1,6 @@
+import { ProductsProvider } from './../../providers/products/products';
+import { FirebaseServiceProvider } from './../../providers/firebase-service/firebase-service';
+import { ListItem } from './../../models/listItem';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -14,12 +17,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'scanned.html',
 })
 export class ScannedPage {
+  listItem= {} as ListItem;
+  barcode: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseService: FirebaseServiceProvider, public productService: ProductsProvider) {
+    this.barcode = this.navParams.get('scanData');
+    this.productService.getItem(this.barcode).then(data => {
+      this.listItem = data.items;
+      console.log(this.listItem);
+    });;
   }
 
-  ionViewDidLoad() {
+  ionViewDidLoad() { 
     console.log('ionViewDidLoad ScannedPage');
+    console.log(this.barcode);
   }
 
 }

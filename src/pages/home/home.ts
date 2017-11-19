@@ -20,21 +20,26 @@ export class HomePage {
 
   
   scan(){
-    this.options = {
-      prompt : "Scan your Wish! "
-  }
-  this.barcodeScanner.scan(this.options).then((barcodeData) => {
-      this.scanData = barcodeData.text;
+  //   this.options = {
+  //     prompt : "Scan your Wish! "
+  // }
+  // this.barcodeScanner.scan(this.options).then((barcodeData) => {
+      //this.scanData = barcodeData.text;
+      this.scanData = '885909919796';
       let itemModal = this.modalCtrl.create('ScannedPage', { scanData: this.scanData });
       itemModal.present();
 
-  }, (err) => {
-      console.log("Error occured : " + err);
-  });      
+  // }, (err) => {
+  //     console.log("Error occured : " + err);
+  // });      
   }
 
   shop(){
     this.navCtrl.push('ShopPage');
+  }
+
+  manual(){
+    this.navCtrl.push('ListCreatePage');
   }
 
   logout(){

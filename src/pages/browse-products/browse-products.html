@@ -12,12 +12,19 @@
     <ion-list-header>
       {{ item.name }}
     </ion-list-header>
-    <ion-item class="item-text-wrap">
+    <ion-item *ngIf="item.shortDescription"  class="item-text-wrap">
       Description: {{ item.shortDescription }}
     </ion-item>
     <ion-item>
       <ion-icon name='pricetag' item-start style="color: #30e920"></ion-icon>
       Sale Price:$ {{ item.salePrice }}
+    </ion-item>
+
+    <ion-item>
+      <ion-label> Choose List</ion-label> 
+      <ion-select [(ngModel)]='item.listshared'>
+        <ion-option *ngFor="let list of lists | async;" value="{{ list.$key }}">{{ list.name }}</ion-option>
+      </ion-select>
     </ion-item>
     <button ion-item round outline large (click)="addToList(item)">
       <ion-icon name='add-circle' item-start></ion-icon>
