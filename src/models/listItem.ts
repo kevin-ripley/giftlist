@@ -1,6 +1,8 @@
 export interface ListItem{
-    itemName: any;
-    itemImage: any;
-    itemDescription: any;
-    itemPrice: any;
+    id: any;
+    name: any;
+    image: any;
+    description: any;
+    price: any;
+    seller: any;
 }

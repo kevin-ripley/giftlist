@@ -7,7 +7,7 @@
       <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
         <ion-list>
           <ion-item-sliding *ngFor="let list of listRef$ | async" #slidingItem>
-            <ion-item no-padding no-lines no-margina background-size (click)="seeItems()" [ngStyle]="{'background-image': 'url(assets/images/gift_bg.jpg)'}">
+            <ion-item no-padding no-lines no-margina background-size (click)="seeItems(list.$key)" [ngStyle]="{'background-image': 'url(assets/images/gift_bg.jpg)'}">
               <h2 item-title text-center>{{list.name}}</h2>
               <p item-subtitle text-center>{{list.expiration_date}}</p>
             </ion-item>

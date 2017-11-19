@@ -39,8 +39,8 @@ export class ListsPage {
     this.firebaseService.removeLists(id);
   }
 
-  seeItems(){
-
+  seeItems(key){
+    this.navCtrl.push('ListitemsPage', {key: key});
   }
 
 

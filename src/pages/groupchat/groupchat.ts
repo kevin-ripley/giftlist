@@ -55,8 +55,11 @@ export class GroupchatPage {
           text: 'Delete Group',
           icon: 'trash',
           handler: () => {
-            //this.groupservice.deletegroup();
-          }
+            this.groupservice.deletegroup().then(() => {
+              this.navCtrl.pop();
+            }).catch((err) => {
+              console.log(err);
+            })          }
         },
         {
           text: 'Cancel',
@@ -78,11 +81,17 @@ export class GroupchatPage {
         {
           text: 'Leave Group',
           icon: 'log-out',
-          handler: () => {
-            //this.groupservice.leavegroup();
-          }
-        },
-        {
+          
+
+            handler: () => {
+              this.groupservice.leavegroup().then(() => {
+                this.navCtrl.pop();
+              }).catch((err) => {
+                console.log(err);
+              })
+            }
+          },
+                  {
           text: 'Group Info',
           icon: 'person',
           handler: () => {
