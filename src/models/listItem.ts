@@ -6,4 +6,5 @@ export interface ListItem{
     price: any;
     seller: any;
     listshared: any;
+    index: any;
 }

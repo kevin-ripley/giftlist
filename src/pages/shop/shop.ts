@@ -43,8 +43,8 @@ export class ShopPage {
   setFilteredItems() {
     this.provide.getWalmart(this.searchTerm)
     .then(data => {
-      this.items = data.items;
-      console.log(this.items);
+      //this.items = data;
+      console.log(data);
     });
     
   }
