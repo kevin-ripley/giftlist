@@ -40,5 +40,4 @@ export class ListitemsPage {
     this.navCtrl.push('ItemcreatePage', { key: this.key });
   }
   
-
 }

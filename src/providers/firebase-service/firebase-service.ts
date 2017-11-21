@@ -40,6 +40,7 @@ export class FirebaseServiceProvider {
   }
 
   shareList(key){
+    //add key of list to group then when navigating to list use key and this.afAuth.auth.currentUser.uid
     this.afDatabase.list('groups/').push(key);
   }
 

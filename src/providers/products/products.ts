@@ -15,6 +15,9 @@ export class ProductsProvider {
     
     
   }
+  getItem(data){
+
+  }
   
   getWalmart(data){
     if (this.items) {
