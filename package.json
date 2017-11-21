@@ -35,6 +35,7 @@
     "angularfire2": "^5.0.0-rc.3",
     "build": "0.1.4",
     "cordova-android": "6.3.0",
+    "cordova-ios": "4.5.3",
     "cordova-plugin-camera": "^3.0.0",
     "cordova-plugin-device": "^1.1.4",
     "cordova-plugin-file": "^5.0.0",
@@ -59,7 +60,7 @@
     "@ionic/app-scripts": "3.1.0",
     "typescript": "2.4.2"
   },
-  "description": "An Ionic project",
+  "description": "A Gift List to Share With Friends and Family",
   "cordova": {
     "plugins": {
       "cordova-plugin-network-information": {},
@@ -76,7 +77,8 @@
       "cordova-plugin-file": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

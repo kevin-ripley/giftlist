@@ -30,7 +30,11 @@
                       <ion-label floating>Item Note or Description</ion-label>
                       <ion-input type="text" [(ngModel)]="listItem.description"></ion-input>
                   </ion-item>
-                 
+                  
+                  <button text-center clear ion-item no-padding (click)="uploadItem()">
+                        Upload Image
+                    </button>
+                    <div text-center *ngIf="loaded == true">NICE! IMAGE UPLOADED!</div>
                   
                   <!---Add List button-->
                   <button ion-button outline block color="secondary" (click)="addItem()">New Item</button>

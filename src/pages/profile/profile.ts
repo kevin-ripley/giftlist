@@ -44,14 +44,17 @@ export class ProfilePage {
     let statusalert = this.alertCtrl.create({
       buttons: ['okay']
     });
-    this.imghandler.uploadimage().then((url: any) => {
-      this.userservice.updateimage(url).then((res: any) => {
+    this.imghandler.selectImage()
+    .then((data) =>
+    {
+      this.imghandler.uploadProfileImage(data);
+      this.userservice.updateimage(data).then((res: any) => {
         if (res.success) {
           statusalert.setTitle('Updated');
           statusalert.setSubTitle('Your Profile Image Was Changed!');
           statusalert.present();
           this.zone.run(() => {
-          this.avatar = url;
+          this.avatar = data;
         })  
         }  
       }).catch((err) => {
@@ -59,7 +62,8 @@ export class ProfilePage {
           statusalert.setSubTitle('There Was An Error Changing Your Image');
           statusalert.present();
       })
-      })
+      });
+      
   }
 
   logout(){

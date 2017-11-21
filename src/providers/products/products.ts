@@ -15,25 +15,14 @@ export class ProductsProvider {
     
     
   }
-  getItem(data) {
-    if (this.items) {
-      // already loaded data
-      return Promise.resolve(this.items);
-    }
-    return new Promise(resolve => {
-      this.http.get('http://api.walmartlabs.com/v1/search?upc='+data +'&format=json&apiKey=kzejb2ckufsrgv27c43anc59')
-        .subscribe(data => {
-          resolve(data);
-        });
-      });
-  }
+  
   getWalmart(data){
     if (this.items) {
       // already loaded data
       return Promise.resolve(this.items);
     }
     return new Promise(resolve => {
-      this.http.get('http://api.walmartlabs.com/v1/search?query='+data +'&format=json&apiKey=kzejb2ckufsrgv27c43anc59')
+      this.http.get('http://api.walmartlabs.com/v1/search?query='+ data +'&format=json&apiKey=kzejb2ckufsrgv27c43anc59&results=40')
         .subscribe(data => {
           resolve(data);
         });
@@ -41,18 +30,6 @@ export class ProductsProvider {
     
   }
 
-  getAmazon(data){
-    if (this.items) {
-      // already loaded data
-      return Promise.resolve(this.items);
-    }
-    return new Promise(resolve => {
-     this.http.get('http://webservices.amazon.com/onca/xml?', {params: { Service: "AWSECommerceService", AWSAccessKeyID: "AKIAIAIUH7SDPYYLLZJA", AssociateTag:" ripleyorigina-20", Operation:"ItemSearch", Keywords:"data"}})
-     .subscribe(data => {
-      resolve(data);
-    });
-  });
-    }
 
   searchBestBuy(filter){
     return this.http.get('https://api.bestbuy.com/v1/products(search='+filter+')', {params: { format: "json", show: 'sku,image,name,longDescription,salePrice,ThumbnailImage', apiKey:'es0ABPeYLuDDs8fsPRKW4DXZ'}})

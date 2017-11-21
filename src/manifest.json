@@ -1,6 +1,6 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
+  "name": "GiftList",
+  "short_name": "GiftList",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{

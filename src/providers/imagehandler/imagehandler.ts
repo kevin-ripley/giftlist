@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { File } from '@ionic-native/file';
-import { FileChooser } from '@ionic-native/file-chooser';
-import { FilePath } from '@ionic-native/file-path';
 import firebase from 'firebase';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 /*
   Generated class for the ImagehandlerProvider provider.
 
@@ -11,149 +9,112 @@ import firebase from 'firebase';
 */
 @Injectable()
 export class ImagehandlerProvider {
-  nativepath: any;
-  firestore = firebase.storage();
-  constructor(public filechooser: FileChooser) {
+  public cameraImage: String
+
+  constructor(
+    private _CAMERA: Camera) {
   }
 
-  
- /*
- 
- For uploading an image to firebase storage.
- Called from - profilepic.ts
- Inputs - None.
- Outputs - The image url of the stored image. 
-  
-  */
-  uploadimage() {
-    var promise = new Promise((resolve, reject) => {
-        this.filechooser.open().then((url) => {
-          (<any>window).FilePath.resolveNativePath(url, (result) => {
-            this.nativepath = result;
-            (<any>window).resolveLocalFileSystemURL(this.nativepath, (res) => {
-              res.file((resFile) => {
-                var reader = new FileReader();
-                reader.readAsArrayBuffer(resFile);
-                reader.onloadend = (evt: any) => {
-                  var imgBlob = new Blob([evt.target.result], { type: 'data:image/jpeg;base64,' });
-                  var imageStore = this.firestore.ref('/profileimages').child(firebase.auth().currentUser.uid);
-                  imageStore.put(imgBlob).then((res) => {
-                    this.firestore.ref('/profileimages').child(firebase.auth().currentUser.uid).getDownloadURL().then((url) => {
-                      resolve(url);
-                    }).catch((err) => {
-                        reject(err);
-                    })
-                  }).catch((err) => {
-                    reject(err);
-                  })
-                }
-              })
-            })
-          })
-      })
-    })    
-     return promise;   
+
+  selectImage(): Promise<any> {
+    return new Promise(resolve => {
+      let cameraOptions: CameraOptions = {
+        sourceType: this._CAMERA.PictureSourceType.PHOTOLIBRARY,
+        destinationType: this._CAMERA.DestinationType.DATA_URL,
+        quality: 100,
+        targetWidth: 320,
+        targetHeight: 240,
+        encodingType: this._CAMERA.EncodingType.JPEG,
+        correctOrientation: true
+      };
+
+      this._CAMERA.getPicture(cameraOptions)
+        .then((data) => {
+          this.cameraImage = "data:image/jpeg;base64," + data;
+          resolve(this.cameraImage);
+        });
+
+
+    });
   }
 
-  uploadItemImage() {
-    var promise = new Promise((resolve, reject) => {
-        this.filechooser.open().then((url) => {
-          (<any>window).FilePath.resolveNativePath(url, (result) => {
-            this.nativepath = result;
-            (<any>window).resolveLocalFileSystemURL(this.nativepath, (res) => {
-              res.file((resFile) => {
-                var reader = new FileReader();
-                reader.readAsArrayBuffer(resFile);
-                reader.onloadend = (evt: any) => {
-                  var imgBlob = new Blob([evt.target.result], { type: 'data:image/jpeg;base64,' });
-                  var imageStore = this.firestore.ref('/itemimages').child(firebase.auth().currentUser.uid);
-                  imageStore.put(imgBlob).then((res) => {
-                    this.firestore.ref('/itemimages').child(firebase.auth().currentUser.uid).getDownloadURL().then((url) => {
-                      resolve(url);
-                    }).catch((err) => {
-                        reject(err);
-                    })
-                  }).catch((err) => {
-                    reject(err);
-                  })
-                }
-              })
-            })
-          })
-      })
-    })    
-     return promise;   
+  uploadProfileImage(imageString): Promise<any> {
+    let image: string = 'profile-' + new Date().getTime() + '.jpg',
+      storageRef: any,
+      parseUpload: any;
+
+    return new Promise((resolve, reject) => {
+      storageRef = firebase.storage().ref('profileimages/' + firebase.auth().currentUser.uid + '/' + image);
+      parseUpload = storageRef.putString(imageString, 'data_url');
+
+      parseUpload.on('state_changed', (_snapshot) => {
+        // We could log the progress here IF necessary
+        // console.log('snapshot progess ' + _snapshot);
+      },
+        (_err) => {
+          reject(_err);
+        },
+        (success) => {
+          resolve(parseUpload.snapshot);
+        });
+    });
   }
 
-  grouppicstore(groupname) {
-    var promise = new Promise((resolve, reject) => {
-        this.filechooser.open().then((url) => {
-          (<any>window).FilePath.resolveNativePath(url, (result) => {
-            this.nativepath = result;
-            (<any>window).resolveLocalFileSystemURL(this.nativepath, (res) => {
-              res.file((resFile) => {
-                var reader = new FileReader();
-                reader.readAsArrayBuffer(resFile);
-                reader.onloadend = (evt: any) => {
-                  var imgBlob = new Blob([evt.target.result], { type: 'image/jpeg' });
-                  var imageStore = this.firestore.ref('/groupimages').child(firebase.auth().currentUser.uid).child(groupname);
-                  imageStore.put(imgBlob).then((res) => {
-                    this.firestore.ref('/profileimages').child(firebase.auth().currentUser.uid).child(groupname).getDownloadURL().then((url) => {
-                      resolve(url);
-                    }).catch((err) => {
-                        reject(err);
-                    })
-                  }).catch((err) => {
-                    reject(err);
-                  })
-                }
-              })
-            })
-          })
-      })
-    })    
-     return promise;   
+  uploadItemImage(imageString): Promise<any> {
+    let image: string = 'item-' + new Date().getTime() + '.jpg',
+      storageRef: any,
+      parseUpload: any;
+
+    return new Promise((resolve, reject) => {
+      storageRef = firebase.storage().ref('itemimages/' + firebase.auth().currentUser.uid + '/' + image);
+      parseUpload = storageRef.putString(imageString, 'data_url');
+
+      parseUpload.on('state_changed', (_snapshot) => {
+        // We could log the progress here IF necessary
+        // console.log('snapshot progess ' + _snapshot);
+      },
+        (_err) => {
+          reject(_err);
+        },
+        (success) => {
+          resolve(parseUpload.snapshot);
+        });
+    });
   }
 
-  picmsgstore() {
-    var promise = new Promise((resolve, reject) => {
-        this.filechooser.open().then((url) => {
-          (<any>window).FilePath.resolveNativePath(url, (result) => {
-            this.nativepath = result;
-            (<any>window).resolveLocalFileSystemURL(this.nativepath, (res) => {
-              res.file((resFile) => {
-                var reader = new FileReader();
-                reader.readAsArrayBuffer(resFile);
-                reader.onloadend = (evt: any) => {
-                  var imgBlob = new Blob([evt.target.result], { type: 'image/jpeg' });
-                  var uuid = this.guid();
-                  var imageStore = this.firestore.ref('/picmsgs').child(firebase.auth().currentUser.uid).child('picmsg' + uuid);
-                  imageStore.put(imgBlob).then((res) => {
-                      resolve(res.downloadURL);
-                    }).catch((err) => {
-                        reject(err);
-                    })
-                  .catch((err) => {
-                    reject(err);
-                  })
-                }
-              })
-            })
-          })
-      })
-    })    
-     return promise;   
+  groupPicStore(imageString, groupname): Promise<any> {
+    let image: string = 'item-' + new Date().getTime() + '.jpg',
+      storageRef: any,
+      parseUpload: any;
+
+    return new Promise((resolve, reject) => {
+      storageRef = firebase.storage().ref('groupimages/' + firebase.auth().currentUser.uid + '/'+ groupname + '/' + image);
+      parseUpload = storageRef.putString(imageString, 'data_url');
+
+      parseUpload.on('state_changed', (_snapshot) => {
+        // We could log the progress here IF necessary
+        // console.log('snapshot progess ' + _snapshot);
+      },
+        (_err) => {
+          reject(_err);
+        },
+        (success) => {
+          resolve(parseUpload.snapshot);
+        });
+    });
   }
+
+
 
   guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
   }
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-    s4() + '-' + s4() + s4() + s4();
-}
 
 
 }

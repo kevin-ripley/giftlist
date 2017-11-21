@@ -14,7 +14,7 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 
 @IonicPage()
 @Component({
-  selector: 'page-lists', 
+  selector: 'page-lists',
   templateUrl: 'lists.html',
 })
 export class ListsPage {
@@ -26,21 +26,23 @@ export class ListsPage {
   constructor(public navCtrl: NavController, private firebaseService: FirebaseServiceProvider) {
     this.listRef$ = this.firebaseService.getLists();
   }
-  
+
 
   undo = (slidingItem: ItemSliding) => {
     slidingItem.close();
-}
-  newList(){
+  }
+  newList() {
     this.navCtrl.push('ListCreatePage');
   }
 
-  removeList(id){
+  removeList(id) {
     this.firebaseService.removeLists(id);
   }
-
-  seeItems(key){
-    this.navCtrl.push('ListitemsPage', {key: key});
+  shareList(id) {
+    this.firebaseService.shareList(id);
+  }
+  seeItems(key) {
+    this.navCtrl.push('ListitemsPage', { key: key });
   }
 
 

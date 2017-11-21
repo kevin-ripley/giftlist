@@ -28,7 +28,7 @@ export class ShopPage {
 
   ionViewDidLoad() {
     this.setFilteredItems();
-    this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
+    this.searchControl.valueChanges.debounceTime(400).subscribe(search => {
       this.searching = false;
       this.setFilteredItems();
     });
@@ -43,8 +43,7 @@ export class ShopPage {
   setFilteredItems() {
     this.provide.getWalmart(this.searchTerm)
     .then(data => {
-      //this.items = data;
-      console.log(data);
+      this.items = data.items;
     });
     
   }

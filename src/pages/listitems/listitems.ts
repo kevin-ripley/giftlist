@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, reorderArray, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, reorderArray, AlertController, FabContainer } from 'ionic-angular';
 import { ListItem } from '../../models/listItem';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
@@ -32,11 +32,13 @@ export class ListitemsPage {
   }
 
   reorderItems = (indexes): void => {
-    
-}
 
-manualAddItem(){
-  this.navCtrl.push('ItemcreatePage', {key: this.key});
-}
+  }
+
+  manualAddItem(fab: FabContainer) {
+    fab.close();
+    this.navCtrl.push('ItemcreatePage', { key: this.key });
+  }
+  
 
 }

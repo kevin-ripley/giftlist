@@ -26,19 +26,18 @@ export class ProfilePicturePage {
     // console.log('ionViewDidLoad ProfilepicPage');
   }
 
-  chooseimage() {
-    let loader = this.loadingCtrl.create({
-      content: 'Please wait'
-    })
-    loader.present();
-    this.imgservice.uploadimage().then((uploadedurl: any) => {
-      loader.dismiss();
-      this.zone.run(() => {
-        this.imgurl = uploadedurl;
-        this.moveon = false;
-      })
-    })
+
+  selectImage()
+  {
+     this.imgservice.selectImage()
+     .then((data) =>
+     {
+        this.imgurl = data;
+        this.imgservice.uploadProfileImage(this.imgurl);
+     });
+     this.moveon = false;
   }
+
 
   updateproceed() {
     let loader = this.loadingCtrl.create({

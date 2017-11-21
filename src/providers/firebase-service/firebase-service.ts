@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
-import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 /*
   Generated class for the FirebaseServiceProvider provider.
@@ -16,12 +16,17 @@ import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 @Injectable()
 export class FirebaseServiceProvider {
 
+  listItems: FirebaseListObservable<ListItem[]> = null;
+  userId: string;
   firelist;
   fireitem;
   key;
   
 
   constructor(public afDatabase: AngularFireDatabase, public afAuth: AngularFireAuth, public events: Events) {
+    this.afAuth.authState.subscribe(user => {
+      if(user) this.userId = user.uid
+    })
     this.firelist = firebase.database().ref('lists/' + this.afAuth.auth.currentUser.uid);
     this.fireitem = firebase.database().ref('listitems/');
   }
@@ -32,6 +37,10 @@ export class FirebaseServiceProvider {
 
   addLists(list: List) {
     this.afDatabase.list('lists/'+ this.afAuth.auth.currentUser.uid).push(list);
+  }
+
+  shareList(key){
+    this.afDatabase.list('groups/').push(key);
   }
 
   removeLists(id) {

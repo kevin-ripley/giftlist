@@ -14,13 +14,15 @@ export class GroupinfoPage {
   }
 
   ionViewDidLoad() {
+    
     this.groupservice.getownership(this.groupservice.currentgroupname).then((res) => {
       if (res)
         this.groupmembers = this.groupservice.currentgroup;
       else {
+        console.log(this.groupmembers);
         this.groupservice.getgroupmembers();
       }
-        
+      
     })
 
     this.events.subscribe('gotmembers', () => {

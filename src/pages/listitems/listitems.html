@@ -33,10 +33,12 @@
     </ion-row>
   </ion-grid>
   <!-- Fab Button -->
-<ion-fab #fab bottom right>
-    <button button-ion-fab ion-fab (click)="manualAddItem()">
-      <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-fab>
+  <ion-fab bottom right #fab>
+      <button ion-fab><ion-icon name="more"></ion-icon></button>
+      <ion-fab-list side="top">
+        <button ion-fab (click)="manualAddItem(fab)"><ion-icon name="add"></ion-icon></button>
+        
+      </ion-fab-list>
+    </ion-fab>
   
 </ion-content>

@@ -21,17 +21,16 @@ export class ItemcreatePage {
   listItem = {} as ListItem;
   key: any;
   imgurl: '';
-  moveon: true|boolean;
+  loaded:boolean =  false;
 
-  constructor(private loadingCtrl: LoadingController,private zone: NgZone,private uploadImage: ImagehandlerProvider, public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController) {
+  constructor(private loadingCtrl: LoadingController, private zone: NgZone, private uploadImage: ImagehandlerProvider, public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController) {
     this.key = this.navParams.get('key');
   }
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ItemcreatePage');
   }
-
-  addItem(){
+  uploadItem() {
     let alert = this.alertCtrl.create({
       title: 'Upload Image',
       message: 'Upload an Image of the Item',
@@ -45,28 +44,33 @@ export class ItemcreatePage {
         },
         {
           text: 'Upload',
-          handler: () => {let loader = this.loadingCtrl.create({
-            content: 'Please wait'
-          })
-          loader.present();
-          this.uploadImage.uploadItemImage().then((uploadedurl: any) => {
-            loader.dismiss();
-            this.zone.run(() => {
-              this.imgurl = uploadedurl;
-              this.moveon = false;
+          handler: () => {
+            let loader = this.loadingCtrl.create({
+              content: 'Please wait'
             })
-          })
+            loader.present();
             
+               this.uploadImage.selectImage()
+               .then((data) =>
+               {
+                  this.imgurl = data;
+                  this.uploadImage.uploadItemImage(this.imgurl);
+               });
+            loader.dismiss();
+            this.loaded = true;
+
           }
         }
       ]
     });
     alert.present();
-    
+
+  }
+
+  addItem() {
     this.listItem.image = this.imgurl;
     console.log(this.listItem);
-      this.firebaseService.addItem(this.listItem);
-      this.navCtrl.push('ListitemsPage');
-    
+    this.firebaseService.addItem(this.listItem);
+    this.navCtrl.push('ListitemsPage');
   }
 }
