@@ -44,7 +44,7 @@ export class BrowseProductsPage {
     }
     this.listItem.seller = 'Walmart';
     this.listItem.listshared = listItem.listshared;
-    this.firebaseService.addItem(this.listItem);
+    // this.firebaseService.addItem(this.listItem);
     let alert = this.alertCtrl.create({
       title: 'Item Added!',
       message: 'Your Item was Added To Your List!',

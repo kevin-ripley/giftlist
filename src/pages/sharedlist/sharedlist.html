@@ -1,0 +1,38 @@
+<!-- Themes Products + CTA header -->
+<ion-content>
+    <ion-grid no-padding>
+      <ion-row padding background-size container-hearder-image [ngStyle]="{'background-image': 'url(assets/images/gift_bg.jpg)'}">
+        <ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-left>
+          <h1 header-title>Items</h1>
+        </ion-col>
+        <ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right>
+          <span span-large></span>
+        </ion-col>
+      </ion-row>
+      <!--Content-->
+      <ion-row no-padding>
+        <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
+          <ion-list no-margin >
+            <ion-item no-padding no-lines *ngFor="let data of items; let i = index;">
+              <ion-thumbnail item-start no-margin>
+                <img src="{{data.image}}">
+              </ion-thumbnail>
+              <div item-top>
+                <h2 item-title padding-left text-wrap>{{data.name}}</h2>
+                <h3 item-subtitle padding-left text-wrap>{{data.description}}</h3>
+              </div>
+              <div item-bottom>
+                
+                <div span-medium right text-right>$ {{data.price}}</div>
+                <!-- Products + CTA header Seller And Shipping-->
+                <h3 item-subtitle left padding-left>{{data.seller}}</h3>
+              </div>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    
+  </ion-content>
+  

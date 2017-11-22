@@ -1,3 +1,4 @@
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Injectable } from '@angular/core';
 import { Events } from 'ionic-angular';
 import firebase from 'firebase';
@@ -15,8 +16,13 @@ export class GroupsProvider {
   currentgroup: Array<any> = [];
   currentgroupname;
   grouppic;
-  constructor(public events: Events) {
+  owner;
+  ownername;
+  grouplist;
+  ownerimage;
 
+  constructor(public events: Events, private afAuth: AngularFireAuth) {
+    
   }
 
   addgroup(newGroup) {
@@ -49,6 +55,84 @@ export class GroupsProvider {
       }
       this.events.publish('allmygroups');
     })
+
+  }
+
+
+  shareList(list, groupname) {
+    return new Promise((resolve) => {
+      this.owner = firebase.auth().currentUser.uid;
+      this.ownername = firebase.auth().currentUser.displayName;
+      this.ownerimage = this.afAuth.auth.currentUser.photoURL
+      this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('creator').once('value', (snapshot) => {
+        var tempowner = snapshot.val();
+        this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('lists').push({
+          name: list.name,
+          owner: this.owner,
+          ownername: this.ownername,
+          ownerimage: this.ownerimage,
+          items: list.items,
+          image: list.image,
+          expiration_date: list.expiration_date
+        }).then(() => {
+          if (tempowner != firebase.auth().currentUser.uid) {
+            this.firegroup.child(tempowner).child(groupname).child('lists').push({
+              name: list.name,
+              owner: this.owner,
+              ownername: this.ownername,
+              ownerimage: this.ownerimage,
+              items: list.items,
+              image: list.image,
+              expiration_date: list.expiration_date
+            })
+          }
+          var tempmembers = [];
+          this.firegroup.child(tempowner).child(groupname).child('members').once('value', (snapshot) => {
+            var tempmembersobj = snapshot.val();
+            for (var key in tempmembersobj)
+              tempmembers.push(tempmembersobj[key]);
+          }).then(() => {
+            let postedlists = tempmembers.map((item) => {
+              if (item.uid != firebase.auth().currentUser.uid) {
+                return new Promise((resolve) => {
+                  this.postlists(item, list, groupname, this.owner, this.ownername, this.ownerimage, resolve);
+                })
+              }
+            })
+            Promise.all(postedlists).then(() => {
+              this.getGroupLists(groupname);
+              resolve(true);
+            })
+          })
+        })
+      })
+    })
+  }
+
+  postlists(member, list, groupname, owner, ownername, ownerimage, cb) {
+    this.firegroup.child(member.uid).child(groupname).child('lists').push({
+      name: list.name,
+      owner: owner,
+      ownername: ownername,
+      ownerimage: ownerimage,
+      items: list.items,
+      image: list.image,
+      expiration_date: list.expiration_date
+    }).then(() => {
+      cb();
+    })
+  }
+
+  getGroupLists(groupname) {
+    this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('lists').on('value', (snapshot) => {
+      var templstholder = snapshot.val();
+      console.log(templstholder);
+      this.grouplist = [];
+      for (var key in templstholder)
+        this.grouplist.push(templstholder[key]);
+      this.events.publish('newgrouplist');
+    })
+    
 
   }
 
@@ -114,16 +198,16 @@ export class GroupsProvider {
   }
 
   deletemember(member) {
-    
+
     this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname)
       .child('members').child(member.uid).on('value', (snapshot) => {
-            snapshot.ref.remove().then(() => {
-              this.firegroup.child(member.uid).child(this.currentgroupname).remove().then(() => {
-                    this.getintogroup(this.currentgroupname);
-                  })
-            })
-       }) 
-      
+        snapshot.ref.remove().then(() => {
+          this.firegroup.child(member.uid).child(this.currentgroupname).remove().then(() => {
+            this.getintogroup(this.currentgroupname);
+          })
+        })
+      })
+
   }
 
   getgroupmembers() {
@@ -132,9 +216,8 @@ export class GroupsProvider {
       var tempdata = snapshot.val().creator;
       this.firegroup.child(tempdata).child(this.currentgroupname).child('members').once('value', (snapshot) => {
         var tempvar = snapshot.val();
-        console.log(tempvar);
         this.firegroup.child(tempvar).once('value', (snapshot) => {
-          for(var key in tempvar){
+          for (var key in tempvar) {
             this.currentgroup.push(tempvar[key]);
           }
         })

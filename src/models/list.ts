@@ -4,4 +4,6 @@ export interface List {
     expiration_date: any;
     items: any;
     shared: any;
+    ownername: any;
+    image: any;
 }

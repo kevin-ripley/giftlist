@@ -27,8 +27,9 @@ export class ListitemsPage {
     console.log(this.listItemRef$);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ListitemsPage');
+  ionViewDidEnter(){
+    this.key = this.navParams.get('key');
+    this.listItemRef$ = this.firebaseService.getItems(this.key);
   }
 
   reorderItems = (indexes): void => {

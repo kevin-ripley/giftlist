@@ -7,12 +7,7 @@ import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 
 
-/**
- * Generated class for the ListsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -25,6 +20,7 @@ export class ListsPage {
   listRef$: FirebaseListObservable<List[]>;
   refresher: any;
   allmygroups;
+  groupowner;
   testRadioOpen: boolean;
   testRadioResult;
   constructor(public loadingCtrl: LoadingController,public events: Events, private groupService: GroupsProvider,public navCtrl: NavController, private firebaseService: FirebaseServiceProvider, private alertCtrl: AlertController) {
@@ -43,9 +39,7 @@ export class ListsPage {
     })
   }
 
-  undo = (slidingItem: ItemSliding) => {
-    slidingItem.close();
-  }
+  
   newList() {
     this.navCtrl.push('ListCreatePage');
   }
@@ -53,19 +47,21 @@ export class ListsPage {
   removeList(id) {
     this.firebaseService.removeLists(id);
   }
-  shareList(id) {
+  shareList(list) {
     
     let alert = this.alertCtrl.create();
 
     for(var k in this.allmygroups){
+
       alert.addInput({
         type: 'radio',
         label: this.allmygroups[k].groupName,
-        value: 'blue'
+        value: this.allmygroups[k].groupName
       });
+      
     }
 
-    alert.setTitle('Pick Group');
+    alert.setTitle('Pick A Group To Share With!');
 
     alert.addButton('Cancel');
     alert.addButton({
@@ -73,11 +69,15 @@ export class ListsPage {
       handler: data => {
         this.testRadioOpen = false;
         this.testRadioResult = data;
+        this.groupService.shareList(list, data);
+        this.navCtrl.push('GroupchatPage', { groupName: this.testRadioResult});
       }
     });
     alert.present().then(() => {
       this.testRadioOpen = true;
     });
+    
+    
   }
 
   seeItems(key) {

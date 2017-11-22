@@ -68,9 +68,13 @@ export class ItemcreatePage {
   }
 
   addItem() {
-    this.listItem.image = this.imgurl;
-    console.log(this.listItem);
-    this.firebaseService.addItem(this.listItem);
-    this.navCtrl.push('ListitemsPage');
+    if(this.listItem.image == undefined){
+      this.listItem.image = 'https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/itemimages%2Fdont-know-25547_1280.png?alt=media&token=9a68dc0d-a574-4ab9-8b47-9e32c3e5e215';
+    } else{
+      this.listItem.image = this.imgurl;
+    }
+    
+    this.firebaseService.addItem(this.key, this.listItem);
+    this.navCtrl.push('ListitemsPage', { key: this.key });
   }
 }

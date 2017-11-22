@@ -1,6 +1,11 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { List } from './../../models/list';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ActionSheetController, Events, Content } from 'ionic-angular';
 import { GroupsProvider } from '../../providers/groups/groups';
+import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
+
 
 
 @IonicPage()
@@ -9,10 +14,20 @@ import { GroupsProvider } from '../../providers/groups/groups';
   templateUrl: 'groupchat.html',
 })
 export class GroupchatPage {
+  @ViewChild('content') content: Content;
   creator: boolean = false;
+  groupmembers;
   groupName;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public groupservice: GroupsProvider,
-    public actionSheet: ActionSheetController) {
+  owner;
+  photoURL;
+  list;
+  alignuid;
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public groupservice: GroupsProvider, private afAuth: AngularFireAuth,
+    public actionSheet: ActionSheetController, private firebaseService: FirebaseServiceProvider, private events: Events) {
+    this.photoURL = this.afAuth.auth.currentUser.photoURL;
+    this.alignuid = this.afAuth.auth.currentUser.uid;
     this.groupName = this.navParams.get('groupName');
     this.groupservice.getownership(this.groupName).then((res) => {
       if (res)
@@ -20,11 +35,30 @@ export class GroupchatPage {
     }).catch((err) => {
       alert(err);
     })
+    this.groupservice.getGroupLists(this.groupName);
+    this.events.subscribe('newgrouplist', () => {
+      this.list = [];
+      this.list = this.groupservice.grouplist;
+    })
+   
+  }
+  ionViewDidEnter() {
+    this.groupservice.getGroupLists(this.groupName);
+    this.events.subscribe('newgrouplist', () => {
+      this.list = [];
+      this.list = this.groupservice.grouplist;
+    })
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad GroupchatPage');
+  ionViewDidLeave(){
+   this.events.unsubscribe('newgrouplist');
   }
+
+  openList(items){
+    this.navCtrl.push('SharedlistPage', { items: items.items });
+  }
+
+
 
   presentOwnerSheet() {
     let sheet = this.actionSheet.create({
@@ -45,7 +79,7 @@ export class GroupchatPage {
           }
         },
         {
-          text: 'Group Info',
+          text: 'Members',
           icon: 'person',
           handler: () => {
             this.navCtrl.push('GroupinfoPage', { groupName: this.groupName });
@@ -59,7 +93,8 @@ export class GroupchatPage {
               this.navCtrl.pop();
             }).catch((err) => {
               console.log(err);
-            })          }
+            })
+          }
         },
         {
           text: 'Cancel',
@@ -81,17 +116,17 @@ export class GroupchatPage {
         {
           text: 'Leave Group',
           icon: 'log-out',
-          
 
-            handler: () => {
-              this.groupservice.leavegroup().then(() => {
-                this.navCtrl.pop();
-              }).catch((err) => {
-                console.log(err);
-              })
-            }
-          },
-                  {
+
+          handler: () => {
+            this.groupservice.leavegroup().then(() => {
+              this.navCtrl.pop();
+            }).catch((err) => {
+              console.log(err);
+            })
+          }
+        },
+        {
           text: 'Group Info',
           icon: 'person',
           handler: () => {

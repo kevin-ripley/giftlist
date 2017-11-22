@@ -15,6 +15,16 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-bounce overflow-scroll="false">
 
+  <ion-list >
+      <button ion-item *ngFor="let item of list; let i = index;" (click)="openList(item.items)">
+          <ion-avatar item-start>
+            <img src="{{ item.ownerimage }}">
+          </ion-avatar>
+          <h2>{{ item.ownername }}</h2>
+          <p>Exp: {{ item.expiration_date }}</p>
+        </button>
+    
+  </ion-list>
 </ion-content>

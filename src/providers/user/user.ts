@@ -10,6 +10,7 @@ import firebase from 'firebase';
 */
 @Injectable()
 export class UserProvider {
+  userdetails;
   firedata = firebase.database().ref('/users');
   constructor(public afireauth: AngularFireAuth) {
   }
@@ -84,6 +85,17 @@ export class UserProvider {
           }).catch((err) => {
                 reject(err);
              })  
+      })
+      return promise;
+  }
+
+  getUserInfo(uid){
+    var promise = new Promise((resolve, reject) => {
+      this.firedata.child(uid).once('value', (snapshot) => {
+        resolve(snapshot.val().firstName);
+      }).catch((err) => {
+        reject(err);
+        })
       })
       return promise;
   }
