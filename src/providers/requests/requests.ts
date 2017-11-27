@@ -25,7 +25,7 @@ export class RequestsProvider {
     this.firefriends.child(req.recipient).on('value', (snapshot) => {
       let friends = snapshot.val();
       if (friends){
-        console.log("user exists!");
+        console.log("User Exists!");
     } return 'Error';
  });
     var promise = new Promise((resolve, reject) => {

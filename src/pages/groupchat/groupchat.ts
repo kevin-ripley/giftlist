@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams, ActionSheetController, Events, Con
 import { GroupsProvider } from '../../providers/groups/groups';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { ListItem } from '../../models/listItem';
 
 
 
@@ -20,8 +21,11 @@ export class GroupchatPage {
   groupName;
   owner;
   photoURL;
-  list;
+  listItem = {} as ListItem;
+  list: FirebaseListObservable<List[]>;
   alignuid;
+  tempItems;
+  listItemRef$: FirebaseListObservable<ListItem[]>;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public groupservice: GroupsProvider, private afAuth: AngularFireAuth,
@@ -35,27 +39,23 @@ export class GroupchatPage {
     }).catch((err) => {
       alert(err);
     })
-    this.groupservice.getGroupLists(this.groupName);
-    this.events.subscribe('newgrouplist', () => {
-      this.list = [];
-      this.list = this.groupservice.grouplist;
-    })
+    this.list =  this.groupservice.getGroupLists(this.groupName);
    
   }
   ionViewDidEnter() {
-    this.groupservice.getGroupLists(this.groupName);
-    this.events.subscribe('newgrouplist', () => {
-      this.list = [];
-      this.list = this.groupservice.grouplist;
-    })
-  }
+    
+    }
 
   ionViewDidLeave(){
    this.events.unsubscribe('newgrouplist');
   }
 
-  openList(items){
-    this.navCtrl.push('SharedlistPage', { items: items.items });
+  openList(key){
+    this.navCtrl.push('SharedlistPage', { key: key });
+
+  }
+  deleteList(key){
+    this.groupservice.deletelist(key);
   }
 
 

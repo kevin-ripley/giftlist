@@ -18,11 +18,11 @@
 <ion-content no-bounce overflow-scroll="false">
 
   <ion-list >
-      <button ion-item *ngFor="let item of list; let i = index;" (click)="openList(item.items)">
+      <button ion-item *ngFor="let item of list | async" (click)="openList(item.$key)">
           <ion-avatar item-start>
             <img src="{{ item.ownerimage }}">
           </ion-avatar>
-          <h2>{{ item.ownername }}</h2>
+          <h2>{{ item.name }}</h2>
           <p>Exp: {{ item.expiration_date }}</p>
         </button>
     

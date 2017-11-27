@@ -2,6 +2,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Injectable } from '@angular/core';
 import { Events } from 'ionic-angular';
 import firebase from 'firebase';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { ListItem } from '../../models/listItem';
 
 /*
   Generated class for the GroupsProvider provider.
@@ -14,6 +16,7 @@ export class GroupsProvider {
   firegroup = firebase.database().ref('/groups');
   mygroups: Array<any> = [];
   currentgroup: Array<any> = [];
+  listItems: FirebaseListObservable<ListItem[]> = null;
   currentgroupname;
   grouppic;
   owner;
@@ -21,7 +24,7 @@ export class GroupsProvider {
   grouplist;
   ownerimage;
 
-  constructor(public events: Events, private afAuth: AngularFireAuth) {
+  constructor(public events: Events, private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase) {
     
   }
 
@@ -123,17 +126,22 @@ export class GroupsProvider {
     })
   }
 
-  getGroupLists(groupname) {
-    this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('lists').on('value', (snapshot) => {
-      var templstholder = snapshot.val();
-      console.log(templstholder);
-      this.grouplist = [];
-      for (var key in templstholder)
-        this.grouplist.push(templstholder[key]);
-      this.events.publish('newgrouplist');
-    })
-    
+  // updateItems(key, listItem: ListItem){
+  //   this.afDatabase.list('groups/' + firebase.auth().currentUser.uid + '/' + this.currentgroupname + '/' + 'lists/' + key + '/items/').update(listItem);
+  // }
 
+  getGroupLists(groupname){
+    return this.afDatabase.list('groups/' + firebase.auth().currentUser.uid + '/' + `${groupname}` + '/' + 'lists/');
+  }
+
+  getSharedItems(key){
+    return this.afDatabase.list('groups/' + firebase.auth().currentUser.uid + '/' + this.currentgroupname + '/' + 'lists/' + key + '/items');
+  }
+
+  deletelist(key){
+    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('lists').once('value', (snapshot) => {
+      snapshot.ref.child(key).remove();
+    })
   }
 
   getintogroup(groupname) {

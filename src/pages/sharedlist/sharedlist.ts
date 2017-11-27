@@ -1,6 +1,8 @@
+import { GroupsProvider } from './../../providers/groups/groups';
 import { ListItem } from './../../models/listItem';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 /**
  * Generated class for the SharedlistPage page.
@@ -15,12 +17,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'sharedlist.html',
 })
 export class SharedlistPage {
-  items = {} as ListItem;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.items = this.navParams.get('items').items;
+  
+  listItem = {} as ListItem;
+  listItemRef$: FirebaseListObservable<ListItem[]>;
+  key: any;
+ items;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private groupService: GroupsProvider) {
+    this.key = this.navParams.get('key');
+    this.listItemRef$ = this.groupService.getSharedItems(this.key);
+    console.log(this.items);
   }
 
   ionViewDidLoad() {
+    console.log(this.key);
     console.log('ionViewDidLoad SharedlistPage');
   }
 

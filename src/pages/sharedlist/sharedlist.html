@@ -13,7 +13,7 @@
       <ion-row no-padding>
         <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
           <ion-list no-margin >
-            <ion-item no-padding no-lines *ngFor="let data of items; let i = index;">
+            <ion-item no-padding no-lines *ngFor="let data of listItemRef$ | async; let i = index;">
               <ion-thumbnail item-start no-margin>
                 <img src="{{data.image}}">
               </ion-thumbnail>
