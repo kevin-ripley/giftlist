@@ -54,8 +54,8 @@ export class ListitemsPage {
   }
 
   
-  openItem(key){
-    //this.navCtrl.push('IteminfoPage', {Ikey : key, Lkey: this.key});
+  goToItem(key){
+    this.navCtrl.push('IteminfoPage', {Ikey : key, Lkey: this.key});
   }
 
   manualAddItem(fab: FabContainer) {

@@ -43,8 +43,8 @@ $item-md-avatar-size : 60px;
 $item-ios-avatar-size : 60px;
 
 // Size Avatar
-$item-md-thumbnail-size: 120px;
-$item-ios-thumbnail-size: 120px;
+$item-md-thumbnail-size: 75px;
+$item-ios-thumbnail-size: 75px;
 
 
 // Font Style
@@ -312,7 +312,7 @@ $icon-size:(
   font-size: font-size-text('h5') !important;
   text-transform: uppercase;
   font-weight: 300 !important;
-  letter-spacing: 1px;
+  letter-spacing: .7px;
 }
 
 // LIST VIEWS - Subitem Parameters

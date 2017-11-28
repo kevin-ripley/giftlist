@@ -25,7 +25,11 @@ export class IteminfoPage {
     this.Ikey = this.navParams.get('Ikey');
     this.itemRef$ = this.firebaseService.getSpecificItem(this.Ikey, this.Lkey);
     
-
+  }
+  ionViewDidEnter() {
+    this.Lkey = this.navParams.get('Lkey');
+    this.Ikey = this.navParams.get('Ikey');
+    this.itemRef$ = this.firebaseService.getSpecificItem(this.Ikey, this.Lkey);
   }
 
   ionViewDidLoad() {

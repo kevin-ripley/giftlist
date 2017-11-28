@@ -1,30 +1,28 @@
-
-    <ion-content>
-        <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
-        <div *ngIf="searching" class="spinner-container">
-            <ion-spinner></ion-spinner>
+<ion-content>
+<ion-grid no-padding>
+  <ion-row>
+    <!-- Header -->
+    <ion-col col-12>
+      <div background-size [ngStyle]="{'background-image': 'url(assets/images/gift_bg.jpg)'}">
+        <div class="search-bar-bcg">
+          <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
         </div>
-        <ion-grid no-padding *ngIf="items != null">
-            <ion-row>
-                <ion-col col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 *ngFor="let item of items;let i = index" >
-                    <ion-card text-left (click)="openDetails(item)">
-                        <div card-image>
-                            <img src="{{item.largeImage}}" />
-                        </div>
-                        <ion-card-content>
-                            <ion-card-title>
-                                <h1 card-title>{{item.name}}</h1>
-                            </ion-card-title>
-                            <p card-body-text>{{item.salePrice}}</p>
-                        </ion-card-content>
-                        <button ion-item round outline large (click)="openDetails(item)" >
-                            <ion-icon name='list' item-start></ion-icon>
-                            View Details
-                          </button>
-                    </ion-card>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </ion-content>
-
-
+      </div>
+    </ion-col>
+    <!-- List -->
+    <ion-col col-12>
+      <ion-list no-margin>
+        <ion-item no-lines *ngFor="let item of items;" (click)="openDetails(item)">
+          <ion-thumbnail item-start>
+            <img src="{{item.largeImage}}" />
+          </ion-thumbnail>
+          <h2 item-subtitle text-wrap>{{item.name}}</h2>
+          <item-content item-end>
+            <span span-medium>{{item.salePrice | currency:'$'}}</span>
+          </item-content>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

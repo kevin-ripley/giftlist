@@ -86,10 +86,12 @@ export class FirebaseServiceProvider {
   }
 
   addItem(key, listItem: ListItem) {
-    if(listItem.listshared){
-      
-    }
-    this.afDatabase.list('lists/'+ this.afAuth.auth.currentUser.uid + '/' + key + '/items').push(listItem);
+    var promise = new Promise((resolve, reject) => {
+    this.afDatabase.list('lists/'+ this.afAuth.auth.currentUser.uid + '/' + key + '/items').push(listItem).then(() => {
+      resolve(true);
+    })
+  });
+  return promise;
   }
 
 

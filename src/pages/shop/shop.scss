@@ -1,16 +1,11 @@
 page-shop {
-    [card-image] {
-        position: relative;
-        
-        img {
-            width: 100% !important;
-        }
-        [card-title] {
-            color: theme-colors('textColors', 'accent-first') !important;
-            position: absolute;
-            left: 16px;
-            bottom: 20px;
-            z-index: 999;
-        }
-    }
+    [background-size] {
+        padding-top: 50px;
+        height: 160px;
+        @include darkening-blend-mode;
+      }
+    
+      .item-inner {
+        margin-left: 5px !important;
+      }
 }

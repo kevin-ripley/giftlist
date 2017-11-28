@@ -10,11 +10,11 @@
                         <ion-card-title>
                             <h1 card-title>{{item.name}}</h1>
                         </ion-card-title>
-                        <p card-body-text>{{item.salePrice}}</p>
+                        <p card-body-text>{{item.salePrice | currency:'$'}}</p>
                     </ion-card-content>
                     <button ion-item round outline large (click)="openDetails(item)" >
                         <ion-icon name='list' item-start></ion-icon>
-                        View Details
+                        View Details And Add To List
                       </button>
                 </ion-card>
             </ion-col>

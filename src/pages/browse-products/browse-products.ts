@@ -2,8 +2,7 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ListItem } from '../../models/listItem';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 
 /**
@@ -24,8 +23,37 @@ export class BrowseProductsPage {
   listItem = {} as ListItem;
   lists:any;
   listshared: any;
+  rank: any;
+  data = {"iconStars": [
+    {
+        "isActive": true,
+        "iconActive": "icon-star-outline",
+        "iconInactive": "icon-star"
+    },
+    {
+        "isActive": true,
+        "iconActive": "icon-star-outline",
+        "iconInactive": "icon-star"
+    },
+    {
+        "isActive": true,
+        "iconActive": "icon-star-outline",
+        "iconInactive": "icon-star"
+    },
+    {
+        "isActive": true,
+        "iconActive": "icon-star-outline",
+        "iconInactive": "icon-star"
+    },
+    {
+        "isActive": true,
+        "iconActive": "icon-star-outline",
+        "iconInactive": "icon-star"
+    }
+  ]
+  };
 
-  constructor(private firebaseService: FirebaseServiceProvider, private afDatabase: AngularFireDatabase, public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(private firebaseService: FirebaseServiceProvider, public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
     this.item = this.navParams.get('item');
 
     this.lists = this.firebaseService.getLists();
@@ -43,22 +71,59 @@ export class BrowseProductsPage {
       this.listItem.description = this.item.shortDescription;
     }
     this.listItem.seller = 'Walmart';
-    this.listItem.listshared = listItem.listshared;
-    // this.firebaseService.addItem(this.listItem);
-    let alert = this.alertCtrl.create({
-      title: 'Item Added!',
-      message: 'Your Item was Added To Your List!',
-      buttons: [
-        {
-          text: 'Okay',
-          handler: () => {
-            console.log('Buy clicked');
+    this.listItem.listshared = this.item.listshared;
+    this.firebaseService.addItem(this.item.listshared, this.listItem).then(() => {
+      let alert = this.alertCtrl.create({
+        title: 'Item Added!',
+        message: 'Your Item was Added To Your List!',
+        buttons: [
+          {
+            text: 'Okay',
+            handler: () => {
+              console.log('Okay Clicked!');
+            }
           }
-        }
-      ]
-    });
-    alert.present();
+        ]
+      });
+      alert.present();
+    }).catch((err) => {
+      let alert = this.alertCtrl.create({
+        title: 'Failed to Add Item',
+        message: 'Make Sure to Choose A List!',
+        buttons: [
+          {
+            text: 'Okay',
+            handler: () => {
+              console.log('Okay Clicked!');
+            }
+          }
+        ]
+      });
+      alert.present();
+    })
+   
   }
+
+  onStarClass(items: any, index: number, e: any) {
+    for (var i = 0; i < items.length; i++) {
+      items[i].isActive = i <= index;
+    }
+    if(index == 4){
+      this.rank = 0;
+    }
+    if(index == 3){
+      this.rank = 1;
+    }
+    if(index == 2){
+      this.rank = 2;
+    }
+    if(index == 1){
+      this.rank = 3;
+    }
+    if(index == 0){
+      this.rank = 4;
+    }
+  };
 
   goBack() {
     this.navCtrl.pop();
