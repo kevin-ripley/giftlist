@@ -9,7 +9,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content no-bounce overflow-scroll="false">
   <ion-list no-lines>
     <ion-list-header>
       REQUESTS
@@ -28,7 +28,7 @@
         </button>
         <button ion-button color="danger" (click)="ignore(item)">
           <ion-icon name="trash"></ion-icon>
-          NOPE
+          IGNORE
         </button>
       </ion-item-options>
     </ion-item-sliding>

@@ -1,11 +1,13 @@
 
 <ion-content class="bg">
-  <h2 text-center>Your Profile</h2>
+  <h1 text-center>{{fname}} {{lname}}</h1>
     <div class="profile-image" (click)="editimage()">
         <img src="{{avatar}}">
       </div>
-      <div text-center>{{displayName}}</div>
-      <div class="spacer" style="height: 10px;"></div>
+      <div>
+        <h2 text-center> {{displayName}}</h2>
+        <h4 text-center> Email: {{ email }}</h4>
+      </div>
       <div>
         <button ion-button round outline color="danger" (click)="logout()">Logout</button>
       </div>

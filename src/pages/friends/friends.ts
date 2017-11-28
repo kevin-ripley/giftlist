@@ -19,6 +19,7 @@ export class FriendsPage {
   newrequest = {} as req;
   temparr = [];
   filteredusers = [];
+  searchString:any="";
   myfriends;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public userservice: UserProvider, public alertCtrl: AlertController,
@@ -39,7 +40,32 @@ export class FriendsPage {
 
   }
 
+  addUser(key){
+    let confirm = this.alertCtrl.create({
+      title: 'Add Friend',
+      message: 'Add ' + key.firstName + ' ' + key.lastName + ' as a Friend?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            this.sendreq(key);
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  
+
   searchuser(searchbar) {
+    console.log(this.filteredusers);
     this.filteredusers = this.temparr;
     var q = searchbar.target.value;
     if (q.trim() == '') {
@@ -48,6 +74,12 @@ export class FriendsPage {
 
     this.filteredusers = this.filteredusers.filter((v) => {
       if (v.displayName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+        return true;
+      }
+      else if(v.firstName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+        return true;
+      }
+      else if(v.lastName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
         return true;
       }
       return false;

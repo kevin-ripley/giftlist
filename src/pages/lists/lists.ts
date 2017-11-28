@@ -47,7 +47,7 @@ export class ListsPage {
   removeList(id) {
     this.firebaseService.removeLists(id);
   }
-  shareList(list) {
+  shareList(list, key) {
     
     let alert = this.alertCtrl.create();
 
@@ -69,7 +69,7 @@ export class ListsPage {
       handler: data => {
         this.testRadioOpen = false;
         this.testRadioResult = data;
-        this.groupService.shareList(list, data);
+        this.groupService.shareList(list, key, data);
         this.navCtrl.push('GroupchatPage', { groupName: this.testRadioResult});
       }
     });

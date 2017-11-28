@@ -73,12 +73,22 @@ export class FirebaseServiceProvider {
     })
     
   }
+  getSpecificItem(Ikey, Lkey){
+    return this.afDatabase.list('lists/' + this.afAuth.auth.currentUser.uid + '/' + Lkey + '/items/' + Ikey);
+  }
 
   getItems(key){
-    return this.afDatabase.list('lists/' + this.afAuth.auth.currentUser.uid + '/' + key + '/items');
+    return this.afDatabase.list('lists/' + this.afAuth.auth.currentUser.uid + '/' + key + '/items', {
+      query: {
+        orderByChild: 'rank'
+      }
+      });
   }
 
   addItem(key, listItem: ListItem) {
+    if(listItem.listshared){
+      
+    }
     this.afDatabase.list('lists/'+ this.afAuth.auth.currentUser.uid + '/' + key + '/items').push(listItem);
   }
 

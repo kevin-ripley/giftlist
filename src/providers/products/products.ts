@@ -12,11 +12,18 @@ import 'rxjs/add/operator/map';
 export class ProductsProvider {
   items: any;
   constructor(public http: HttpClient) {
-    
-    
   }
   getItem(data){
-
+    if (this.items) {
+      // already loaded data
+      return Promise.resolve(this.items);
+    }
+    return new Promise(resolve => {
+      this.http.get('http://api.walmartlabs.com/v1/items?apiKey=kzejb2ckufsrgv27c43anc59&upc=' + data)
+        .subscribe(data => {
+          resolve(data);
+        });
+      });
   }
   
   getWalmart(data){

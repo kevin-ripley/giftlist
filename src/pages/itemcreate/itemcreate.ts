@@ -1,3 +1,4 @@
+import { GroupsProvider } from './../../providers/groups/groups';
 import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
@@ -22,8 +23,37 @@ export class ItemcreatePage {
   key: any;
   imgurl: '';
   loaded:boolean =  false;
+  rank: any;
+  data = {"iconStars": [
+    {
+        "isActive": true,
+        "iconActive": "icon-star-outline",
+        "iconInactive": "icon-star"
+    },
+    {
+        "isActive": true,
+        "iconActive": "icon-star-outline",
+        "iconInactive": "icon-star"
+    },
+    {
+        "isActive": true,
+        "iconActive": "icon-star-outline",
+        "iconInactive": "icon-star"
+    },
+    {
+        "isActive": true,
+        "iconActive": "icon-star-outline",
+        "iconInactive": "icon-star"
+    },
+    {
+        "isActive": true,
+        "iconActive": "icon-star-outline",
+        "iconInactive": "icon-star"
+    }
+  ]
+  };
 
-  constructor(private loadingCtrl: LoadingController, private zone: NgZone, private uploadImage: ImagehandlerProvider, public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController) {
+  constructor(private groupService: GroupsProvider, private loadingCtrl: LoadingController, private zone: NgZone, private uploadImage: ImagehandlerProvider, public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController) {
     this.key = this.navParams.get('key');
   }
 
@@ -66,6 +96,26 @@ export class ItemcreatePage {
     alert.present();
 
   }
+  onStarClass(items: any, index: number, e: any) {
+    for (var i = 0; i < items.length; i++) {
+      items[i].isActive = i <= index;
+    }
+    if(index == 4){
+      this.rank = 0;
+    }
+    if(index == 3){
+      this.rank = 1;
+    }
+    if(index == 2){
+      this.rank = 2;
+    }
+    if(index == 1){
+      this.rank = 3;
+    }
+    if(index == 0){
+      this.rank = 4;
+    }
+  };
 
   addItem() {
     if(this.listItem.image == undefined){
@@ -73,8 +123,9 @@ export class ItemcreatePage {
     } else{
       this.listItem.image = this.imgurl;
     }
-    
+    this.listItem.rank = this.rank;
     this.firebaseService.addItem(this.key, this.listItem);
+   //this.groupService.updateItems(this.key, this.listItem);
     this.navCtrl.push('ListitemsPage', { key: this.key });
   }
 }

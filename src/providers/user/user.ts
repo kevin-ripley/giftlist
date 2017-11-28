@@ -22,15 +22,16 @@ export class UserProvider {
       this.afireauth.auth.createUserWithEmailAndPassword(newuser.email, newuser.password).then(() => {
         this.afireauth.auth.currentUser.updateProfile({
           displayName: newuser.displayName,
-          photoURL: "https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/default_group.png?alt=media&token=f81a22e4-4188-4b7d-a193-c3e48e55e496"
+          photoURL: 'https://firebasestorage.googleapis.com/v0/b/myapp-4eadd.appspot.com/o/chatterplace.png?alt=media&token=e51fa887-bfc6-48ff-87c6-e2c61976534e'
         }).then(() => {
           this.firedata.child(this.afireauth.auth.currentUser.uid).set({
             uid: this.afireauth.auth.currentUser.uid,
             displayName: newuser.displayName,
-            photoURL: "https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/default_group.png?alt=media&token=f81a22e4-4188-4b7d-a193-c3e48e55e496",
+            photoURL: 'https://firebasestorage.googleapis.com/v0/b/myapp-4eadd.appspot.com/o/chatterplace.png?alt=media&token=e51fa887-bfc6-48ff-87c6-e2c61976534e',
             firstName: newuser.firstName,
             lastName: newuser.lastName,
-            birthDate: newuser.birthDate
+            birthDate: newuser.birthDate,
+            email: this.afireauth.auth.currentUser.email
           }).then(() => {
             resolve({ success: true });
             }).catch((err) => {
@@ -52,7 +53,7 @@ export class UserProvider {
       firebase.auth().sendPasswordResetEmail(email).then(() => {
         resolve({ success: true });
       }).catch((err) => {
-        reject(err);
+        resolve({ success: false });
       })
     })
     return promise;

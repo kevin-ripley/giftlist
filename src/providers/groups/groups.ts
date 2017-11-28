@@ -14,6 +14,7 @@ import { ListItem } from '../../models/listItem';
 @Injectable()
 export class GroupsProvider {
   firegroup = firebase.database().ref('/groups');
+  firelist = firebase.database().ref('/lists');
   mygroups: Array<any> = [];
   currentgroup: Array<any> = [];
   listItems: FirebaseListObservable<ListItem[]> = null;
@@ -62,14 +63,17 @@ export class GroupsProvider {
   }
 
 
-  shareList(list, groupname) {
+  shareList(list, key, groupname) {
     return new Promise((resolve) => {
+      this.firelist.child(firebase.auth().currentUser.uid).child(key).child('listshared').push({
+        groupname
+      });
       this.owner = firebase.auth().currentUser.uid;
       this.ownername = firebase.auth().currentUser.displayName;
       this.ownerimage = this.afAuth.auth.currentUser.photoURL
       this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('creator').once('value', (snapshot) => {
         var tempowner = snapshot.val();
-        this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('lists').push({
+        this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('lists').child(key).set({
           name: list.name,
           owner: this.owner,
           ownername: this.ownername,
@@ -79,7 +83,7 @@ export class GroupsProvider {
           expiration_date: list.expiration_date
         }).then(() => {
           if (tempowner != firebase.auth().currentUser.uid) {
-            this.firegroup.child(tempowner).child(groupname).child('lists').push({
+            this.firegroup.child(tempowner).child(groupname).child('lists').child(key).set({
               name: list.name,
               owner: this.owner,
               ownername: this.ownername,
@@ -98,7 +102,7 @@ export class GroupsProvider {
             let postedlists = tempmembers.map((item) => {
               if (item.uid != firebase.auth().currentUser.uid) {
                 return new Promise((resolve) => {
-                  this.postlists(item, list, groupname, this.owner, this.ownername, this.ownerimage, resolve);
+                  this.postlists(item, list, groupname, this.owner, this.ownername, this.ownerimage, resolve, key);
                 })
               }
             })
@@ -112,8 +116,8 @@ export class GroupsProvider {
     })
   }
 
-  postlists(member, list, groupname, owner, ownername, ownerimage, cb) {
-    this.firegroup.child(member.uid).child(groupname).child('lists').push({
+  postlists(member, list, groupname, owner, ownername, ownerimage, cb, key) {
+    this.firegroup.child(member.uid).child(groupname).child('lists').child(key).set({
       name: list.name,
       owner: owner,
       ownername: ownername,
@@ -126,16 +130,62 @@ export class GroupsProvider {
     })
   }
 
-  // updateItems(key, listItem: ListItem){
-  //   this.afDatabase.list('groups/' + firebase.auth().currentUser.uid + '/' + this.currentgroupname + '/' + 'lists/' + key + '/items/').update(listItem);
+  // postItems(key, groupname, cb){
+  //   this.firegroup.child(member.uid).child(groupname).child('lists').child(key).update({
+  //     items: list.items
+  //   }).then(() => {
+  //     cb();
+  //   })
   // }
+
+//   updateItems(key, listItem: ListItem){
+//     return new Promise((resolve) => {
+//     var tempgroup = [];
+//     this.firelist.child(firebase.auth().currentUser.uid).child(key).child('listshared').on('value', (snapshot) => {
+//       var tempgroupobj = snapshot.val();
+//       for (var key in tempgroupobj)
+//       tempgroup.push(tempgroupobj[key].groupname);
+//       let postgroupname = tempgroup.map((groupname) => {
+//         return new Promise((resolve) => {
+//           this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('creator').once('value', (snapshot) => {
+//             var tempowner = snapshot.val();
+        
+//         var tempmembers = [];
+
+//         this.firegroup.child(tempowner).child().child('members').once('value', (snapshot) => {
+//           var tempmembersobj = snapshot.val();
+//           for (var key in tempmembersobj)
+//             tempmembers.push(tempmembersobj[key]);
+//         }).then(() => {
+//           let postedlists = tempmembers.map((item) => {
+//             if (item.uid != firebase.auth().currentUser.uid) {
+//               return new Promise((resolve) => {
+//                 this.postlists(item, list, groupname, this.owner, this.ownername, this.ownerimage, resolve, key);
+//               })
+//             }
+//           })
+//         })
+//       })
+//     })
+      
+      
+//         Promise.all(postedlists).then(() => {
+//           this.getGroupLists(groupname);
+//           resolve(true);
+//         })
+//       })
+      
+//     })
+//     //this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('lists').child(key).child('items').set(listItem);
+//   })
+// }
 
   getGroupLists(groupname){
     return this.afDatabase.list('groups/' + firebase.auth().currentUser.uid + '/' + `${groupname}` + '/' + 'lists/');
   }
 
   getSharedItems(key){
-    return this.afDatabase.list('groups/' + firebase.auth().currentUser.uid + '/' + this.currentgroupname + '/' + 'lists/' + key + '/items');
+    return this.afDatabase.list('lists/' + firebase.auth().currentUser.uid + '/' + key + '/items');
   }
 
   deletelist(key){

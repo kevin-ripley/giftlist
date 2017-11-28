@@ -2,17 +2,14 @@
 <ion-header>
 
   <ion-navbar color="hcolor">
-    <ion-title>Groups</ion-title>
+    <ion-title>My Groups</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content>
+<ion-content no-bounce overflow-scroll="false">
   <ion-list no-lines>
-    <ion-list-header>
-      My Groups
-    </ion-list-header>
     <ion-item *ngFor="let item of allmygroups">
       <ion-avatar item-left>
         <img src="{{item.groupPic}}">

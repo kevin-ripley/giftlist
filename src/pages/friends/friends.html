@@ -1,29 +1,26 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Find Friends</ion-title>
-  </ion-navbar>
-</ion-header>
-
-
-<ion-content>
-  <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
-  <ion-list no-lines>
-    <ion-list>
-      <ion-item-sliding *ngFor="let key of filteredusers">
+    <ion-navbar color="primary">
+      <ion-title>Search Users</ion-title>
+    </ion-navbar>
+  </ion-header>
+ <ion-content no-bounce overflow-scroll="false">
+<ion-grid no-padding>
+    <ion-row no-padding>
+        <ion-col col-12>
+  <ion-searchbar [(ngModel)]="searchString" search-bar-bcg (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
+  </ion-col>
+  <ion-col col-12>
+      <ion-list>
+      <ion-item no-lines *ngFor="let key of filteredusers;" (click)="addUser(key)">
         <ion-item>
           <ion-avatar item-left>
             <img src="{{key.photoURL}}">
           </ion-avatar>
-          <h2>{{key.displayName}}</h2>
+          <h2>{{key.firstName}} {{key.lastName}}</h2>
         </ion-item>
-        <ion-item-options slide="left">
-          <button ion-button color="primary" (click)="sendreq(key)">
-            <ion-icon name="person-add"></ion-icon>
-            Add
-          </button>
-        </ion-item-options>
-
-      </ion-item-sliding>
+      </ion-item>
     </ion-list>
-  </ion-list>
-</ion-content>
+  </ion-col>
+</ion-row>
+</ion-grid>
+</ion-content> 

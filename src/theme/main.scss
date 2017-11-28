@@ -32,6 +32,7 @@
 //  Animations
 //  Background Sizes
 //  Default Overview Ionic
+// Spiner View
 //////////////////////////////////////////////////
 
 [no-margin] {
@@ -183,8 +184,8 @@ $item-body-background-color: theme-colors('mainColors', 'accent') !default;
 
 // Black&White Avatar and Image
 ion-avatar, ion-thumbnail {
-  -webkit-filter: grayscale(1%);
-    filter: grayscale(1%);
+  -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
 }
 
 
@@ -285,7 +286,7 @@ $icon-size:(
 
 [header-title]{
    color: theme-colors('textColors', 'primary') !important;
-   font-size: font-size-text('h2');
+   font-size: font-size-text('h1');
    letter-spacing: 1px;
    font-weight: 300;
  }
@@ -350,8 +351,10 @@ $icon-size:(
   font-weight: bold !important;
 }
 
-// Fab Button Settings
+// Active Button For Ios
+$button-ios-outline-background-color-activated: #f7f7f7;
 
+// Fab Button Settings
 [button-ion-fab] {
   background-color: theme-colors('mainColors', 'accent-first') !important;
   color: theme-colors('textColors', 'accent-first') !important;
@@ -592,7 +595,7 @@ $searchbar-md-input-clear-icon-color: theme-colors('textColors', 'secondary');
 //Background Size
 [background-size] {
   background-size: cover !important;
-  background-position: center bottom !important;
+  background-position: center !important;
   background-repeat: no-repeat !important;
 }
 [white-background] {
@@ -691,5 +694,20 @@ $searchbar-md-input-clear-icon-color: theme-colors('textColors', 'secondary');
     :-moz-placeholder {
       /* Firefox 18- */
       color: theme-colors('textColors', 'accent') !important;
+    }
+  }
+
+  // Spiner View
+  [spinner-view] {
+    background-color: theme-colors('mainColors', 'accent');
+
+     spinner img{
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+    }
+
+    .swiper-pagination-bullet {
+      background: theme-colors('mainColors', 'accent-first') !important;
     }
   }

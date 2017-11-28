@@ -22,11 +22,17 @@ export class ScannedPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseService: FirebaseServiceProvider, public productService: ProductsProvider) {
     this.barcode = this.navParams.get('scanData');
-    // this.productService.getItem(this.barcode).then(data => {
-    //   this.listItem = data.items;
-    //   console.log(this.listItem);
-    // });;
+    this.productService.getItem(this.barcode).then(data => {
+      this.listItem = data.items;
+      console.log(this.listItem);
+    });
   }
+
+  // If Item is clicked then push to Browse Products Page with Detail
+  openDetails(item) {
+    this.navCtrl.push('BrowseProductsPage', {item: item});
+  }
+
 
   ionViewDidLoad() { 
     console.log('ionViewDidLoad ScannedPage');

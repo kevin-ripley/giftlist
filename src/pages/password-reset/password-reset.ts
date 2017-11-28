@@ -28,12 +28,16 @@ export class PasswordResetPage {
     });
     this.userservice.passwordreset(this.email).then((res: any) => {
       if (res.success) {
-        alert.setTitle('Email Sent');
+        alert.setTitle('Email Sent!');
         alert.setSubTitle('Please follow the instructions in the email to reset your password');
+        this.goback();
       }
-    }).catch((err) => {
-      alert.setTitle('Failed');
-      alert.setSubTitle(err);
+      else {
+        alert.setTitle('Password Reset Failed');
+        alert.setSubTitle('Email Not Valid Please Try Again!');
+      }
+      alert.present();
+      
     })
   }
 

@@ -23,9 +23,12 @@ import firebase from 'firebase';
 export class ProfilePage {
   avatar: string;
   displayName: string;
+  fname: string;
+  lname: string;
+  email: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public userservice: UserProvider, public zone: NgZone, public alertCtrl: AlertController,
-    public imghandler: ImagehandlerProvider) {
+    public imghandler: ImagehandlerProvider, private agAuth: AngularFireAuth) {
   }
 
   ionViewWillEnter() {
@@ -37,6 +40,9 @@ export class ProfilePage {
       this.displayName = res.displayName;
       this.zone.run(() => {
         this.avatar = res.photoURL;
+        this.fname = res.firstName;
+        this.lname = res.lastName;
+        this.email = res.email;
       })
     })
   }

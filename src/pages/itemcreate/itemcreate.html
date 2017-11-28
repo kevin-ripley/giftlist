@@ -1,46 +1,52 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title text-center>New Item</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <ion-title text-center>New Item</ion-title>
+  </ion-navbar>
 </ion-header>
 
-<ion-content background-size default-background>
+<ion-content background-size default-background no-bounce overflow-scroll="false">
   <ion-grid>
-      <ion-row wrap padding>
-          <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
-              <!--Form-->
-              <div class="form">
-                  <!--Form Title-->
-                  <!---Input field list name-->
-                  <ion-item no-padding>
-                      <ion-label floating>Item Name</ion-label>
-                      <ion-input required type="text" [(ngModel)]="listItem.name"></ion-input>
-                  </ion-item>
-                  <!---Input field expiration date-->
-                  <ion-item no-padding>
-                      <ion-label floating>Item Price</ion-label>
-                      <ion-input required type="number" [(ngModel)]="listItem.price"></ion-input>
-                  </ion-item>
-                  <ion-item no-padding>
-                      <ion-label floating>Item Seller</ion-label>
-                      <ion-input type="text" [(ngModel)]="listItem.seller"></ion-input>
-                  </ion-item>
+    <ion-row wrap padding>
+      <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
+        <!--Form-->
+        <div class="form">
+          <!--Form Title-->
+          <!---Input field list name-->
+          <ion-item no-padding>
+            <ion-label floating>Item Name</ion-label>
+            <ion-input required type="text" [(ngModel)]="listItem.name"></ion-input>
+          </ion-item>
+          <!---Input field expiration date-->
+          <ion-item no-padding>
+            <ion-label floating>Item Price</ion-label>
+            <ion-input required type="number" [(ngModel)]="listItem.price"></ion-input>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-label floating>Item Seller</ion-label>
+            <ion-input type="text" [(ngModel)]="listItem.seller"></ion-input>
+          </ion-item>
 
-                  <ion-item no-padding>
-                      <ion-label floating>Item Note or Description</ion-label>
-                      <ion-input type="text" [(ngModel)]="listItem.description"></ion-input>
-                  </ion-item>
-                  
-                  <button text-center clear ion-item no-padding (click)="uploadItem()">
-                        Upload Image
-                    </button>
-                    <div text-center *ngIf="loaded == true">NICE! IMAGE UPLOADED!</div>
-                  
-                  <!---Add List button-->
-                  <button ion-button outline block color="secondary" (click)="addItem()">New Item</button>
-              </div>
-              
-          </ion-col>
-      </ion-row>
+          <ion-item no-padding>
+            <ion-label floating>Item Note or Description</ion-label>
+            <ion-input type="text" [(ngModel)]="listItem.description"></ion-input>
+          </ion-item>
+
+          <ion-item text-center clear ion-item no-padding (click)="uploadItem()">
+            Upload Image
+          </ion-item>
+          <div text-center *ngIf="loaded == true">NICE! IMAGE UPLOADED!</div>
+          <div p text-center>Rank Your Gift! 5 Being Most Wanted!</div>
+          <ion-item text-center no-padding>
+            <ion-icon text-center primary *ngFor="let item of data.iconStars; let i = index" (click)="onStarClass(data.iconStars, i, $event)">
+              <i icon-medium *ngIf="item.isActive" class="icon {{item.iconActive}}"></i>
+              <i icon-medium *ngIf="!item.isActive" class="icon {{item.iconInactive}}"></i>
+            </ion-icon>
+          </ion-item>
+          <!---Add List button-->
+          <button ion-button outline block color="secondary" (click)="addItem()">New Item</button>
+        </div>
+
+      </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>
