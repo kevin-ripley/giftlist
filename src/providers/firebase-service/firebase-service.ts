@@ -19,8 +19,6 @@ import { UserProvider } from '../user/user';
 
 @Injectable()
 export class FirebaseServiceProvider {
-  //path to ref
-  private basePath: string = '/lists';
   //list of List obects
   lists: FirebaseListObservable<List[]> = null;
   //single List object
@@ -29,25 +27,14 @@ export class FirebaseServiceProvider {
   items: FirebaseListObservable<ListItem[]> = null;
   //authenticated user id
   userId: string;
-
-  listItems: FirebaseListObservable<ListItem[]> = null;
-
+  //single Item object
   listItem: FirebaseObjectObservable<ListItem> = null;
-
-  firelist;
-  firegroup;
-  key;
-  owner;
-  shared;
-  ownername;
 
 
   constructor(public alertCtrl: AlertController,public afDatabase: AngularFireDatabase, public afAuth: AngularFireAuth, public events: Events, private userService: UserProvider) {
     this.afAuth.authState.subscribe(user => {
       if (user) this.userId = user.uid
     })
-    this.firelist = firebase.database().ref(`lists/${this.userId}`);
-    this.firegroup = firebase.database().ref(`groups/${this.userId}`);
   }
 
   getLists(): FirebaseListObservable<List[]> {
