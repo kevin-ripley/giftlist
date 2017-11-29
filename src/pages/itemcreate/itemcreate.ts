@@ -1,8 +1,8 @@
+import { ListItem } from './../../models/listItem';
 import { GroupsProvider } from './../../providers/groups/groups';
 import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
-import { ListItem } from '../../models/listItem';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { ImagehandlerProvider } from '../../providers/imagehandler/imagehandler';
 
@@ -21,40 +21,41 @@ import { ImagehandlerProvider } from '../../providers/imagehandler/imagehandler'
 export class ItemcreatePage {
   listItem = {} as ListItem;
   key: any;
-  imgurl: 'https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/itemimages%2Fdont-know-25547_1280.png?alt=media&token=9a68dc0d-a574-4ab9-8b47-9e32c3e5e215';
-  loaded:boolean =  false;
+  loaded: boolean = false;
   rank: any;
-  data = {"iconStars": [
-    {
+  data = {
+    "iconStars": [
+      {
         "isActive": true,
         "iconActive": "icon-star-outline",
         "iconInactive": "icon-star"
-    },
-    {
+      },
+      {
         "isActive": true,
         "iconActive": "icon-star-outline",
         "iconInactive": "icon-star"
-    },
-    {
+      },
+      {
         "isActive": true,
         "iconActive": "icon-star-outline",
         "iconInactive": "icon-star"
-    },
-    {
+      },
+      {
         "isActive": true,
         "iconActive": "icon-star-outline",
         "iconInactive": "icon-star"
-    },
-    {
+      },
+      {
         "isActive": true,
         "iconActive": "icon-star-outline",
         "iconInactive": "icon-star"
-    }
-  ]
+      }
+    ]
   };
 
   constructor(private groupService: GroupsProvider, private loadingCtrl: LoadingController, private zone: NgZone, private uploadImage: ImagehandlerProvider, public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController) {
     this.key = this.navParams.get('key');
+    this.listItem.image = 'https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/itemimages%2Fdont-know-25547_1280.png?alt=media&token=9a68dc0d-a574-4ab9-8b47-9e32c3e5e215';
   }
 
   ionViewDidLoad() {
@@ -66,7 +67,7 @@ export class ItemcreatePage {
       message: 'Upload an Image of the Item',
       buttons: [
         {
-          text: 'Not Today',
+          text: 'No Image To Upload',
           role: 'cancel',
           handler: () => {
             return;
@@ -76,19 +77,17 @@ export class ItemcreatePage {
           text: 'Upload',
           handler: () => {
             let loader = this.loadingCtrl.create({
-              content: 'Please wait'
+              content: 'Please wait...'
             })
             loader.present();
-            
-               this.uploadImage.selectImage()
-               .then((data) =>
-               {
-                  this.imgurl = data;
-                  this.uploadImage.uploadItemImage(this.imgurl);
-               });
+
+            this.uploadImage.selectImage()
+              .then((data) => {
+                this.listItem.image = data;
+                this.uploadImage.uploadItemImage(this.listItem.image);
+              });
             loader.dismiss();
             this.loaded = true;
-
           }
         }
       ]
@@ -100,28 +99,27 @@ export class ItemcreatePage {
     for (var i = 0; i < items.length; i++) {
       items[i].isActive = i <= index;
     }
-    if(index == 4){
+    if (index == 4) {
       this.rank = 0;
     }
-    if(index == 3){
+    if (index == 3) {
       this.rank = 1;
     }
-    if(index == 2){
+    if (index == 2) {
       this.rank = 2;
     }
-    if(index == 1){
+    if (index == 1) {
       this.rank = 3;
     }
-    if(index == 0){
+    if (index == 0) {
       this.rank = 4;
     }
   };
 
   addItem() {
-    this.listItem.image = this.imgurl;
+    console.log(this.listItem.image);
     this.listItem.rank = this.rank;
     this.firebaseService.addItem(this.key, this.listItem);
-   
     this.navCtrl.push('ListitemsPage', { key: this.key });
   }
 }

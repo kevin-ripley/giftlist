@@ -17,7 +17,6 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
   templateUrl: 'listitems.html',
 })
 export class ListitemsPage {
-  listItem = {} as ListItem;
   listItemRef$: FirebaseListObservable<ListItem[]>;
   key: any; 
   index: any;
@@ -27,7 +26,6 @@ export class ListitemsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController) {
     this.key = this.navParams.get('key');
     this.listItemRef$ = this.firebaseService.getItems(this.key);
-    console.log(this.listItemRef$);
   }
   getRanking(num) {
     

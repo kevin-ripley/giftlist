@@ -16,7 +16,6 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 })
 export class ListsPage {
 
-  list = {} as List;
   listRef$: FirebaseListObservable<List[]>;
   refresher: any;
   allmygroups;
@@ -24,12 +23,13 @@ export class ListsPage {
   testRadioOpen: boolean;
   testRadioResult;
   constructor(public loadingCtrl: LoadingController,public events: Events, private groupService: GroupsProvider,public navCtrl: NavController, private firebaseService: FirebaseServiceProvider, private alertCtrl: AlertController) {
-    this.listRef$ = this.firebaseService.getLists();
     this.groupService.getmygroups();
+    this.listRef$ = this.firebaseService.getLists();
   }
   ionViewDidEnter(){
+    this.listRef$ = this.firebaseService.getLists();
     let loader = this.loadingCtrl.create({
-      content: 'Getting your groups, Please wait...'
+      content: 'Loading Components, Please Wait...'
     });
     loader.present();
     this.groupService.getmygroups();
@@ -38,31 +38,26 @@ export class ListsPage {
       this.allmygroups = this.groupService.mygroups;
     })
   }
-
   
   newList() {
     this.navCtrl.push('ListCreatePage');
   }
 
-  removeList(id) {
-    this.firebaseService.removeLists(id);
+  removeList(key) {
+    this.firebaseService.removeList(key);
   }
+
   shareList(list, key) {
-    
     let alert = this.alertCtrl.create();
 
     for(var k in this.allmygroups){
-
       alert.addInput({
         type: 'radio',
         label: this.allmygroups[k].groupName,
         value: this.allmygroups[k].groupName
       });
-      
     }
-
     alert.setTitle('Pick A Group To Share With!');
-
     alert.addButton('Cancel');
     alert.addButton({
       text: 'OK',
@@ -76,8 +71,6 @@ export class ListsPage {
     alert.present().then(() => {
       this.testRadioOpen = true;
     });
-    
-    
   }
 
   seeItems(key) {

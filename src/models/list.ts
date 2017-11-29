@@ -1,9 +1,8 @@
 export interface List {
-    owner: any;
+    owner: string;
     name: string;
-    expiration_date: any;
+    image: any;
     items: any;
     shared: any;
-    ownername: any;
-    image: any;
+    expiration_date: any;
 }

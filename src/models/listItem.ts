@@ -1,5 +1,4 @@
 export interface ListItem{
-    id: any;
     name: any;
     image: any;
     description: any;

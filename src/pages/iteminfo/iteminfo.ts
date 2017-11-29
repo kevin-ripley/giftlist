@@ -2,7 +2,7 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
-import { FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { ListItem } from '../../models/listItem';
 import firebase from 'firebase';
 
@@ -21,7 +21,8 @@ import firebase from 'firebase';
 export class IteminfoPage {
   Lkey: any;
   Ikey: any;
-  items: FirebaseListObservable<ListItem[]>;
+  listItem: FirebaseObjectObservable<ListItem>;
+  items = {} as ListItem;
   rank: any;
   data = {"iconStars": [
     {
@@ -54,13 +55,13 @@ export class IteminfoPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController) {
     this.Lkey = this.navParams.get('Lkey');
     this.Ikey = this.navParams.get('Ikey');
+    this.listItem = this.firebaseService.getSpecificItem(this.Ikey, this.Lkey);
   }
   
   ionViewDidLoad() {
-    const itemRef = this.firebaseService.getSpecificItem(this.Ikey, this.Lkey);
-    itemRef.on('value', item => {
-        this.items = item.val();
-        console.log(this.items);
+    this.listItem = this.firebaseService.getSpecificItem(this.Ikey, this.Lkey);
+    this.listItem.subscribe(snapshots=>{
+     this.items = snapshots;
     })
   }
 

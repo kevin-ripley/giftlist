@@ -50,8 +50,8 @@ export class GroupchatPage {
    this.events.unsubscribe('newgrouplist');
   }
 
-  openList(key, owner){
-    this.navCtrl.push('SharedlistPage', { key: key, owner: owner });
+  openList(key){
+    this.navCtrl.push('SharedlistPage', { key: key });
 
   }
   deleteList(key){

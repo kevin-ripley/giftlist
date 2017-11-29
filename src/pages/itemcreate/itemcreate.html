@@ -28,7 +28,7 @@
 
           <ion-item no-padding>
             <ion-label floating>Item Note or Description</ion-label>
-            <ion-input type="text" [(ngModel)]="listItem.description"></ion-input>
+            <ion-textarea type="text" [(ngModel)]="listItem.description"></ion-textarea>
           </ion-item>
 
           <ion-item text-center clear ion-item no-padding (click)="uploadItem()">
@@ -36,6 +36,7 @@
           </ion-item>
           <div text-center *ngIf="loaded == true">NICE! IMAGE UPLOADED!</div>
           <div p text-center>Rank Your Gift! 5 Being Most Wanted!</div>
+          
           <ion-item text-center no-padding>
             <ion-icon text-center primary *ngFor="let item of data.iconStars; let i = index" (click)="onStarClass(data.iconStars, i, $event)">
               <i icon-medium *ngIf="item.isActive" class="icon {{item.iconActive}}"></i>

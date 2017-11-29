@@ -6,19 +6,19 @@
 
 <ion-content no-bounce overflow-scroll="false">
     <ion-list no-lines>
-        <img [src]=items?.image>
-        <ion-item text-center no-padding text-wrap>{{ items?.name }}</ion-item>
+        <img [src]=items.image>
+        <ion-item text-center no-padding text-wrap>{{ items.name }}</ion-item>
     
         <ion-item (click)="editName()" no-padding text-wrap>
-          DESCRIPTION: {{ items?.description }}
+          DESCRIPTION: {{ items.description }}
         </ion-item>
         <ion-item no-padding> 
           <ion-icon name='pricetag' item-start style="color: #30e920"></ion-icon>
-          Sale Price: {{ items?.price | currency:'$'}}
+          Sale Price: {{ items.price | currency:'$'}}
         </ion-item>
 
         <ion-item no-padding text-wrap> 
-            Sold By: {{ items?.seller }}
+            Sold By: {{ items.seller }}
           </ion-item>
           <ion-icon text-center primary *ngFor="let item of data.iconStars; let i = index" (click)="onStarClass(data.iconStars, i, $event)">
               <i icon-medium *ngIf="item.isActive" class="icon {{item.iconActive}}"></i>

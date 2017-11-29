@@ -25,9 +25,12 @@ export class GroupsProvider {
   grouplist;
   ownerimage;
   creator;
+  userId: string;
 
   constructor(public events: Events, private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase) {
-
+    this.afAuth.authState.subscribe(user => {
+      if (user) this.userId = user.uid
+    })
   }
 
   addgroup(newGroup) {
@@ -131,62 +134,13 @@ export class GroupsProvider {
     })
   }
 
-  // postItems(key, groupname, cb){
-  //   this.firegroup.child(member.uid).child(groupname).child('lists').child(key).update({
-  //     items: list.items
-  //   }).then(() => {
-  //     cb();
-  //   })
-  // }
-
-  //   updateItems(key, listItem: ListItem){
-  //     return new Promise((resolve) => {
-  //     var tempgroup = [];
-  //     this.firelist.child(firebase.auth().currentUser.uid).child(key).child('listshared').on('value', (snapshot) => {
-  //       var tempgroupobj = snapshot.val();
-  //       for (var key in tempgroupobj)
-  //       tempgroup.push(tempgroupobj[key].groupname);
-  //       let postgroupname = tempgroup.map((groupname) => {
-  //         return new Promise((resolve) => {
-  //           this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('creator').once('value', (snapshot) => {
-  //             var tempowner = snapshot.val();
-
-  //         var tempmembers = [];
-
-  //         this.firegroup.child(tempowner).child().child('members').once('value', (snapshot) => {
-  //           var tempmembersobj = snapshot.val();
-  //           for (var key in tempmembersobj)
-  //             tempmembers.push(tempmembersobj[key]);
-  //         }).then(() => {
-  //           let postedlists = tempmembers.map((item) => {
-  //             if (item.uid != firebase.auth().currentUser.uid) {
-  //               return new Promise((resolve) => {
-  //                 this.postlists(item, list, groupname, this.owner, this.ownername, this.ownerimage, resolve, key);
-  //               })
-  //             }
-  //           })
-  //         })
-  //       })
-  //     })
-
-
-  //         Promise.all(postedlists).then(() => {
-  //           this.getGroupLists(groupname);
-  //           resolve(true);
-  //         })
-  //       })
-
-  //     })
-  //     //this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('lists').child(key).child('items').set(listItem);
-  //   })
-  // }
 
   getGroupLists(groupname) {
-    return this.afDatabase.list('groups/' + firebase.auth().currentUser.uid + '/' + `${groupname}` + '/' + 'lists/');
+    return this.afDatabase.list('groups/' + firebase.auth().currentUser.uid + '/' + groupname + '/' + 'lists/');
   }
 
-  getSharedItems(key, owner) {
-      return this.afDatabase.list('lists/' + owner + '/' + key + '/items', {
+  getSharedItems(key) {
+      return this.afDatabase.list(`lists/${key}/items`, {
         query: {
           orderByChild: 'rank'
         }

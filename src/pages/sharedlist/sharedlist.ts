@@ -26,9 +26,8 @@ export class SharedlistPage {
   owner: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private groupService: GroupsProvider) {
     this.key = this.navParams.get('key');
-    this.owner = this.navParams.get('owner');
-    this.listItemRef$ = this.groupService.getSharedItems(this.key, this.owner);
-    console.log(this.listItemRef$);
+    this.listItemRef$ = this.groupService.getSharedItems(this.key);
+    
   }
 
   ionViewDidLoad() {

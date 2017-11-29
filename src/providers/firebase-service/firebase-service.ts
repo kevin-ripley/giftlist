@@ -1,3 +1,4 @@
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { ListItem } from './../../models/listItem';
 import { Events } from 'ionic-angular';
 import { List } from './../../models/list';
@@ -5,124 +6,150 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { UserProvider } from '../user/user';
 
 /*
-  Generated class for the FirebaseServiceProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
+  HELPFUL FOR PUSHING ID AS KEY!! REFERENCE
+ const data = { [this.userId]: true };
+ var list_key = this.afDatabase.list('lists/').push(list).key;
+ this.afDatabase.object(`users/${this.userId}/lists/${list_key}`).update(data);
 */
+
+
 @Injectable()
 export class FirebaseServiceProvider {
+  //path to ref
+  private basePath: string = '/lists';
+  //list of List obects
+  lists: FirebaseListObservable<List[]> = null;
+  //single List object
+  list: FirebaseObjectObservable<List> = null;
+  //list of Items objects
+  items: FirebaseListObservable<ListItem[]> = null;
+  //authenticated user id
+  userId: string;
 
   listItems: FirebaseListObservable<ListItem[]> = null;
-  userId: string;
+
+  listItem: FirebaseObjectObservable<ListItem> = null;
+
   firelist;
   firegroup;
   key;
   owner;
   shared;
   ownername;
-  mylists;
-  
 
-  constructor(public afDatabase: AngularFireDatabase, public afAuth: AngularFireAuth, public events: Events, private userService: UserProvider) {
+
+  constructor(public alertCtrl: AlertController,public afDatabase: AngularFireDatabase, public afAuth: AngularFireAuth, public events: Events, private userService: UserProvider) {
     this.afAuth.authState.subscribe(user => {
-      if(user) this.userId = user.uid
+      if (user) this.userId = user.uid
     })
-    this.firelist = firebase.database().ref('lists/' + this.afAuth.auth.currentUser.uid);
-    this.firegroup = firebase.database().ref('groups/' + this.afAuth.auth.currentUser.uid);
+    this.firelist = firebase.database().ref(`lists/${this.userId}`);
+    this.firegroup = firebase.database().ref(`groups/${this.userId}`);
   }
 
-  getLists() {
-    this.firelist.once('value', (snapshot) => {
-      this.mylists = [];
-      if (snapshot.val() != null) {
-        var temp = snapshot.val();
-        for (var key in temp) {
-          var mylist = {
-            key: key,
-            name: temp[key].name,
-            expiration_date: temp[key].expiration_date,
-            image: temp[key].image
-          }
-          this.mylists.push(mylist);
-        }
-      }
-      this.events.publish('allmylists');
-    })
-
-    return this.afDatabase.list('lists/' + this.afAuth.auth.currentUser.uid);
+  getLists(): FirebaseListObservable<List[]> {
+    if (!this.userId) return;
+    this.lists = this.afDatabase.list(`lists/${this.userId}`);
+    return this.lists;
   }
 
-  getSpecificList(key){
-    return this.afDatabase.list('lists/' + this.afAuth.auth.currentUser.uid + '/' + key);
+  getSpecificList(key: string): FirebaseObjectObservable<List> {
+    this.list = this.afDatabase.object(`lists/${this.userId}/${key}`);
+    return this.list;
   }
 
   addLists(list: List) {
-    list.owner = this.afAuth.auth.currentUser.uid;
-    this.afDatabase.list('lists/'+ this.afAuth.auth.currentUser.uid).push(list);
+    if (!this.userId) return;
+    list.owner = this.userId;
+    this.afDatabase.list(`lists/${this.userId}`).push(list);
   }
 
 
-  removeLists(id) {
-    this.firelist.once('value', (snapshot) => {
-      snapshot.ref.child(id).remove();
-    })
-    
-  }
-  getSpecificItem(Ikey, Lkey){
-    return this.firelist.child(Lkey).child('items').child(Ikey);
-  }
-  
-  removeItem(Ikey, Lkey){
-    this.afDatabase.list('lists/'+ this.afAuth.auth.currentUser.uid + '/' + Lkey + '/items/').remove(Ikey);
+  removeList(key: string): void {
+    this.lists.remove(key)
+      .catch(error => console.log(error))
   }
 
-  getItems(key){
-    return this.afDatabase.list('lists/' + this.afAuth.auth.currentUser.uid + '/' + key + '/items', {
+  getItems(key: string): FirebaseListObservable<ListItem[]> {
+    this.items = this.afDatabase.list(`lists/${this.afAuth.auth.currentUser.uid}/${key}/items`, {
       query: {
-        orderByChild: 'rank'
+        orderByChild: 'rank',
+        limitToFirst: 40
       }
-      });
+    });
+    return this.items;
   }
+
+
+  getSpecificItem(Ikey, Lkey): FirebaseObjectObservable<ListItem> {
+    if (!this.userId) return;
+    return this.afDatabase.object(`lists/${this.userId}/${Lkey}/items/${Ikey}`);
+  }
+
+  addItem(key: string, listItem: ListItem) {
+   
+    if (!this.userId) return;
+    var promise = new Promise((any) => {
+      this.afDatabase.list(`lists/${this.userId}/${key}/items`).push(listItem).then(() => {
+        let alert = this.alertCtrl.create({
+          title: 'Item Added!',
+          message: 'Your Item was Added To Your List!',
+          buttons: [
+            {
+              text: 'Okay',
+              handler: () => {
+                console.log('Okay Clicked!');
+              }
+            }
+          ]
+        });
+        alert.present();
+      })
+    }).catch(err => {
+      let alert = this.alertCtrl.create({
+      title: 'Failed to Add Item',
+      message: 'Make Sure to Choose A List!',
+      buttons: [
+        {
+          text: 'Okay',
+          handler: () => {
+            console.log('Okay Clicked!');
+          }
+        }
+      ]
+    });
+    alert.present();
+  })
+    return promise;
+
+  }
+
+  removeItem(Ikey: string, Lkey: string): void {
+    if (!this.userId) return;
+    this.afDatabase.list(`lists/${this.userId}/${Lkey}/items`).remove(Ikey);
+  }
+
 
   updateItemName(Lkey, Ikey, newname) {
     var promise = new Promise((resolve, reject) => {
-      this.firelist.child(Lkey).child('items').child(Ikey).update({
-        description: newname,
-      }).then(() => {
-        resolve({ success: true });
-      }).catch((err) => {
-        reject(err);
-      })
-    })
+    this.listItem = this.afDatabase.object(`lists/${this.userId}/${Lkey}/items`);
+    this.listItem.update({ description: newname });
+    
     return promise;
+  })
   }
 
   updateItemRank(Lkey, Ikey, newrank) {
     var promise = new Promise((resolve, reject) => {
-      this.firelist.child(Lkey).child('items').child(Ikey).update({
-        rank: newrank,
-      }).then(() => {
-        resolve({ success: true });
-      }).catch((err) => {
-        reject(err);
-      })
+    this.listItem = this.afDatabase.object(`lists/${this.userId}/${Lkey}/items`);
+    this.listItem.update({
+      rank: newrank,
     })
-    return promise;
-  }
-
-  addItem(key, listItem: ListItem) {
-    var promise = new Promise((resolve, reject) => {
-    this.afDatabase.list('lists/'+ this.afAuth.auth.currentUser.uid + '/' + key + '/items').push(listItem).then(() => {
-      resolve(true);
-    })
-  });
+  })
   return promise;
   }
-
 
 }

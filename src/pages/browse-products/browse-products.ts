@@ -73,35 +73,7 @@ export class BrowseProductsPage {
     this.listItem.seller = 'Walmart';
     this.listItem.listshared = this.item.listshared;
     this.listItem.rank = this.rank;
-    this.firebaseService.addItem(this.item.listshared, this.listItem).then(() => {
-      let alert = this.alertCtrl.create({
-        title: 'Item Added!',
-        message: 'Your Item was Added To Your List!',
-        buttons: [
-          {
-            text: 'Okay',
-            handler: () => {
-              console.log('Okay Clicked!');
-            }
-          }
-        ]
-      });
-      alert.present();
-    }).catch((err) => {
-      let alert = this.alertCtrl.create({
-        title: 'Failed to Add Item',
-        message: 'Make Sure to Choose A List!',
-        buttons: [
-          {
-            text: 'Okay',
-            handler: () => {
-              console.log('Okay Clicked!');
-            }
-          }
-        ]
-      });
-      alert.present();
-    })
+    this.firebaseService.addItem(this.item.listshared, this.listItem);
    
   }
 
