@@ -21,7 +21,7 @@ import { ImagehandlerProvider } from '../../providers/imagehandler/imagehandler'
 export class ItemcreatePage {
   listItem = {} as ListItem;
   key: any;
-  imgurl: '';
+  imgurl: 'https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/itemimages%2Fdont-know-25547_1280.png?alt=media&token=9a68dc0d-a574-4ab9-8b47-9e32c3e5e215';
   loaded:boolean =  false;
   rank: any;
   data = {"iconStars": [
@@ -118,14 +118,10 @@ export class ItemcreatePage {
   };
 
   addItem() {
-    if(this.listItem.image == undefined){
-      this.listItem.image = 'https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/itemimages%2Fdont-know-25547_1280.png?alt=media&token=9a68dc0d-a574-4ab9-8b47-9e32c3e5e215';
-    } else{
-      this.listItem.image = this.imgurl;
-    }
+    this.listItem.image = this.imgurl;
     this.listItem.rank = this.rank;
     this.firebaseService.addItem(this.key, this.listItem);
-   //this.groupService.updateItems(this.key, this.listItem);
+   
     this.navCtrl.push('ListitemsPage', { key: this.key });
   }
 }

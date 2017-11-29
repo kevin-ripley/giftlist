@@ -19,13 +19,15 @@
               </ion-avatar>
               <div item-top>
                 <h2 item-title padding-left text-wrap>{{data.name}}</h2>
-                <h3 item-subtitle padding-left text-wrap>{{data.description}}</h3>
+                <h3 item-subtitle left padding-left>Sold By: {{data.seller}}</h3>
               </div>
               <div item-bottom>
-                
-                <div span-medium right text-right>$ {{data.price}}</div>
+                  <ion-icon left no-padding *ngFor="let item of getRanking(data.rank)">
+                      <ion-icon icon-small name="star">
+                      </ion-icon>
+                    </ion-icon>
+                <div span-medium right text-right>{{data.price | currency:'$'}}</div>
                 <!-- Products + CTA header Seller And Shipping-->
-                <h3 item-subtitle left padding-left>{{data.seller}}</h3>
               </div>
             </ion-item>
           </ion-list>

@@ -65,13 +65,14 @@ export class BrowseProductsPage {
     this.listItem.price = this.item.salePrice;
     this.listItem.image = this.item.largeImage;
     if(this.item.shortDescription == null){
-      this.listItem.description = 'N/A';
+      this.listItem.description = '';
     }
     else{
       this.listItem.description = this.item.shortDescription;
     }
     this.listItem.seller = 'Walmart';
     this.listItem.listshared = this.item.listshared;
+    this.listItem.rank = this.rank;
     this.firebaseService.addItem(this.item.listshared, this.listItem).then(() => {
       let alert = this.alertCtrl.create({
         title: 'Item Added!',
@@ -123,6 +124,7 @@ export class BrowseProductsPage {
     if(index == 0){
       this.rank = 4;
     }
+    console.log(this.rank + ' Index ' + index);
   };
 
   goBack() {

@@ -1,7 +1,30 @@
-<ion-content has-header>
-  <ion-list *ngFor="let item of itemRef$ | async;">
-      <h3 card-subtitle>{{item.description}}</h3>
-      <h3 card-subtitle>{{item.seller}}</h3>
-      <p card-body-text>{{item.price}}</p></ion-list>"
+<ion-header color="primary">
+    <ion-navbar>
+      <ion-title text-center>Item</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+<ion-content no-bounce overflow-scroll="false">
+    <ion-list no-lines>
+        <img [src]=items?.image>
+        <ion-item text-center no-padding text-wrap>{{ items?.name }}</ion-item>
+    
+        <ion-item (click)="editName()" no-padding text-wrap>
+          DESCRIPTION: {{ items?.description }}
+        </ion-item>
+        <ion-item no-padding> 
+          <ion-icon name='pricetag' item-start style="color: #30e920"></ion-icon>
+          Sale Price: {{ items?.price | currency:'$'}}
+        </ion-item>
+
+        <ion-item no-padding text-wrap> 
+            Sold By: {{ items?.seller }}
+          </ion-item>
+          <ion-icon text-center primary *ngFor="let item of data.iconStars; let i = index" (click)="onStarClass(data.iconStars, i, $event)">
+              <i icon-medium *ngIf="item.isActive" class="icon {{item.iconActive}}"></i>
+              <i icon-medium *ngIf="!item.isActive" class="icon {{item.iconInactive}}"></i>
+            </ion-icon>
+    </ion-list>
+    <button ion-button block color="danger" (click)="deleteItem()">Delete Item</button>
     
 </ion-content>

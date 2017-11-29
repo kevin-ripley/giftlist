@@ -30,20 +30,21 @@ export class ListitemsPage {
     console.log(this.listItemRef$);
   }
   getRanking(num) {
+    
     if(num == 4){
-      this.rank = 0;
-    }
-    if(num == 3){
       this.rank = 1;
     }
-    if(num == 2){
+    if(num == 3){
       this.rank = 2;
     }
-    if(num == 1){
+    if(num == 2){
       this.rank = 3;
     }
-    if(num == 0){
+    if(num == 1){
       this.rank = 4;
+    }
+    if(num == 0){
+      this.rank = 5;
     }
     return new Array(this.rank);
   }

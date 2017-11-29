@@ -74,7 +74,11 @@ export class FirebaseServiceProvider {
     
   }
   getSpecificItem(Ikey, Lkey){
-    return this.afDatabase.list('lists/' + this.afAuth.auth.currentUser.uid + '/' + Lkey + '/items/' + Ikey);
+    return this.firelist.child(Lkey).child('items').child(Ikey);
+  }
+  
+  removeItem(Ikey, Lkey){
+    this.afDatabase.list('lists/'+ this.afAuth.auth.currentUser.uid + '/' + Lkey + '/items/').remove(Ikey);
   }
 
   getItems(key){
@@ -83,6 +87,32 @@ export class FirebaseServiceProvider {
         orderByChild: 'rank'
       }
       });
+  }
+
+  updateItemName(Lkey, Ikey, newname) {
+    var promise = new Promise((resolve, reject) => {
+      this.firelist.child(Lkey).child('items').child(Ikey).update({
+        description: newname,
+      }).then(() => {
+        resolve({ success: true });
+      }).catch((err) => {
+        reject(err);
+      })
+    })
+    return promise;
+  }
+
+  updateItemRank(Lkey, Ikey, newrank) {
+    var promise = new Promise((resolve, reject) => {
+      this.firelist.child(Lkey).child('items').child(Ikey).update({
+        rank: newrank,
+      }).then(() => {
+        resolve({ success: true });
+      }).catch((err) => {
+        reject(err);
+      })
+    })
+    return promise;
   }
 
   addItem(key, listItem: ListItem) {

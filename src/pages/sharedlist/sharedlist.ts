@@ -17,20 +17,43 @@ import { FirebaseListObservable } from 'angularfire2/database-deprecated';
   templateUrl: 'sharedlist.html',
 })
 export class SharedlistPage {
-  
+
   listItem = {} as ListItem;
   listItemRef$: FirebaseListObservable<ListItem[]>;
   key: any;
- items;
+  items;
+  rank: any;
+  owner: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private groupService: GroupsProvider) {
     this.key = this.navParams.get('key');
-    this.listItemRef$ = this.groupService.getSharedItems(this.key);
-    console.log(this.items);
+    this.owner = this.navParams.get('owner');
+    this.listItemRef$ = this.groupService.getSharedItems(this.key, this.owner);
+    console.log(this.listItemRef$);
   }
 
   ionViewDidLoad() {
     console.log(this.key);
     console.log('ionViewDidLoad SharedlistPage');
+  }
+
+  getRanking(num) {
+
+    if (num == 4) {
+      this.rank = 1;
+    }
+    if (num == 3) {
+      this.rank = 2;
+    }
+    if (num == 2) {
+      this.rank = 3;
+    }
+    if (num == 1) {
+      this.rank = 4;
+    }
+    if (num == 0) {
+      this.rank = 5;
+    }
+    return new Array(this.rank);
   }
 
 }
