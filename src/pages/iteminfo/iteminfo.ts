@@ -126,21 +126,7 @@ export class IteminfoPage {
         text: 'Edit',
         handler: data => {
           if (data.note) {
-            this.firebaseService.updateItemName(this.Lkey, this.Ikey, data.note).then((res: any) => {
-              if (res.success) {
-                statusalert.setTitle('Updated');
-                statusalert.setSubTitle('Your Item Note has been Updated!');
-                statusalert.present();
-                
-              }
-
-              else {
-                statusalert.setTitle('Failed');
-                statusalert.setSubTitle('Your Item Note Was Not Changed');
-                statusalert.present();
-              }
-                             
-            })
+            this.firebaseService.updateItemName(this.Lkey, this.Ikey, data.note);
           }
         }
         

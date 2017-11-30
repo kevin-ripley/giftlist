@@ -121,15 +121,44 @@ export class FirebaseServiceProvider {
 
 
   updateItemName(Lkey, Ikey, newname) {
-    var promise = new Promise((resolve, reject) => {
-    this.listItem = this.afDatabase.object(`lists/${this.userId}/${Lkey}/items`);
-    this.listItem.update({ description: newname });
-    
-    return promise;
+    var promise = new Promise((any) => {
+      this.afDatabase.object(`lists/${this.userId}/${Lkey}/items`).update({
+        description: newname,
+      }).then(() => {
+        let alert = this.alertCtrl.create({
+          title: 'Item Updated!',
+          message: 'Your Item Note/Description was Updated!',
+          buttons: [
+            {
+              text: 'Awesome',
+              handler: () => {
+                console.log('Okay Clicked!');
+              }
+            }
+          ]
+        });
+        alert.present();
+      })
+    }).catch(err => {
+      let alert = this.alertCtrl.create({
+      title: 'Failed to Update',
+      message: 'Failed to Update Item Note/Description',
+      buttons: [
+        {
+          text: 'Try Again',
+          handler: () => {
+            console.log('Okay Clicked!');
+          }
+        }
+      ]
+    });
+    alert.present();
   })
+  return promise;
   }
 
   updateItemRank(Lkey, Ikey, newrank) {
+    
     var promise = new Promise((resolve, reject) => {
     this.listItem = this.afDatabase.object(`lists/${this.userId}/${Lkey}/items`);
     this.listItem.update({
