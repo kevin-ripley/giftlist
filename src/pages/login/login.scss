@@ -2,12 +2,12 @@
 ================================================*/
 page-login{
   [default-background] {
-    
+      
   }
-  
     ion-col {
       position: relative;
       @include black-white-mode;
+      
       [button-clear] {
         position: absolute;
         right: 0;

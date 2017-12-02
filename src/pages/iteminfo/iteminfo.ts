@@ -62,7 +62,7 @@ export class IteminfoPage {
     this.listItem = this.firebaseService.getSpecificItem(this.Ikey, this.Lkey);
     this.listItem.subscribe(snapshots=>{
      this.items = snapshots;
-    })
+    }) 
   }
 
   onStarClass(items: any, index: number, e: any) {

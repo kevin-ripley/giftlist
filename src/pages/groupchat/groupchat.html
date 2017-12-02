@@ -12,13 +12,13 @@
     </ion-buttons>
   </ion-navbar>
 
-</ion-header>
+</ion-header> 
 
 
 <ion-content no-bounce overflow-scroll="false">
 
   <ion-list >
-      <button ion-item *ngFor="let item of list | async" (click)="openList(item.$key, item.owner)">
+      <button ion-item *ngFor="let item of list | async" (click)="openList(item.uid, item.owner)">
           <ion-avatar item-start>
             <img src="{{ item.ownerimage }}">
           </ion-avatar>

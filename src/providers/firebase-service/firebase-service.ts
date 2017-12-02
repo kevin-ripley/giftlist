@@ -31,7 +31,7 @@ export class FirebaseServiceProvider {
   listItem: FirebaseObjectObservable<ListItem> = null;
 
 
-  constructor(public alertCtrl: AlertController,public afDatabase: AngularFireDatabase, public afAuth: AngularFireAuth, public events: Events, private userService: UserProvider) {
+  constructor(public alertCtrl: AlertController, public afDatabase: AngularFireDatabase, public afAuth: AngularFireAuth, public events: Events, private userService: UserProvider) {
     this.afAuth.authState.subscribe(user => {
       if (user) this.userId = user.uid
     })
@@ -122,7 +122,7 @@ export class FirebaseServiceProvider {
 
   updateItemName(Lkey, Ikey, newname) {
     var promise = new Promise((any) => {
-      this.afDatabase.object(`lists/${this.userId}/${Lkey}/items`).update({
+      this.afDatabase.object(`lists/${this.userId}/${Lkey}/items/${Ikey}`).update({
         description: newname,
       }).then(() => {
         let alert = this.alertCtrl.create({

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
+import { FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { Profile } from '../../models/profile';
  
 /*
   Generated class for the UserProvider provider.
@@ -13,7 +15,7 @@ export class UserProvider {
   userdetails;
   firedata = firebase.database().ref('/users');
   
-  constructor(public afireauth: AngularFireAuth) {
+  constructor(public afireauth: AngularFireAuth, public afDatabase: AngularFireDatabase,) {
   }
  
 
@@ -91,15 +93,8 @@ export class UserProvider {
       return promise;
   }
 
-  getUserInfo(uid){
-    var promise = new Promise((resolve, reject) => {
-      this.firedata.child(uid).once('value', (snapshot) => {
-        resolve(snapshot.val().firstName);
-      }).catch((err) => {
-        reject(err);
-        })
-      })
-      return promise;
+  getUserInfo(uid: string): FirebaseObjectObservable<Profile>{
+   return this.afDatabase.object(`users/${uid}`);
   }
 
   getuserdetails() {

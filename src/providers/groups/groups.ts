@@ -27,6 +27,8 @@ export class GroupsProvider {
   creator;
   userId: string;
 
+  items: FirebaseListObservable<ListItem[]> = null;
+
   constructor(public events: Events, private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase) {
     this.afAuth.authState.subscribe(user => {
       if (user) this.userId = user.uid
@@ -78,22 +80,20 @@ export class GroupsProvider {
       this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('creator').once('value', (snapshot) => {
         var tempowner = snapshot.val();
         this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('lists').child(key).set({
+          uid: key,
           name: list.name,
           owner: this.owner,
           ownername: this.ownername,
           ownerimage: this.ownerimage,
-          items: list.items,
-          image: list.image,
           expiration_date: list.expiration_date
         }).then(() => {
           if (tempowner != firebase.auth().currentUser.uid) {
             this.firegroup.child(tempowner).child(groupname).child('lists').child(key).set({
+              uid: key,
               name: list.name,
               owner: this.owner,
               ownername: this.ownername,
               ownerimage: this.ownerimage,
-              items: list.items,
-              image: list.image,
               expiration_date: list.expiration_date
             })
           }
@@ -122,12 +122,11 @@ export class GroupsProvider {
 
   postlists(member, list, groupname, owner, ownername, ownerimage, cb, key) {
     this.firegroup.child(member.uid).child(groupname).child('lists').child(key).set({
+      uid: key,
       name: list.name,
       owner: owner,
       ownername: ownername,
       ownerimage: ownerimage,
-      items: list.items,
-      image: list.image,
       expiration_date: list.expiration_date
     }).then(() => {
       cb();
@@ -139,12 +138,15 @@ export class GroupsProvider {
     return this.afDatabase.list('groups/' + firebase.auth().currentUser.uid + '/' + groupname + '/' + 'lists/');
   }
 
-  getSharedItems(key) {
-      return this.afDatabase.list(`lists/${key}/items`, {
-        query: {
-          orderByChild: 'rank'
-        }
-    })
+  getSharedItems(owner: string, key: string): FirebaseListObservable<ListItem[]>  {
+    this.items =  this.afDatabase.list(`lists/${owner}/${key}/items`, {
+      query: {
+        orderByChild: 'rank',
+        limitToFirst: 40
+      }
+    });
+    return this.items;
+    
   }
 
   deletelist(key) {

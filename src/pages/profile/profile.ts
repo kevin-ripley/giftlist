@@ -1,4 +1,4 @@
-import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
@@ -6,6 +6,7 @@ import { User } from '../../models/user';
 import { ImagehandlerProvider } from '../../providers/imagehandler/imagehandler';
 import { UserProvider } from '../../providers/user/user';
 import firebase from 'firebase';
+import { Profile } from '../../models/profile';
 
 
 /**
@@ -21,31 +22,34 @@ import firebase from 'firebase';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  avatar: string;
-  displayName: string;
-  fname: string;
-  lname: string;
-  email: any;
+  userDetails: FirebaseObjectObservable<Profile>;
+  birthDate : any;
+  displayName : string;
+  email : any;
+  firstName : string;
+  lastName : string;
+  photoURL : any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public userservice: UserProvider, public zone: NgZone, public alertCtrl: AlertController,
-    public imghandler: ImagehandlerProvider, private agAuth: AngularFireAuth) {
+    public imghandler: ImagehandlerProvider, private agAuth: AngularFireAuth, private userService: UserProvider) {
+      this.userDetails =  this.userService.getUserInfo(this.agAuth.auth.currentUser.uid);
+      
   }
 
-  ionViewWillEnter() {
-    this.loaduserdetails();
+  ionViewDidLoad(){
+   this.userDetails =  this.userService.getUserInfo(this.agAuth.auth.currentUser.uid);
+    this.userDetails.subscribe((snapshots)=>{
+    this.birthDate = snapshots.birthDate;
+    this.displayName = snapshots.displayName;
+    this.email = snapshots.email;
+    this.firstName = snapshots.firstName;
+    this.lastName = snapshots.lastName;
+    this.photoURL = snapshots.photoURL;
+   })
+   
   }
 
-  loaduserdetails() {
-    this.userservice.getuserdetails().then((res: any) => {
-      this.displayName = res.displayName;
-      this.zone.run(() => {
-        this.avatar = res.photoURL;
-        this.fname = res.firstName;
-        this.lname = res.lastName;
-        this.email = res.email;
-      })
-    })
-  }
   editimage() {
     let statusalert = this.alertCtrl.create({
       buttons: ['okay']
@@ -60,7 +64,7 @@ export class ProfilePage {
           statusalert.setSubTitle('Your Profile Image Was Changed!');
           statusalert.present();
           this.zone.run(() => {
-          this.avatar = data;
+          this.photoURL = data;
         })  
         }  
       }).catch((err) => {

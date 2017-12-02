@@ -73,8 +73,8 @@ export class ListsPage {
     });
   }
 
-  seeItems(key) {
-    this.navCtrl.push('ListitemsPage', { key: key });
+  seeItems(list, key) {
+    this.navCtrl.push('ListitemsPage', { list: list, key: key });
   }
 
 

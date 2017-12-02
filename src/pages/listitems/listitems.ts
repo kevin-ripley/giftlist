@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, reorderArray, AlertController, FabContainer } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, reorderArray, AlertController, FabContainer, ModalController, Events } from 'ionic-angular';
 import { ListItem } from '../../models/listItem';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+import { BarcodeScanner ,BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
+import { GroupsProvider } from '../../providers/groups/groups';
 
 /**
  * Generated class for the ListitemsPage page.
@@ -21,10 +23,16 @@ export class ListitemsPage {
   key: any; 
   index: any;
   rank: any;
+  scanData : {};
+  options :BarcodeScannerOptions;
+  allmygroups;
+  testRadioOpen: boolean;
+  testRadioResult;
+  list;
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController) {
+  constructor(public events: Events, private groupService: GroupsProvider, public barcodeScanner: BarcodeScanner , public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController) {
     this.key = this.navParams.get('key');
+    this.list = this.navParams.get('list');
     this.listItemRef$ = this.firebaseService.getItems(this.key);
   }
   getRanking(num) {
@@ -50,6 +58,10 @@ export class ListitemsPage {
   ionViewDidEnter() {
     this.key = this.navParams.get('key');
     this.listItemRef$ = this.firebaseService.getItems(this.key);
+    this.groupService.getmygroups();
+    this.events.subscribe('allmygroups', () => {
+      this.allmygroups = this.groupService.mygroups;
+    })
   }
 
   
@@ -57,9 +69,56 @@ export class ListitemsPage {
     this.navCtrl.push('IteminfoPage', {Ikey : key, Lkey: this.key});
   }
 
-  manualAddItem(fab: FabContainer) {
-    fab.close();
+  manualAddItem() {
     this.navCtrl.push('ItemcreatePage', { key: this.key });
   }
+
+  scan(){
+      this.options = {
+        prompt : "Scan your Wish! "
+    }
+    this.barcodeScanner.scan(this.options).then((barcodeData) => {
+        this.scanData = barcodeData.text;
+        let itemModal = this.modalCtrl.create('ScannedPage', { scanData: this.scanData });
+        itemModal.present();
+  
+    }, (err) => {
+        console.log("Error occured : " + err);
+    });      
+    }
+  
+    shop(){
+      this.navCtrl.push('ShopPage');
+    }
+  
+  share() {
+    let alert = this.alertCtrl.create();
+    
+    for(var k in this.allmygroups){
+      alert.addInput({
+        type: 'radio',
+        label: this.allmygroups[k].groupName,
+        value: this.allmygroups[k].groupName
+      });
+    }
+    alert.setTitle('Pick A Group To Share With!');
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'OK',
+      handler: data => {
+        this.testRadioOpen = false;
+        this.testRadioResult = data;
+        this.groupService.shareList(this.list, this.key, data);
+        this.navCtrl.push('GroupchatPage', { groupName: this.testRadioResult});
+      }
+    });
+    alert.present().then(() => {
+      this.testRadioOpen = true;
+    });
+  }
+
+
+
+
 
 }

@@ -1,8 +1,10 @@
+import { UserProvider } from './../../providers/user/user';
 import { GroupsProvider } from './../../providers/groups/groups';
 import { ListItem } from './../../models/listItem';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
+import { Profile } from '../../models/profile';
 
 /**
  * Generated class for the SharedlistPage page.
@@ -24,15 +26,20 @@ export class SharedlistPage {
   items;
   rank: any;
   owner: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private groupService: GroupsProvider) {
+  ownerDetails: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private groupService: GroupsProvider, private userService: UserProvider) {
     this.key = this.navParams.get('key');
-    this.listItemRef$ = this.groupService.getSharedItems(this.key);
-    
+    this.owner = this.navParams.get('owner');
+    this.listItemRef$ = this.groupService.getSharedItems(this.owner, this.key);
+    console.log(this.key, this.owner);
   }
 
   ionViewDidLoad() {
-    console.log(this.key);
     console.log('ionViewDidLoad SharedlistPage');
+  }
+
+  moreInfo(key: string){
+    this.navCtrl.push('IteminfoPage', {Ikey : key, Lkey: this.key});
   }
 
   getRanking(num) {
