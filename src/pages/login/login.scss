@@ -1,57 +1,43 @@
 /*  #Style Login + logo
 ================================================*/
-page-login{
+
+page-login {
+
   [default-background] {
-      
+    background-image: url("../../assets/images/gift_rt_bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    
   }
-    ion-col {
-      position: relative;
-      @include black-white-mode;
-      
-      [button-clear] {
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
-    }
-  
-    img {
-      max-width: 200px;
-      max-height: 200px;
-      display: block;
-      margin: 35px auto 20px;
-    }
-  
+
+  img {
+    max-width: 200px;
+    max-height: 200px;
+
+  }
+
+  .form {
+    background: #fff;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow-z2;
+    padding: 15px;
+    overflow: hidden;
+    margin-bottom: 20px;
+
     .item-inner {
       border-bottom-color: theme-colors('mainColors', 'primary') !important;
       box-shadow: none !important;
     }
-    [forgot-clear]{
-      font-size: 10px;
+
+    [button-clear] {
+      margin-top: 15px;
     }
-    [button-clear-outline] {
-      margin-top: 4%;
-      display: block;
-      float: left;
-    }
-    .info{
-      padding: 0, 0, 0, 0;
-      color: theme-colors('mainColors', 'accent-first') !important;
-    }
-  
-    [social] {
-      margin: 20px auto 0;
-      overflow: hidden;
-  
-      button {
-        margin: 1%;
-        display: block;
-        float: left;
-      }
-  
-      > button:nth-child(2n) {
-        margin-right: 0;
-      }
+
+    [title] {
+      font-size: font-size-text('h1');
+      color: theme-colors('textColors', 'primary');
+      text-transform: uppercase;
+      margin: 0 10px;
     }
   }
-  
+}

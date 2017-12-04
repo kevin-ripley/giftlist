@@ -84,8 +84,7 @@ export class GroupsProvider {
           name: list.name,
           owner: this.owner,
           ownername: this.ownername,
-          ownerimage: this.ownerimage,
-          expiration_date: list.expiration_date
+          ownerimage: this.ownerimage
         }).then(() => {
           if (tempowner != firebase.auth().currentUser.uid) {
             this.firegroup.child(tempowner).child(groupname).child('lists').child(key).set({
@@ -93,8 +92,7 @@ export class GroupsProvider {
               name: list.name,
               owner: this.owner,
               ownername: this.ownername,
-              ownerimage: this.ownerimage,
-              expiration_date: list.expiration_date
+              ownerimage: this.ownerimage
             })
           }
           var tempmembers = [];
@@ -126,8 +124,7 @@ export class GroupsProvider {
       name: list.name,
       owner: owner,
       ownername: ownername,
-      ownerimage: ownerimage,
-      expiration_date: list.expiration_date
+      ownerimage: ownerimage
     }).then(() => {
       cb();
     })
@@ -198,7 +195,7 @@ export class GroupsProvider {
 
   }
 
-  addmember(newmember) {
+  addmember(newmember, lists) {
     this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('members').child(newmember.uid).set({
       photoURL: newmember.photoURL,
       displayName: newmember.displayName,
@@ -208,11 +205,29 @@ export class GroupsProvider {
         this.firegroup.child(newmember.uid).child(this.currentgroupname).set({
           groupPic: this.grouppic,
           creator: firebase.auth().currentUser.uid
+        }).then(() => {
+          let postedlists = lists.map((item) => {
+              return new Promise((resolve) => {
+                this.postMemberLists(newmember.uid, item, this.currentgroupname, item.owner, item.ownername, item.ownerimage, resolve, item.uid);
+              }) 
+          })
         }).catch((err) => {
           console.log(err);
         })
       })
       this.getintogroup(this.currentgroupname);
+    })
+  }
+
+  postMemberLists(member, list, groupname, owner, ownername, ownerimage, cb, key) {
+    this.firegroup.child(member).child(groupname).child('lists').child(key).set({
+      uid: key,
+      name: list.name,
+      owner: owner,
+      ownername: ownername,
+      ownerimage: ownerimage
+    }).then(() => {
+      cb();
     })
   }
 

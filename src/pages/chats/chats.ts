@@ -41,6 +41,10 @@ export class ChatsPage {
     this.navCtrl.push('FriendsPage');
   }
 
+  profile(){
+    this.navCtrl.push('ProfilePage')
+  }
+
 
   accept(item) {
     this.requestservice.acceptrequest(item).then(() => {

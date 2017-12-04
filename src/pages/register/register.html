@@ -2,7 +2,7 @@
   <ion-grid>
         <div text-center>
                 <!---Logo-->
-                <img src ="assets/imgs/gift_list_lg.png"/>
+                <img src ="assets/imgs/christmas_logo.png"/>
             </div>
       <ion-row wrap padding>
           <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
@@ -41,13 +41,11 @@
                         <ion-datetime displayFormat="MMM DD YYYY" required [(ngModel)]="user.birthDate"></ion-datetime>
                     </ion-item>
                   
-                  
-                  <!---Register button-->
-                  <button ion-button block button-clear-outline outline (click)="signUp()">Sign Up</button>
-                
-                  <!---back button-->
-                  <button ion-button block button-clear-outline outline (click)="goBack()">Already have an Account?</button>
               </div>
+              <!---Register button-->
+              <button ion-button block (click)="signUp()">Sign Up</button>
+              <!---back button-->
+              <button ion-button forgot-clear clear full (click)="goBack()">Already have an Account?</button>
             
           </ion-col>
       </ion-row>

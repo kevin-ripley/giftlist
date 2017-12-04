@@ -43,7 +43,17 @@ export class GroupchatPage {
    
   }
   ionViewDidEnter() {
-    
+    this.photoURL = this.afAuth.auth.currentUser.photoURL;
+    this.alignuid = this.afAuth.auth.currentUser.uid;
+    this.groupName = this.navParams.get('groupName');
+    this.groupservice.getownership(this.groupName).then((res) => {
+      if (res)
+        this.creator = true;
+    }).catch((err) => {
+      alert(err);
+    })
+    this.list =  this.groupservice.getGroupLists(this.groupName);
+   
     }
 
   ionViewDidLeave(){
@@ -68,7 +78,7 @@ export class GroupchatPage {
           text: 'Add member',
           icon: 'person-add',
           handler: () => {
-            this.navCtrl.push('GroupfriendsPage');
+            this.navCtrl.push('GroupfriendsPage', {list: this.list});
           }
         },
         {

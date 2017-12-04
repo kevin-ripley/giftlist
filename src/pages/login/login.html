@@ -1,31 +1,38 @@
 <!-- Themes Login + logo -->
-<ion-content default-background no-bounce overflow-scroll="false">
-        
-    <ion-grid >
-            <div text-center>
-                    <!---Logo-->
-                    <img src ="assets/imgs/gift_list_lg.png"/>
-                </div>
-        <ion-row wrap padding>
-            <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
-                
-                <!---Input field username-->
-                <ion-item no-padding transparent>
-                    <ion-label floating>Email</ion-label>
-                    <ion-input required type="email" [(ngModel)]="user.email"></ion-input>
-                </ion-item>
-                <!---Input field password-->
-                <ion-item no-padding transparent>
-                    <ion-label floating>Password</ion-label>
-                    <ion-input required type="password" [(ngModel)]="user.password"></ion-input>
-                </ion-item>
-                <!---Login button-->
-                <button ion-button button-clear-outline block outline (click)="login()">Login</button>
-                <!---Register button-->
-                <button ion-button forgot-clear clear block (click)="passwordreset()">Forgot Password?</button>
-                <button ion-button button-clear-outline block clear (click)="register()">No Account? Sign Up!</button>
-            </ion-col>
-            
-        </ion-row>
-    </ion-grid>
+<ion-content no-bounce overflow-scroll="false" background-size default-background>
+  <ion-grid>
+    <div text-center>
+      <!---Logo-->
+      <img src="assets/imgs/christmas_logo.png" />
+    </div>
+
+    <ion-row wrap padding>
+
+      <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
+        <!--Form-->
+        <div class="form">
+          <h1 title text-right>Login</h1>
+
+          <!---Input field username-->
+          <ion-item no-padding transparent>
+            <ion-label floating>Email</ion-label>
+            <ion-input required type="email" [(ngModel)]="user.email"></ion-input>
+          </ion-item>
+          <!---Input field password-->
+          <ion-item no-padding transparent>
+            <ion-label floating>Password</ion-label>
+            <ion-input required type="password" [(ngModel)]="user.password"></ion-input>
+          </ion-item>
+
+
+          <!---Login button-->
+          <button ion-button block (click)="login()">Login</button>
+          <!---Register button-->
+          <button ion-button forgot-clear clear full (click)="passwordreset()">Forgot Password?</button>
+          <button ion-button block (click)="register()">No Account? Sign Up!</button>
+
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

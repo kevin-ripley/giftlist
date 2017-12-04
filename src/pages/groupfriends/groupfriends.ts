@@ -14,8 +14,20 @@ export class GroupfriendsPage {
   searchstring;
   tempmyfriends = [];
   newbuddy;
+  list;
+  lists;
+  key = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, public requestservice: RequestsProvider,
     public events: Events, public groupservice: GroupsProvider) {
+      this.list = this.navParams.get('list');
+      this.list.subscribe(snapshots=>{
+        this.lists = snapshots;
+       });
+      for(var k in this.lists){
+        this.key.push(this.lists[k]);
+      }
+      
+      
   }
 
   ionViewWillEnter() {
@@ -61,7 +73,7 @@ export class GroupfriendsPage {
 
   addbuddy(buddy) {
     this.newbuddy = buddy;
-    this.groupservice.addmember(buddy);
+    this.groupservice.addmember(buddy, this.key);
   }
 
 }
