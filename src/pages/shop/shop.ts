@@ -19,13 +19,19 @@ export class ShopPage {
   searchControl: FormControl;
   items: any;
   searching: any = false;
+
+  data: any;
+  errorMessage: string;
+  page = 1;
+  perPage = 0;
+  totalData = 0;
+  totalPage = 0;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public provide: ProductsProvider) {
     this.searchControl = new FormControl();
     
   }
   
-
   ionViewDidLoad() {
     this.setFilteredItems();
     this.searchControl.valueChanges.debounceTime(400).subscribe(search => {
@@ -39,11 +45,19 @@ export class ShopPage {
     this.setFilteredItems();
   }
 
+  doRefresh(refresher) {
+    this.setFilteredItems();  // calls the getQuotes method
+    setTimeout(() => {
+      refresher.complete(); // stops the refresher 2 seconds after retreiving the Data
+    }, 2000);
+  }
+
   // Grabbing Items from the Products Provider
   setFilteredItems() {
     this.provide.getWalmart(this.searchTerm)
-    .then(data => {
-      this.items = data.items;
+    .subscribe(data => {
+      this.data = data;
+      this.items = this.data.items;
     });
     
   }

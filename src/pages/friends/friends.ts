@@ -105,6 +105,14 @@ export class FriendsPage {
           let sentuser = this.filteredusers.indexOf(recipient);
           this.filteredusers.splice(sentuser, 1);
         }
+        else{
+          let failalert = this.alertCtrl.create({
+            title: 'User is already your friend!',
+            buttons: ['ok']
+          });
+          failalert.present();
+          this.navCtrl.pop();
+        }
       }).catch((err) => {
         alert(err);
       })

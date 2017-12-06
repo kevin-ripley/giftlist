@@ -23,7 +23,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { UserProvider } from '../providers/user/user';
 import { RequestsProvider } from '../providers/requests/requests';
 import { ChatProvider } from '../providers/chat/chat';
-
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 
 
@@ -71,7 +71,8 @@ export const firebaseConfig = {
     AuthProvider,
     UserProvider,
     RequestsProvider,
-    ChatProvider
+    ChatProvider,
+    SocialSharing,
   ]
 })
 export class AppModule {}

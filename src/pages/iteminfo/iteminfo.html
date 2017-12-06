@@ -4,27 +4,51 @@
     </ion-navbar>
   </ion-header>
 
-<ion-content no-bounce overflow-scroll="false">
+<ion-content no-bounce overflow-scroll="false"> 
     <ion-list no-lines>
+      <button ion-button block (click)="editing = !editing" *ngIf='!editing'>Edit Item</button>
         <img [src]=items.image>
-        <ion-item text-center no-padding text-wrap>{{ items.name }}</ion-item>
-    
-        <ion-item (click)="editName()" no-padding text-wrap>
-          DESCRIPTION: {{ items.description }}
-        </ion-item>
-        <ion-item no-padding> 
+        <ion-item *ngIf='!editing' text-center no-padding text-wrap>{{ items.name }}</ion-item>
+        <ion-item  *ngIf='!editing' text-center no-padding text-wrap>Description: {{items.description}}</ion-item>
+        <ion-item *ngIf='!editing' no-padding text-wrap> 
           <ion-icon name='pricetag' item-start style="color: #30e920"></ion-icon>
           Sale Price: {{ items.price | currency:'$'}}
         </ion-item>
 
-        <ion-item no-padding text-wrap> 
+        <ion-item *ngIf='!editing' no-padding text-wrap> 
             Sold By: {{ items.seller }}
           </ion-item>
-          <ion-icon text-center primary *ngFor="let item of data.iconStars; let i = index" (click)="onStarClass(data.iconStars, i, $event)">
+          <ion-item *ngIf='editing'>
+          <ion-icon text-center text-wrap primary *ngFor="let item of data.iconStars; let i = index" (click)="onStarClass(data.iconStars, i, $event)">
               <i icon-medium *ngIf="item.isActive" class="icon {{item.iconActive}}"></i>
               <i icon-medium *ngIf="!item.isActive" class="icon {{item.iconInactive}}"></i>
             </ion-icon>
+          </ion-item>
+
+            <ion-item *ngIf='editing' no-padding>
+                <ion-label floating>Item Name</ion-label>
+                <ion-input required type="text" [(ngModel)]="items.name"></ion-input>
+              </ion-item>
+              
+              <!---Input field expiration date-->
+              <ion-item  *ngIf='editing' no-padding>
+                <ion-label floating>Item Price</ion-label>
+                <ion-input required type="number" [(ngModel)]="items.price"></ion-input>
+              </ion-item>
+              
+              <ion-item  *ngIf='editing' no-padding>
+                <ion-label floating>Item Seller</ion-label>
+                <ion-input type="text" [(ngModel)]="items.seller"></ion-input>
+              </ion-item>
+              
+              <ion-item *ngIf='editing' no-padding>
+                <ion-label floating>Item Note or Description</ion-label>
+                <ion-textarea type="text" [(ngModel)]="items.description"></ion-textarea>
+              </ion-item>
+               
+
+            <button ion-button block (click)="save(items)" *ngIf='editing'>Save Edits</button>
     </ion-list>
-    <button ion-button block color="danger" (click)="deleteItem()">Delete Item</button>
+    <button *ngIf='editing' ion-button block color="danger" (click)="deleteItem()">Delete Item</button>
     
 </ion-content>

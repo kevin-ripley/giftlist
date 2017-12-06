@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/Observable';
 
-/*
-  Generated class for the ProductsProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+
 @Injectable()
 export class ProductsProvider {
   items: any;
+
+  url : string = 'http://api.walmartlabs.com/v1/search?query=';
   constructor(public http: HttpClient) {
   }
+
+  
   getItem(data){
     if (this.items) {
       // already loaded data
@@ -27,17 +30,7 @@ export class ProductsProvider {
   }
   
   getWalmart(data){
-    if (this.items) {
-      // already loaded data
-      return Promise.resolve(this.items);
-    }
-    return new Promise(resolve => {
-      this.http.get('http://api.walmartlabs.com/v1/search?query='+ data +'&format=json&apiKey=kzejb2ckufsrgv27c43anc59&results=40')
-        .subscribe(data => {
-          resolve(data);
-        });
-      });
-    
+    return this.http.get(this.url + data +'&format=json&apiKey=kzejb2ckufsrgv27c43anc59').do(res => console.log(res));
   }
 
 

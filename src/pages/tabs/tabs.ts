@@ -17,7 +17,7 @@ export class TabsPage {
   tab1Root = 'HomePage';
   tab2Root = 'GroupsPage';
   tab3Root = 'ListsPage';
-  tab4Root = 'ShopPage';
+  tab4Root = 'FinditemsPage';
   tab5Root = 'ChatsPage';
 
 

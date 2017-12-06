@@ -2,9 +2,7 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
-import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { ListItem } from '../../models/listItem';
-import firebase from 'firebase';
 
 /**
  * Generated class for the IteminfoPage page.
@@ -21,7 +19,6 @@ import firebase from 'firebase';
 export class IteminfoPage {
   Lkey: any;
   Ikey: any;
-  listItem: FirebaseObjectObservable<ListItem>;
   items = {} as ListItem;
   rank: any;
   data = {"iconStars": [
@@ -52,17 +49,17 @@ export class IteminfoPage {
     }
   ]
   };
+  editing;
   constructor(public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController) {
-    this.Lkey = this.navParams.get('Lkey');
-    this.Ikey = this.navParams.get('Ikey');
-    this.listItem = this.firebaseService.getSpecificItem(this.Ikey, this.Lkey);
+  
   }
   
-  ionViewDidLoad() {
-    this.listItem = this.firebaseService.getSpecificItem(this.Ikey, this.Lkey);
-    this.listItem.subscribe(snapshots=>{
-     this.items = snapshots;
-    }) 
+  ionViewWillLoad() {
+    this.Lkey = this.navParams.get('Lkey');
+    this.Ikey = this.navParams.get('Ikey');
+    this.items = this.navParams.get('listItem');
+    this.editing = false;
+    
   }
 
   onStarClass(items: any, index: number, e: any) {
@@ -102,37 +99,13 @@ export class IteminfoPage {
         ]
       });
       alert.present();
-      this.navCtrl.push('ListitemsPage', {key: this.Lkey});
+     // this.navCtrl.push('ListitemsPage', {key: this.Lkey});
   }
 
-  editName(){
-    let statusalert = this.alertCtrl.create({
-      buttons: ['okay']
-    });
-    let alert = this.alertCtrl.create({
-      title: 'Edit Note',
-      inputs: [{
-        name: 'note',
-        placeholder: 'Note/Description'
-      }],
-      buttons: [{
-        text: 'Cancel',
-        role: 'cancel',
-        handler: data => {
-
-        }
-      },
-      {
-        text: 'Edit',
-        handler: data => {
-          if (data.note) {
-            this.firebaseService.updateItemName(this.Lkey, this.Ikey, data.note);
-          }
-        }
-        
-      }]
-    });
-    alert.present();
+  save(items: ListItem){
+    this.firebaseService.updateItem(this.Lkey, this.Ikey, items);
+    this.editing = false;
   }
+
 
 }

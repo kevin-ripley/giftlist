@@ -18,7 +18,7 @@ export class GroupsPage {
     public loadingCtrl: LoadingController, public groupservice: GroupsProvider) {
   }
 
-  ionViewWillEnter() {
+  ionViewWillLoad() {
     let loader = this.loadingCtrl.create({
       content: 'Getting your groups, Please wait...'
     });

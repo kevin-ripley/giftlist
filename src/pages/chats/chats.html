@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="hcolor">
     <ion-title>Friends</ion-title>
     <ion-buttons end>
     <button ion-button icon-only (click)="profile()">
@@ -18,7 +18,7 @@
       REQUESTS
     </ion-list-header>
     <ion-item-sliding *ngFor="let item of myrequests">
-      <ion-item>
+      <ion-item> 
         <ion-avatar item-left>
           <img src="{{item.photoURL}}">
         </ion-avatar>
@@ -45,4 +45,8 @@
       <h3>{{item.displayName}}</h3>
     </ion-item>
   </ion-list>
+  <ion-title>Can't Find Your Friend?</ion-title>
+  <button ion-button icon-only (click)="regularShare()" color="primary" clear>
+      <ion-icon class="share-icon" name="share"></ion-icon>
+    </button>
 </ion-content>

@@ -23,31 +23,31 @@ import { Profile } from '../../models/profile';
 })
 export class ProfilePage {
   userDetails: FirebaseObjectObservable<Profile>;
-  birthDate : any;
-  displayName : string;
-  email : any;
-  firstName : string;
-  lastName : string;
-  photoURL : any;
+  birthDate: any;
+  displayName: string;
+  email: any;
+  firstName: string;
+  lastName: string;
+  photoURL: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public userservice: UserProvider, public zone: NgZone, public alertCtrl: AlertController,
     public imghandler: ImagehandlerProvider, private agAuth: AngularFireAuth, private userService: UserProvider) {
-      this.userDetails =  this.userService.getUserInfo(this.agAuth.auth.currentUser.uid);
-      
+    this.userDetails = this.userService.getUserInfo(this.agAuth.auth.currentUser.uid);
+
   }
 
-  ionViewDidLoad(){
-   this.userDetails =  this.userService.getUserInfo(this.agAuth.auth.currentUser.uid);
-    this.userDetails.subscribe((snapshots)=>{
-    this.birthDate = snapshots.birthDate;
-    this.displayName = snapshots.displayName;
-    this.email = snapshots.email;
-    this.firstName = snapshots.firstName;
-    this.lastName = snapshots.lastName;
-    this.photoURL = snapshots.photoURL;
-   })
-   
+  ionViewDidLoad() {
+    this.userDetails = this.userService.getUserInfo(this.agAuth.auth.currentUser.uid);
+    this.userDetails.subscribe((snapshots) => {
+      this.birthDate = snapshots.birthDate;
+      this.displayName = snapshots.displayName;
+      this.email = snapshots.email;
+      this.firstName = snapshots.firstName;
+      this.lastName = snapshots.lastName;
+      this.photoURL = snapshots.photoURL;
+    })
+
   }
 
   editimage() {
@@ -55,30 +55,59 @@ export class ProfilePage {
       buttons: ['okay']
     });
     this.imghandler.selectImage()
-    .then((data) =>
-    {
-      this.imghandler.uploadProfileImage(data);
-      this.userservice.updateimage(data).then((res: any) => {
-        if (res.success) {
-          statusalert.setTitle('Updated');
-          statusalert.setSubTitle('Your Profile Image Was Changed!');
-          statusalert.present();
-          this.zone.run(() => {
-          this.photoURL = data;
-        })  
-        }  
-      }).catch((err) => {
+      .then((data) => {
+        this.imghandler.uploadProfileImage(data);
+        this.userservice.updateimage(data).then((res: any) => {
+          if (res.success) {
+            statusalert.setTitle('Updated');
+            statusalert.setSubTitle('Your Profile Image Was Changed!');
+            statusalert.present();
+            this.zone.run(() => {
+              this.photoURL = data;
+            })
+          }
+        }).catch((err) => {
           statusalert.setTitle('Failed');
           statusalert.setSubTitle('There Was An Error Changing Your Image');
           statusalert.present();
-      })
+        })
       });
-      
+
   }
 
-  logout(){
+  logout() {
+    let prompt = this.alertCtrl.create({
+      title: 'Logout',
+      subTitle: 'Are You Sure You Want To Logout?',
+      buttons: [
+        {
+          text: 'No',
+          handler: data => {
+            let navTransition = prompt.dismiss();
+            navTransition.then(() => {
+              this.navCtrl.pop();
+            });
+            return false;
+          }
+          
+        },
+        {
+          text: 'Yes',
+          handler: data => {
+            this.lgout();
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  lgout() {
     firebase.auth().signOut().then(() => {
-      this.navCtrl.parent.parent.setRoot('LoginPage');
-    })
+      this.navCtrl.parent.parent.setRoot('WelcomePage');
+    });
   }
 }
+
+
+

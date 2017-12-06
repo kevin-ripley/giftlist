@@ -55,7 +55,8 @@ export class BrowseProductsPage {
 
   constructor(private firebaseService: FirebaseServiceProvider, public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
     this.item = this.navParams.get('item');
-
+  }
+  ionViewDidEnter(){
     this.lists = this.firebaseService.getLists();
   }
 

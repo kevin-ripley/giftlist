@@ -1,3 +1,4 @@
+import { SocialSharing } from '@ionic-native/social-sharing';
 import { ChatProvider } from './../../providers/chat/chat';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
@@ -14,7 +15,7 @@ export class ChatsPage {
   myrequests;
   myfriends;
   constructor(public navCtrl: NavController, public navParams: NavParams, public requestservice: RequestsProvider,
-    public events: Events, public alertCtrl: AlertController, private chatservice: ChatProvider) {
+    public events: Events, public alertCtrl: AlertController, private chatservice: ChatProvider, public socialSharing: SocialSharing) {
   }
 
 
@@ -60,7 +61,7 @@ export class ChatsPage {
 
   ignore(item) {
     this.requestservice.deleterequest(item).then(() => {
-      alert('Request ignored');
+      alert('Request Ignored');
     }).catch((err) => {
       alert(err);
     })
@@ -69,6 +70,10 @@ export class ChatsPage {
   friendchat(friend) {
     this.chatservice.initializefriend(friend);
     this.navCtrl.push('FriendchatPage');
+  }
+  regularShare(){
+    var msg = 'Come Be My Friend At Gift List and See What I Have On My List!';
+    this.socialSharing.share(msg, null, null, null);
   }
 
 }

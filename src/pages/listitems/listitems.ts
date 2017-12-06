@@ -65,8 +65,8 @@ export class ListitemsPage {
   }
 
   
-  goToItem(key){
-    this.navCtrl.push('IteminfoPage', {Ikey : key, Lkey: this.key});
+  goToItem(listItem: ListItem, key){
+    this.navCtrl.push('IteminfoPage', {Lkey: this.key, Ikey: key, listItem: listItem});
   }
 
   manualAddItem() {
