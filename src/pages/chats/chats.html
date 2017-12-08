@@ -45,8 +45,17 @@
       <h3>{{item.displayName}}</h3>
     </ion-item>
   </ion-list>
-  <ion-title>Can't Find Your Friend?</ion-title>
+  <div text-center>Can't Find Your Friend? Invite Them To Join!
   <button ion-button icon-only (click)="regularShare()" color="primary" clear>
-      <ion-icon class="share-icon" name="share"></ion-icon>
+      <ion-icon icon-medium>
+        <i class=" icon-facebook"></i>
+      </ion-icon>
+      <ion-icon icon-medium>
+        <i class=" icon-twitter"></i>
+      </ion-icon>
+      <ion-icon icon-medium>
+        <i class=" icon-instagram"></i>
+      </ion-icon>
     </button>
+  </div>
 </ion-content>

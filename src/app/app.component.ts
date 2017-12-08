@@ -3,6 +3,7 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class MyApp {
   rootPage: any;
 
-  constructor(private afAuth: AngularFireAuth, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(public modalCtrl: ModalController, private afAuth: AngularFireAuth, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     this.afAuth.authState.subscribe(auth => {
       if(!auth)
         this.rootPage = 'WelcomePage';
@@ -20,7 +21,9 @@ export class MyApp {
     });
     platform.ready().then(() => {
       statusBar.styleDefault();
-      splashScreen.hide();
+      let splash = this.modalCtrl.create('SplashPage');
+      splash.present();
+      
     });
   }
 }

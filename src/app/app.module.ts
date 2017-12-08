@@ -1,3 +1,4 @@
+import { firebaseConfig } from './firebaseconfig';
 import { FilePath } from '@ionic-native/file-path';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { File } from '@ionic-native/file';
@@ -26,16 +27,6 @@ import { ChatProvider } from '../providers/chat/chat';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
 
-
-
-export const firebaseConfig = {
-  apiKey: "AIzaSyCyuoAZIfoEZuEB5ZfOTmKFCEU-vqfqBE4",
-  authDomain: "gift-list-58d8f.firebaseapp.com",
-  databaseURL: "https://gift-list-58d8f.firebaseio.com",
-  projectId: "gift-list-58d8f",
-  storageBucket: "gift-list-58d8f.appspot.com",
-  messagingSenderId: "498265981425"
-};
 
 @NgModule({
   declarations: [

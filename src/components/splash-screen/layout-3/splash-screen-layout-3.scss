@@ -11,7 +11,7 @@ splash-screen-layout-3 {
       width: 100%;
       height: 100%;
       position: fixed;
-      left: 0;
+      right: 0;
       top: 0;
 
     }
@@ -39,8 +39,8 @@ splash-screen-layout-3 {
   .logo-title {
     position: absolute;
     top: 50% !important;
-    left: 50%;
-    min-width: 200px;
+    left: 45%;
+    min-width: 250px;
     margin-top: -100px;
     margin-left: -100px;
     -webkit-animation: fadeInDown 5s;
@@ -51,12 +51,12 @@ splash-screen-layout-3 {
     /* Opera 12+ */
     animation: fadeInDown 5s;
     /* IE 10+, Fx 29+ */
-    h2 {
-      color: theme-colors('textColors', 'accent-first') !important;
-      font-size: font-size-text('h1');
-      text-align: center;
-      margin-top: 10px;
-      animation: zoomIn 5s;
+    .title {
+      max-width: 200px;
+      margin-top: 5px;
+      margin-left: 30px;
+      display: block;
+      animation: zoomin 5s;
      -webkit-animation: zoomIn 5s;
 
     }
