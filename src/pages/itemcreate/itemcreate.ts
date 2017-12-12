@@ -2,9 +2,10 @@ import { ListItem } from './../../models/listItem';
 import { GroupsProvider } from './../../providers/groups/groups';
 import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-import { FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { ImagehandlerProvider } from '../../providers/imagehandler/imagehandler';
+import { List } from '../../models/list';
 
 /**
  * Generated class for the ItemcreatePage page.
@@ -20,7 +21,9 @@ import { ImagehandlerProvider } from '../../providers/imagehandler/imagehandler'
 })
 export class ItemcreatePage {
   listItem = {} as ListItem;
+  list: FirebaseObjectObservable<List>;
   key: any;
+  name: any;
   loaded: boolean = false;
   rank: any;
   data = {
@@ -55,7 +58,17 @@ export class ItemcreatePage {
 
   constructor(private groupService: GroupsProvider, private loadingCtrl: LoadingController, private zone: NgZone, private uploadImage: ImagehandlerProvider, public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController) {
     this.key = this.navParams.get('key');
+    let loadingPopup = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: ''
+    });
+    loadingPopup.present();
+    this.list = this.firebaseService.getSpecificList(this.key);
+    this.list.subscribe((snapshots) => {
+      this.name = snapshots.name;
+    });
     this.listItem.image = 'https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/itemimages%2Fdont-know-25547_1280.png?alt=media&token=9a68dc0d-a574-4ab9-8b47-9e32c3e5e215';
+    loadingPopup.dismiss();
   }
 
   ionViewDidLoad() {

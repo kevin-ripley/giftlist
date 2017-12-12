@@ -1,32 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title color="light">Shopping</ion-title>
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="bubbles" refreshingText="Refreshing...">
-        </ion-refresher-content>
-      </ion-refresher>
-<ion-grid no-padding>
-  <ion-row>
-    <!-- Header -->
-    <ion-col col-12>
-      <div background-size [ngStyle]="{'background-image': 'url(assets/images/gift_bg.jpg)'}">
-        <div class="search-bar-bcg">
-          <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
-        </div>
-      </div>
-    </ion-col>
-    <!-- List -->
-    <ion-col col-12> 
-      <ion-list no-margin>
-        <ion-item no-lines *ngFor="let item of items;" (click)="openDetails(item)">
-          <ion-thumbnail item-start>
-            <img src="{{item.largeImage}}" />
-          </ion-thumbnail>
-          <h2 item-subtitle text-wrap>{{item.name}}</h2>
-          <item-content item-end>
-            <span span-medium>{{item.salePrice | currency:'$'}}</span>
-          </item-content>
-        </ion-item>
-      </ion-list>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+  <ion-grid>
+    <ion-row wrap>
+      <ion-col tappable col-6 *ngFor="let item of items" (click)="openDetails(item)">
+        <ion-card class="cardList">
+
+          <img class="pop-in" src={{item.mediumImage}}/>
+          <ion-card-header>
+            {{item.name}}
+          </ion-card-header>
+          <ion-card-content>
+            <p *ngIf="item.salePrice" ion-text large color="red">
+              <strong>{{item.salePrice | currency:'$'}}</strong>
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

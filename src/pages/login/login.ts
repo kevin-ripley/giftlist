@@ -1,7 +1,8 @@
 import { User } from './../../models/user';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
+import { FormBuilder, Validators } from '@angular/forms';
 
 
 @IonicPage()
@@ -10,29 +11,44 @@ import { AuthProvider } from '../../providers/auth/auth';
   templateUrl: 'login.html',
 })
 export class LoginPage {
+
+  public loginForm: any;
+  public backgroundImage: any = "../assets/images/gift_rt_bg.jpg";
+  public imgLogo: any = "assets/images/christmas_logo.png";
   user = {} as User;
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authservice: AuthProvider, public loadingCtrl: LoadingController) {
+
+  constructor(public navCtrl: NavController, public authservice: AuthProvider, public fb: FormBuilder, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
+    let EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+    this.loginForm = fb.group({
+      email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEXP)])],
+      password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+    });
   }
 
   ionViewDidLoad() {
   }
 
   login() {
-    let loader = this.loadingCtrl.create({
-      content: "Signing In...",
-    });
-    loader.present();
-    this.authservice.login(this.user).then((res: any) => {
-      if (!res.code){
-        loader.dismiss();
-        this.navCtrl.setRoot('TabsPage');
-      }
-      else{
-        this.navCtrl.push('LoginPage');
-        loader.dismiss();
-      }
-    })
+    if (!this.loginForm.valid) {
+      //this.presentAlert('Username password can not be blank')
+      console.log("error");
+    } else {
+      let loadingPopup = this.loadingCtrl.create({
+        spinner: 'crescent',
+        content: ''
+      });
+      loadingPopup.present();
+
+      this.authservice.login(this.loginForm.value.email, this.loginForm.value.password).then((res: any) => {
+        if (res == true) {
+          loadingPopup.dismiss();
+          this.navCtrl.setRoot('TabsPage');
+        } else {
+          loadingPopup.dismiss();
+          this.navCtrl.setRoot('LoginPage');
+        }
+      })
+    }
   }
 
   register() {
@@ -41,6 +57,14 @@ export class LoginPage {
 
   passwordreset() {
     this.navCtrl.push('PasswordResetPage');
+  }
+
+  presentAlert(title) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 

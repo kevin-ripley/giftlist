@@ -23,20 +23,22 @@ export class ListsPage {
   testRadioOpen: boolean;
   testRadioResult;
   constructor(public loadingCtrl: LoadingController,public events: Events, private groupService: GroupsProvider,public navCtrl: NavController, private firebaseService: FirebaseServiceProvider, private alertCtrl: AlertController) {
-    this.groupService.getmygroups();
-    this.listRef$ = this.firebaseService.getLists();
+    
   }
+
   ionViewDidEnter(){
-    this.listRef$ = this.firebaseService.getLists();
     let loader = this.loadingCtrl.create({
       content: 'Loading Components, Please Wait...'
     });
     loader.present();
     this.groupService.getmygroups();
-    loader.dismiss();
+    this.listRef$ = this.firebaseService.getLists();
+    this.listRef$ = this.firebaseService.getLists();
+    this.groupService.getmygroups();
     this.events.subscribe('allmygroups', () => {
       this.allmygroups = this.groupService.mygroups;
     })
+    loader.dismiss();
   }
   
   newList() {
@@ -73,8 +75,8 @@ export class ListsPage {
     });
   }
 
-  seeItems(list, key) {
-    this.navCtrl.push('ListitemsPage', { list: list, key: key });
+  seeItems(list, key, listImage) {
+    this.navCtrl.push('ListitemsPage', { list: list, key: key, image: listImage});
   }
 
 

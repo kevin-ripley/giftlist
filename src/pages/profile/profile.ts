@@ -98,7 +98,7 @@ export class ProfilePage {
           }
         }
       ]
-    });
+    }); 
     prompt.present();
   }
 

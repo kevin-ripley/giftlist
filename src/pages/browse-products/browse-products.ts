@@ -24,6 +24,7 @@ export class BrowseProductsPage {
   lists:any;
   listshared: any;
   rank: any;
+  key: any;
   data = {"iconStars": [
     {
         "isActive": true,
@@ -72,9 +73,9 @@ export class BrowseProductsPage {
       this.listItem.description = this.item.shortDescription;
     }
     this.listItem.seller = 'Walmart';
-    this.listItem.listshared = this.item.listshared;
+    this.listItem.listkey = this.key;
     this.listItem.rank = this.rank;
-    this.firebaseService.addItem(this.item.listshared, this.listItem);
+    this.firebaseService.addItem(this.key, this.listItem);
    
   }
 

@@ -1,38 +1,39 @@
-<!-- Themes Login + logo -->
-<ion-content no-bounce overflow-scroll="false" background-size default-background>
-  <ion-grid>
-    <div text-center>
-      <!---Logo-->
-      <img src="assets/images/christmas_logo.png" />
-    </div>
 
-    <ion-row wrap padding>
+<ion-content [ngStyle]="{'background-image': 'url(' + backgroundImage +')'}" no-bounce overflow-scroll="false">
+  <div class="login-container">
+    <img class="logo" src="assets/images/logo_4.png" />
+    
+    <!--*********** Form ***********-->
+    <form [formGroup]="loginForm" (submit)="login()" novalidate>
+      <ion-item no-padding>
+        <ion-label floating>Email</ion-label>
+        <ion-input tappable color="primary" #email type="email" formControlName="email" [class.invalid]="!loginForm.controls.email.valid &&loginForm.controls.email.dirty">
+        </ion-input>
+        <p *ngIf="!loginForm.controls.email.valid  &&
+        loginForm.controls.email.dirty">*Please enter a valid email.</p>
+      </ion-item>
 
-      <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
-        <!--Form-->
-        <div class="form">
-          <h1 title text-right>Login</h1>
+      <ion-item no-padding>
+        <ion-label floating>Password</ion-label>
+        <ion-input tappable #password type="password" formControlName="password" [class.invalid]="!loginForm.controls.password.valid &&loginForm.controls.password.dirty">
+        </ion-input>
+        <p *ngIf="!loginForm.controls.password.valid  &&
+        loginForm.controls.password.dirty">*Password needs more than 6 characters.</p>
+      </ion-item>
 
-          <!---Input field username-->
-          <ion-item no-padding transparent>
-            <ion-label floating>Email</ion-label>
-            <ion-input required type="email" [(ngModel)]="user.email"></ion-input>
-          </ion-item>
-          <!---Input field password-->
-          <ion-item no-padding transparent>
-            <ion-label floating>Password</ion-label>
-            <ion-input required type="password" [(ngModel)]="user.password"></ion-input>
-          </ion-item>
+      
 
+      <div class="submit-box">
+        <button ion-button block type="submit" color="primary">LOG IN</button>
+        
+        <button ion-button type="button" block icon-left color="primary" outline (click)="register()" margin-top>
+            <ion-icon name="ios-create"></ion-icon> CREATE NEW ACCOUNT
+        </button>
+      </div>
+    </form>
+  </div>
 
-          <!---Login button-->
-          <button ion-button block (click)="login()">Login</button>
-          <!---Register button-->
-          <button ion-button forgot-clear clear full (click)="passwordreset()">Forgot Password?</button>
-          <button ion-button block (click)="register()">No Account? Sign Up!</button>
-
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
 </ion-content>
+<ion-footer>
+  <button class="bottom" ion-button  type="button"  clear full color="light" (click)="passwordreset()">Forgot Your Password? </button>
+</ion-footer>

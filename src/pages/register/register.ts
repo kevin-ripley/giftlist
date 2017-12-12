@@ -1,7 +1,9 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
+import { Profile } from '../../models/profile';
+import { FormBuilder, Validators } from '@angular/forms';
 
 
 
@@ -11,44 +13,58 @@ import { UserProvider } from '../../providers/user/user';
   templateUrl: 'register.html',
 })
 export class RegisterPage {
-  user = {
-    email: '',
-    password: '',
-    displayName: '',
-    firstName: '',
-    lastName: '',
-    birthDate: ''
-  }
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userservice: UserProvider,
-    public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+  user = {} as Profile;
+  public registerForm;
+  public backgroundImage: any = "../assets/images/gift_rt_bg.jpg";
+  constructor(public fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public userservice: UserProvider,
+    public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
+    let EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+
+    this.registerForm = fb.group({
+      username: ['', Validators.compose([Validators.minLength(3), Validators.required])],
+      email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEXP)])],
+      firstName: ['', Validators.compose([Validators.minLength(2), Validators.required])],
+      lastName: ['', Validators.compose([Validators.minLength(2), Validators.required])],
+      password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
+      birthDate: ['', Validators.compose([Validators.required])],
+
+    });
   }
 
-  signUp() {
-    var toaster = this.toastCtrl.create({
-      duration: 3000,
-      position: 'bottom'
-    });
-    if (this.user.email == '' || this.user.password == '' || this.user.displayName == '' || this.user.firstName == '' || this.user.lastName == '' || this.user.birthDate == '') {
-      toaster.setMessage('All Fields Are Required');
-      toaster.present();
-    }
-    else if (this.user.password.length < 7) {
-      toaster.setMessage('Password is not strong enough. You need more than six characters!');
-      toaster.present();
-    }
-    else {
-      let loader = this.loadingCtrl.create({
-        content: 'Please wait'
+  register() {
+    if (!this.registerForm.valid){
+      console.log(this.registerForm.value);
+      this.presentAlert("invalid form");
+    } else {
+
+     this.user.displayName =  this.registerForm.value.username;
+     this.user.email = this.registerForm.value.email;
+     this.user.firstName = this.registerForm.value.firstName;
+     this.user.lastName = this.registerForm.value.lastName; 
+     this.user.password = this.registerForm.value.password;
+     this.user.birthDate = this.registerForm.value.birthDate;
+
+      let loadingPopup = this.loadingCtrl.create({
+        spinner: 'crescent', 
+        content: 'Creating..'
       });
-      loader.present();
+      loadingPopup.present();
       this.userservice.adduser(this.user).then((res: any) => {
-        loader.dismiss();
+        loadingPopup.dismiss();
         if (res.success)
           this.navCtrl.push('ProfilePicturePage');
         else
           alert('Error' + res);
       })
     }
+  }
+
+  presentAlert(title) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
   goBack() {

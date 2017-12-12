@@ -1,9 +1,17 @@
+import { FirebaseServiceProvider } from './../../providers/firebase-service/firebase-service';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { ChatProvider } from './../../providers/chat/chat';
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { RequestsProvider } from '../../providers/requests/requests';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
+import { FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { Profile } from '../../models/profile';
+import { UserProvider } from '../../providers/user/user';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { ImagehandlerProvider } from '../../providers/imagehandler/imagehandler';
+import { List } from '../../models/list';
 
 
 @IonicPage()
@@ -14,23 +22,42 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
 export class ChatsPage {
   myrequests;
   myfriends;
+  userDetails: FirebaseObjectObservable<Profile>;
+  listRef$: FirebaseListObservable<List[]>;
+  segmentView: string = "one";
+  following: boolean = false;
+  photoURL: any;
+  friendcount: any;
+  requestcount: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public requestservice: RequestsProvider,
-    public events: Events, public alertCtrl: AlertController, private chatservice: ChatProvider, public socialSharing: SocialSharing) {
+    public events: Events,public zone: NgZone, public firebaseService: FirebaseServiceProvider, public imghandler: ImagehandlerProvider, public alertCtrl: AlertController, public userService: UserProvider, public agAuth: AngularFireAuth , private chatservice: ChatProvider, public socialSharing: SocialSharing, public loadingCtrl: LoadingController) {
   }
 
 
   ionViewWillEnter() {
+    let loadingPopup = this.loadingCtrl.create({
+      spinner: 'crescent', 
+      content: ''
+    });
+    loadingPopup.present();
     this.requestservice.getmyrequests();
     this.requestservice.getmyfriends();
     this.myfriends = [];
     this.events.subscribe('gotrequests', () => {
       this.myrequests = [];
       this.myrequests = this.requestservice.userdetails;
+      this.requestcount = this.myfriends.length;
     })
     this.events.subscribe('friends', () => {
       this.myfriends = [];
       this.myfriends = this.requestservice.myfriends;
+      this.friendcount = this.myfriends.length;
     })
+    
+    console.log(this.friendcount);
+    this.listRef$ = this.firebaseService.getLists();
+    this.userDetails = this.userService.getUserInfo(this.agAuth.auth.currentUser.uid);
+    loadingPopup.dismiss();
   }
 
 
@@ -38,14 +65,34 @@ export class ChatsPage {
     this.events.unsubscribe('gotrequests');
   }
 
+  editImage() {
+    let statusalert = this.alertCtrl.create({
+      buttons: ['okay']
+    });
+    this.imghandler.selectImage()
+      .then((data) => {
+        this.imghandler.uploadProfileImage(data);
+        this.userService.updateimage(data).then((res: any) => {
+          if (res.success) {
+            statusalert.setTitle('Updated');
+            statusalert.setSubTitle('Your Profile Image Was Changed!');
+            statusalert.present();
+            this.zone.run(() => {
+              this.photoURL = data;
+            })
+          }
+        }).catch((err) => {
+          statusalert.setTitle('Failed');
+          statusalert.setSubTitle('There Was An Error Changing Your Image');
+          statusalert.present();
+        })
+      });
+
+  }
+
   addbuddy() {
     this.navCtrl.push('FriendsPage');
   }
-
-  profile(){
-    this.navCtrl.push('ProfilePage')
-  }
-
 
   accept(item) {
     this.requestservice.acceptrequest(item).then(() => {
@@ -74,6 +121,39 @@ export class ChatsPage {
   regularShare(){
     var msg = 'Come Be My Friend At Gift List and See What I Have On My List!';
     this.socialSharing.share(msg, null, null, null);
+  }
+
+  logout() {
+    let prompt = this.alertCtrl.create({
+      title: 'Logout',
+      subTitle: 'Are You Sure You Want To Logout?',
+      buttons: [
+        {
+          text: 'No',
+          handler: data => {
+            let navTransition = prompt.dismiss();
+            navTransition.then(() => {
+              this.navCtrl.pop();
+            });
+            return false;
+          }
+          
+        },
+        {
+          text: 'Yes',
+          handler: data => {
+            this.lgout();
+          }
+        }
+      ]
+    }); 
+    prompt.present();
+  }
+
+  lgout() {
+    firebase.auth().signOut().then(() => {
+      this.navCtrl.parent.parent.setRoot('WelcomePage');
+    });
   }
 
 }

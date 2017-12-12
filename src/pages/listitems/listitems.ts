@@ -3,8 +3,9 @@ import { IonicPage, NavController, NavParams, reorderArray, AlertController, Fab
 import { ListItem } from '../../models/listItem';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
-import { BarcodeScanner ,BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 import { GroupsProvider } from '../../providers/groups/groups';
+import { ViewController } from 'ionic-angular/navigation/view-controller';
 
 /**
  * Generated class for the ListitemsPage page.
@@ -20,36 +21,38 @@ import { GroupsProvider } from '../../providers/groups/groups';
 })
 export class ListitemsPage {
   listItemRef$: FirebaseListObservable<ListItem[]>;
-  key: any; 
+  key: any;
   index: any;
   rank: any;
-  scanData : {};
-  options :BarcodeScannerOptions;
+  scanData: {};
+  options: BarcodeScannerOptions;
   allmygroups;
   testRadioOpen: boolean;
   testRadioResult;
   list;
+  image;
 
-  constructor(public events: Events, private groupService: GroupsProvider, public barcodeScanner: BarcodeScanner , public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController) {
+  constructor(public events: Events, private groupService: GroupsProvider, public barcodeScanner: BarcodeScanner, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController, public viewCtrl: ViewController) {
     this.key = this.navParams.get('key');
     this.list = this.navParams.get('list');
     this.listItemRef$ = this.firebaseService.getItems(this.key);
+    this.image = this.navParams.get('image');
   }
   getRanking(num) {
-    
-    if(num == 4){
+
+    if (num == 4) {
       this.rank = 1;
     }
-    if(num == 3){
+    if (num == 3) {
       this.rank = 2;
     }
-    if(num == 2){
+    if (num == 2) {
       this.rank = 3;
     }
-    if(num == 1){
+    if (num == 1) {
       this.rank = 4;
     }
-    if(num == 0){
+    if (num == 0) {
       this.rank = 5;
     }
     return new Array(this.rank);
@@ -64,37 +67,37 @@ export class ListitemsPage {
     })
   }
 
-  
-  goToItem(listItem: ListItem, key){
-    this.navCtrl.push('IteminfoPage', {Lkey: this.key, Ikey: key, listItem: listItem});
+
+  goToItem(listItem: ListItem, key) {
+    this.navCtrl.push('IteminfoPage', { Lkey: this.key, Ikey: key, listItem: listItem });
   }
 
   manualAddItem() {
     this.navCtrl.push('ItemcreatePage', { key: this.key });
   }
 
-  scan(){
-      this.options = {
-        prompt : "Scan your Wish! "
+  scan() {
+    this.options = {
+      prompt: "Scan your Wish! "
     }
     this.barcodeScanner.scan(this.options).then((barcodeData) => {
-        this.scanData = barcodeData.text;
-        let itemModal = this.modalCtrl.create('ScannedPage', { scanData: this.scanData });
-        itemModal.present();
-  
+      this.scanData = barcodeData.text;
+      let itemModal = this.modalCtrl.create('ScannedPage', { scanData: this.scanData });
+      itemModal.present();
+
     }, (err) => {
-        console.log("Error occured : " + err);
-    });      
-    }
-  
-    shop(){
-      this.navCtrl.push('ShopPage');
-    }
-  
+      console.log("Error occured : " + err);
+    });
+  }
+
+  shop() {
+    this.navCtrl.push('ShopPage');
+  }
+
   share() {
     let alert = this.alertCtrl.create();
-    
-    for(var k in this.allmygroups){
+
+    for (var k in this.allmygroups) {
       alert.addInput({
         type: 'radio',
         label: this.allmygroups[k].groupName,
@@ -109,7 +112,7 @@ export class ListitemsPage {
         this.testRadioOpen = false;
         this.testRadioResult = data;
         this.groupService.shareList(this.list, this.key, data);
-        this.navCtrl.push('GroupchatPage', { groupName: this.testRadioResult});
+        this.navCtrl.push('GroupchatPage', { groupName: this.testRadioResult });
       }
     });
     alert.present().then(() => {

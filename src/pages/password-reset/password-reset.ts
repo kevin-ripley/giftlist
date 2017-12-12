@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
+import { FormBuilder, Validators } from '@angular/forms';
 /**
  * Generated class for the PasswordresetPage page.
  *
@@ -14,34 +15,48 @@ import { UserProvider } from '../../providers/user/user';
 })
 export class PasswordResetPage {
   email: string;
+  public resetPasswordForm;
+  public backgroundImage: any = "../assets/images/gift_rt_bg.jpg";
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public userservice: UserProvider, public alertCtrl: AlertController) {
+  public userservice: UserProvider, public alertCtrl: AlertController, public fb: FormBuilder,public loadingCtrl: LoadingController) {
+    let EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+    this.resetPasswordForm = fb.group({
+          email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEXP)])],
+    });
   }
 
-  ionViewDidLoad() {
-   // console.log('ionViewDidLoad PasswordresetPage');
-  }
 
   reset() {
-    let alert = this.alertCtrl.create({
-      buttons: ['Ok']
+    if (!this.resetPasswordForm.valid){
+      console.log("form is invalid = "+ this.resetPasswordForm.value);
+  } else {
+    let loadingPopup = this.loadingCtrl.create({
+      spinner: 'crescent', 
+      content: ''
     });
-    this.userservice.passwordreset(this.email).then((res: any) => {
-      if (res.success) {
-        alert.setTitle('Email Sent!');
-        alert.setSubTitle('Please follow the instructions in the email to reset your password');
-        this.goback();
-      }
-      else {
-        alert.setTitle('Password Reset Failed');
-        alert.setSubTitle('Email Not Valid Please Try Again!');
-      }
-      alert.present();
-      
-    })
+    loadingPopup.present();
+    this.userservice.passwordreset(this.resetPasswordForm.value.email)
+    .then((user) => {
+        loadingPopup.dismiss();
+        this.presentAlert("We just sent you a reset link to your email");
+        this.navCtrl.setRoot('LoginPage');
+    }, (error) => {
+        loadingPopup.dismiss();
+        var errorMessage: string = error.message;
+        this.presentAlert(errorMessage);
+    });
   }
+}
 
-  goback() {
+presentAlert(title) {
+  let alert = this.alertCtrl.create({
+    title: title,
+    buttons: ['OK']
+  });
+  alert.present();
+}
+
+  goBack() {
     this.navCtrl.setRoot('LoginPage');
   }
 

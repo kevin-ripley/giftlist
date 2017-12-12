@@ -17,7 +17,7 @@
       <ion-icon name='pricetag' item-start style="color: #30e920"></ion-icon>
       Sale Price: {{ item.salePrice | currency:'$'}}
     </ion-item>
-
+ 
     <ion-item text-center no-padding>
       <p>Rank Item! 5 Stars Being Most Wanted"</p>
           <ion-icon text-center primary *ngFor="let item of data.iconStars; let i = index" (click)="onStarClass(data.iconStars, i, $event)">
@@ -28,7 +28,7 @@
 
     <ion-item>
       <ion-label> Choose List</ion-label>
-      <ion-select [(ngModel)]='item.listshared' interface="popover">
+      <ion-select [(ngModel)]='key' interface="popover">
         <ion-option *ngFor="let list of lists | async;" value="{{ list.$key }}">{{ list.name }}</ion-option>
       </ion-select>
     </ion-item>

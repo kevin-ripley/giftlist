@@ -4,7 +4,7 @@ export interface ListItem{
     description: any;
     price: any;
     seller: any;
-    listshared: any;
+    listkey: any;
     index: any;
     rank: any;
 }

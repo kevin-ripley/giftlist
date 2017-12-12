@@ -39,7 +39,8 @@ export class GroupsProvider {
     var promise = new Promise((resolve, reject) => {
       this.firegroup.child(firebase.auth().currentUser.uid).child(newGroup.groupName).set({
         groupPic: newGroup.groupPic,
-        creator: firebase.auth().currentUser.uid
+        creator: firebase.auth().currentUser.uid,
+        creatorName: firebase.auth().currentUser.displayName
       }).then(() => {
         resolve(true);
       }).catch((err) => {
@@ -58,7 +59,9 @@ export class GroupsProvider {
         for (var key in temp) {
           var newgroup = {
             groupName: key,
-            groupPic: temp[key].groupPic
+            groupPic: temp[key].groupPic,
+            creator: temp[key].creator,
+            creatorName: temp[key].creatorName
           }
           this.mygroups.push(newgroup);
         }
@@ -204,7 +207,8 @@ export class GroupsProvider {
       this.getgroupimage().then(() => {
         this.firegroup.child(newmember.uid).child(this.currentgroupname).set({
           groupPic: this.grouppic,
-          creator: firebase.auth().currentUser.uid
+          creator: firebase.auth().currentUser.uid,
+          creatorName: firebase.auth().currentUser.displayName
         }).then(() => {
           let postedlists = lists.map((item) => {
               return new Promise((resolve) => {

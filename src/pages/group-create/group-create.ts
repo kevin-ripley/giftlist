@@ -35,7 +35,7 @@ export class GroupCreatePage {
   editGroupName() {
     let alert = this.alertCtrl.create({
       title: 'Edit Group Name',
-      subTitle: 'Group Name Should Be Unique! Ex: TheWholeFam',
+      subTitle: 'Group Name Should Be Unique! Ex: TheWholeFam88',
       inputs: [{
         name: 'groupName',
         placeholder: 'Give a new Group Name'

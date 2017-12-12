@@ -1,61 +1,135 @@
 <ion-header>
-  <ion-navbar color="hcolor">
-    <ion-title>Friends</ion-title>
+  <ion-navbar>
+    <ion-title>Profile</ion-title>
     <ion-buttons end>
-    <button ion-button icon-only (click)="profile()">
-        <ion-icon name="person"></ion-icon>
-        </button>
-      <button ion-button icon-only (click)="addbuddy()">
-        <ion-icon name="person-add"></ion-icon>
-      </button>
+        <button ion-button icon-only (click)="logout()">
+            <ion-icon name="exit"></ion-icon>
+            </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content no-bounce overflow-scroll="false">
-  <ion-list no-lines>
-    <ion-list-header>
-      REQUESTS
-    </ion-list-header>
-    <ion-item-sliding *ngFor="let item of myrequests">
-      <ion-item> 
-        <ion-avatar item-left>
-          <img src="{{item.photoURL}}">
-        </ion-avatar>
-        <h4>{{item.displayName}}</h4>
-      </ion-item>
-      <ion-item-options>
-        <button ion-button color="secondary" (click)="accept(item)">
-          <ion-icon name="checkmark"></ion-icon>
-          ADD
+
+<ion-content no-padding>
+    
+      <ion-row padding>
+        <ion-col col-3>
+          <!--<img src="{{(profile | async)?.imgProfile}}" class="avatar" alt="">-->
+             <ion-avatar class="avatar">
+                  <img src="{{(userDetails | async)?.photoURL}}" class="avatar"/>  
+              </ion-avatar>    
+        </ion-col>
+        <ion-col col-3 text-center>
+          <h5>{{(listRef$ | async)?.length}}</h5>
+          <p no-padding no-margin>Lists</p>
+        </ion-col>
+        <ion-col col-3 text-center>
+          <h5>{{friendcount}}</h5>
+          <p no-paddin no-margin>Friends</p>
+        </ion-col>
+        <ion-col col-3 text-center>
+            <h5>{{requestcount}}</h5>
+            <p no-paddin no-margin>Request</p>
+          </ion-col>
+      </ion-row>
+    
+      <ion-row no-padding no-margin>
+        <ion-col no-padding no-margin text-center col-4>{{(userDetails | async)?.displayName}}</ion-col>
+        <ion-col no-padding no-margin text-center col-8>
+          <!--<button class="follow-button" icon-left (click)="goEditProfile()">Follow</button>-->
+          <button ion-button class="follow-button" block  (click)="editImage()">Edit Profile Pic</button>
+    
+        </ion-col>
+        <ion-col col-3></ion-col>
+      </ion-row>
+    
+    
+      <div padding>
+        <p no-margin no-padding><b>{{(userDetails | async)?.firstName}} {{(userDetails | async)?.lastName}}</b></p>
+        <p no-padding no-margin class="info">{{(userDetails | async)?.email}}</p>
+
+        <!--<p no-padding no-margin color="blue2"><a href="#">{{(profile | async)?.facebook}}</a></p>-->
+      </div>
+    
+      <!--***********  Segement tab ***********-->
+      <ion-segment mode="md" [(ngModel)]="segmentView" color="primary">
+        <ion-segment-button value="one">
+          <ion-icon name="contacts"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="two">
+          <ion-icon name="people"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="three">
+          <ion-icon name="person-add"></ion-icon>
+        </ion-segment-button>
+      </ion-segment>
+    
+      <!--***********  Segement one ***********-->
+      <div *ngIf="segmentView==='one'">
+        <ion-list no-lines padding>
+            <ion-list-header>
+            <h2 text-center color="lightblue">Friends</h2>
+          </ion-list-header>
+          <ion-item *ngFor="let friend of myfriends" padding-bottom>
+            <ion-avatar item-left>
+              <img [src]="friend.photoURL">
+            </ion-avatar>
+            <h2>{{friend.displayName}}</h2>
+          </ion-item>
+        </ion-list>
+      </div>
+    
+      <!--***********    Segement two  ***********-->
+      <div *ngIf="segmentView==='two'">
+        <ion-list no-lines padding>
+          <ion-list-header>
+            <h2 text-center color="lightblue">Requests</h2>
+          </ion-list-header>
+          <ion-item-sliding *ngFor="let request of myrequests" padding-bottom>
+            <ion-item>
+            <ion-avatar item-left>
+              <img [src]="request.photoURL">
+            </ion-avatar>
+            <h2>{{request.displayName}}</h2>
+            </ion-item>
+            <ion-item-options>
+            <button ion-button color="secondary" (click)="accept(request)">
+              <ion-icon name="checkmark"></ion-icon>
+              ADD
+            </button>
+            <button ion-button color="danger" (click)="ignore(request)">
+              <ion-icon name="trash"></ion-icon>
+              IGNORE
+            </button>
+          </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+    
+      <!--***********  Segment three  ***********-->
+      <div *ngIf="segmentView==='three'">
+          <ion-list no-lines padding>
+        <ion-list-header>
+        <h2 text-center>Add Friend</h2>
+      </ion-list-header>
+        
+        <ion-item button icon-only (click)="addbuddy()">
+            Search For Friend
+          </ion-item>
+        </ion-list>
+        <div text-center>Can't Find Your Friend? Invite Them To Join!
+      <button ion-button icon-only (click)="regularShare()" color="primary" clear>
+          <ion-icon icon-medium>
+            <i class=" icon-facebook"></i>
+          </ion-icon>
+          <ion-icon icon-medium>
+            <i class=" icon-twitter"></i>
+          </ion-icon>
+          <ion-icon icon-medium>
+            <i class=" icon-instagram"></i>
+          </ion-icon>
         </button>
-        <button ion-button color="danger" (click)="ignore(item)">
-          <ion-icon name="trash"></ion-icon>
-          IGNORE
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-list-header>
-      FRIENDS
-    </ion-list-header>
-    <ion-item *ngFor="let item of myfriends">
-      <ion-avatar item-left>
-        <img src={{item.photoURL}}>
-      </ion-avatar>
-      <h3>{{item.displayName}}</h3>
-    </ion-item>
-  </ion-list>
-  <div text-center>Can't Find Your Friend? Invite Them To Join!
-  <button ion-button icon-only (click)="regularShare()" color="primary" clear>
-      <ion-icon icon-medium>
-        <i class=" icon-facebook"></i>
-      </ion-icon>
-      <ion-icon icon-medium>
-        <i class=" icon-twitter"></i>
-      </ion-icon>
-      <ion-icon icon-medium>
-        <i class=" icon-instagram"></i>
-      </ion-icon>
-    </button>
-  </div>
-</ion-content>
+      </div>
+      </div>
+    
+    </ion-content>

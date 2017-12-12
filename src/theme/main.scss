@@ -180,7 +180,6 @@ $list-background-color: theme-colors('mainColors', 'accent');
 $list-md-activated-background-color: theme-colors('mainColors', 'accent');
 $list-ios-activated-background-color: theme-colors('mainColors', 'accent');
 
-$item-body-background-color: theme-colors('mainColors', 'accent') !default;
 
 // Black&White Avatar and Image
 ion-avatar, ion-thumbnail {
@@ -330,26 +329,6 @@ $icon-size:(
   letter-spacing: 1px;
 }
 
-// Button Settings
-[default-button] {
-  @include gradient-accent ($color-1 !important, $color-2 !important);
-  color: theme-colors('textColors', 'accent-first') !important;
-  font-size: font-size-text('h5') !important;
-  font-weight: 500 !important;
-}
-
-[button-clear] {
-  color: theme-colors('textColors', 'secondary') !important;
-  font-size: font-size-text('h5') !important;
-}
-
-[button-clear-outline] {
-  color: theme-colors('textColors', 'primary') !important;
-  font-size: font-size-text('h5') !important;
-  border: 1px solid theme-colors('mainColors', 'secondary') !important;
-  padding: 15px 25px !important;
-  font-weight: bold !important;
-}
 
 // Active Button For Ios
 $button-ios-outline-background-color-activated: #f7f7f7;

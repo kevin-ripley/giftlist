@@ -38,6 +38,10 @@ export class ProductsProvider {
     return this.http.get('https://api.bestbuy.com/v1/products(search='+filter+')', {params: { format: "json", show: 'sku,image,name,longDescription,salePrice,ThumbnailImage', apiKey:'es0ABPeYLuDDs8fsPRKW4DXZ'}})
   }
 
+  brandSearch(data){
+    return this.http.get(`http://api.walmartlabs.com/v1/paginated/items?brand=`+data).do(res => console.log(res));
+  }
+
 
   //Best Buy Key - es0ABPeYLuDDs8fsPRKW4DXZ
 }

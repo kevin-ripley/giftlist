@@ -1,28 +1,22 @@
-<!-- Themes Swipe To Dismiss Products + CTA footer -->
-<ion-header>
+<ion-header no-border>
+    
+      <ion-navbar>
+        <ion-title>My Groups</ion-title>
+      </ion-navbar>
+    
+    </ion-header>
 
-  <ion-navbar color="hcolor">
-    <ion-title>My Groups</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content no-bounce overflow-scroll="false">
-  <ion-list no-lines>
-    <ion-item *ngFor="let item of allmygroups">
-      <ion-avatar item-left>
-        <img src="{{item.groupPic}}">
-      </ion-avatar>
-      <h3 (click)="openChat(item)">{{item.groupName}}</h3>
-    </ion-item>
-  </ion-list>
-
-  <ion-fab #fab bottom right>
-    <button button-ion-fab ion-fab (click)="addGroup()">
-      <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-fab>
- 
-</ion-content>
-<!-- Fab Button -->
+    <ion-content no-bounce overflow-scroll="false">
+        <ion-card tappable  *ngFor="let group of allmygroups" (click)="openChat(group)">
+            <div class="banner-bg" [ngStyle]="{'background-image': 'url(' + group.groupPic + ')'}">
+              <h2 class="banner-title"> {{group.groupName}}</h2>
+              <p class="banner-description">Created By: {{group.creatorName}}</p>         
+            </div>
+          </ion-card>
+    
+      <ion-fab #fab bottom right>
+          <button button-ion-fab ion-fab (click)="addGroup()">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-fab>
+    </ion-content>

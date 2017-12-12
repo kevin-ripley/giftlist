@@ -1,8 +1,6 @@
 import { AlertController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../../models/user';
 
 
 @Injectable()
@@ -11,9 +9,9 @@ export class AuthProvider {
   constructor(private afAuth: AngularFireAuth, public alertCtrl: AlertController) {
     
   }
-  login(user: User) {
+  login(newEmail: string, newPassword: string){
     var promise = new Promise((resolve, reject) => {
-      this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password).then(() => {
+      this.afAuth.auth.signInWithEmailAndPassword(newEmail, newPassword).then(() => {
         resolve(true);
       }).catch((err) => {
         let alert = this.alertCtrl.create({

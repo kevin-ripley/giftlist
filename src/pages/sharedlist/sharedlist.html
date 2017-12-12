@@ -1,4 +1,7 @@
-
+<ion-header>
+  <ion-navbar>
+  </ion-navbar>
+</ion-header>
   <!-- Themes Products + CTA header -->
 <ion-content no-bounce overflow-scroll="false">
   <ion-grid no-padding>
@@ -23,7 +26,7 @@
               <h3 item-subtitle left padding-left>Sold By: {{data.seller}}</h3>
             </div>
             <div item-bottom>
-                <ion-icon left padding-right *ngFor="let item of getRanking(data.rank)">
+                <ion-icon left no-padding *ngFor="let item of getRanking(data.rank)">
                     <ion-icon icon-small name="star">
                     </ion-icon>
                   </ion-icon>
@@ -33,7 +36,7 @@
           </ion-item>
         </ion-list>
       </ion-col>
-    </ion-row>
+    </ion-row> 
   </ion-grid>
 
 </ion-content>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
@@ -27,17 +27,24 @@ export class ShopPage {
   totalData = 0;
   totalPage = 0;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public provide: ProductsProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public provide: ProductsProvider, public loadingCtrl: LoadingController) {
     this.searchControl = new FormControl();
     
   }
   
   ionViewDidLoad() {
+    let loadingPopup = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: ''
+    });
+    loadingPopup.present();
     this.setFilteredItems();
     this.searchControl.valueChanges.debounceTime(400).subscribe(search => {
       this.searching = false;
       this.setFilteredItems();
+      
     });
+    loadingPopup.dismiss();
   }
 
   onSearchInput() {
@@ -45,12 +52,6 @@ export class ShopPage {
     this.setFilteredItems();
   }
 
-  doRefresh(refresher) {
-    this.setFilteredItems();  // calls the getQuotes method
-    setTimeout(() => {
-      refresher.complete(); // stops the refresher 2 seconds after retreiving the Data
-    }, 2000);
-  }
 
   // Grabbing Items from the Products Provider
   setFilteredItems() {

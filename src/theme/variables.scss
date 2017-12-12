@@ -26,34 +26,149 @@ $font-path: "../assets/fonts";
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #0090d0,
+  primary:    #488aff,
   secondary:  #0091D2,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  accent:     #455B65,
-  dark:       #222222,
-  favorite:   #69BB7B,
-  // Button Twitter
+  dark:       #222,
+darkGray:   #333333,
+
+ 
+
+  special-blue:(
+    base: #0059B2,
+    contrast: #ffffff
+  ),
   twitter:(
-    base: #64B5F6,
+    base: #55acee,
+    contrast: #ffffff
+  ),
+  white:(
+    base: #ffffff,
+    contrast: #222
+  ),
+  ios:(
+    base: #ffffff,
+    contrast: #84BF41
+  ),
+  red:(
+    base: #f44336,
+    contrast: #ffffff
+  ),
+  pink:(
+    base: #EA1E63,
+    contrast: #ffffff
+  ),
+  purple:(
+    base: #9c27b0,
+    contrast: #ffffff
+  ),
+    deeppurple:(
+    base: #673ab7,
+    contrast: #ffffff
+  ),
+    indigo:(
+    base: #3f51b5,
+    contrast: #ffffff
+  ),
+    blue :(
+    base: #2196f3,
+    contrast: #ffffff
+  ),
+    blue2:(
+      base: #0034a7,
+      contrast: #ffffff
+    ),
+    lightblue:(
+    base: #03a9f4,
+    contrast: #ffffff
+  ),
+    cyan:(
+    base: #00bcd4,
+    contrast: #ffffff
+  ),
+    teal:(
+    base: #009688,
+    contrast: #ffffff
+  ),
+    green:(
+    base: #4caf50,
+    contrast: #ffffff
+  ),
+    lightgreen:(
+    base: #8dc34b,
+    contrast: #ffffff
+  ),
+      lime:(
+    base: #cddc39,
+    contrast: #333
+  ),
+      yellow:(
+    base: #ffeb3b,
+    contrast: #333
+  ),
+      amber:(
+    base: #ffc107,
     contrast: #fff
   ),
-  // Button Facebook
-  facebook:(
-    base: #3949ab,
-    contrast: #fff
+      orange:(
+    base: #ff9800,
+    contrast: #ffffff
   ),
-  // Button Google
-  google:(
-    base: #bf360c,
-    contrast: #fff
+      deeporange:(
+    base: #ff5722,
+    contrast: #ffffff
   ),
-  // Button Pinterest
-  pinterest:(
-    base: #ff3d00,
-    contrast: #fff
+      brown:(
+    base: #795548,
+    contrast: #ffffff
   ),
+      gray:(
+    base: #9e9e9e,
+    contrast: #ffffff
+  ),
+      bluegray:(
+    base: #607d8b,
+    contrast: #ffffff
+  ),
+      black:(
+    base: #000000,
+    contrast: #ffffff
+  ),
+      ios-gray:(
+    base: #8e8e93,
+    contrast: #ffffff
+  ),
+      ios-lightblue:(
+    base: #5ac8fa,
+    contrast: #ffffff
+  ),
+      ios-blue :(
+    base: #007aff,
+    contrast: #ffffff
+  ),
+      ios-yellow:(
+    base: #ffcc00,
+    contrast: #ffffff
+  ),
+      ios-orange:(
+    base: #ff9500,
+    contrast: #ffffff
+  ),
+      ios-pink:(
+    base: #ff2d55,
+    contrast: #ffffff
+  ),
+      ios-green:(
+    base: #4cd964,
+    contrast: #ffffff
+  ),
+      ios-red:(
+    base: #ff3b30,
+    contrast: #ffffff
+  )
 );
+$text-input-md-show-focus-highlight: false;
 
 
 // App iOS Variables

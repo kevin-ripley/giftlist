@@ -1,3 +1,30 @@
 page-chats {
-
+    follow-button {
+        background: #fff; 
+        border: 1px solid color($colors, blue2); 
+        color:  color($colors, blue2);
+        font-size: 13px; 
+        border-radius: 3px;
+        padding: 5px;
+        font-weight: bold;
+        width: 90%;
+        margin-right: 30px;
+      }
+    
+      .avatar {
+        border-radius: 100%;
+        position: absolute;
+      }
+      ion-avatar {      
+        color:#fff;
+      }
+      .h2 {
+        color: theme-colors('textColors', 'secondary') !important;
+      }
+      ion-avatar img {
+        max-width: 70px;
+        max-height: 70px;
+        border-radius: 50%;
+        // border: 1px solid #ccc;
+      }   
 }

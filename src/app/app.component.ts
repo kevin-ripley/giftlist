@@ -21,8 +21,9 @@ export class MyApp {
     });
     platform.ready().then(() => {
       statusBar.styleDefault();
-      let splash = this.modalCtrl.create('SplashPage');
-      splash.present();
+      splashScreen.show();
+      // let splash = this.modalCtrl.create('SplashPage');
+      // splash.present();
       
     });
   }

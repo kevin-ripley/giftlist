@@ -1,53 +1,55 @@
-<ion-content background-size default-background no-bounce overflow-scroll="false">
-  <ion-grid>
-        <div text-center>
-                <!---Logo-->
-                <img src ="assets/images/christmas_logo.png"/>
-            </div>
-      <ion-row wrap padding>
-          <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
-              <!--Form-->
-              <div class="form">
-                  <!--Form Title-->
-                  <h1 title text-center>REGISTER</h1>
-                  <!---Input field email-->
-                  <ion-item no-padding>
-                    <ion-label floating>Email</ion-label>
-                    <ion-input required type="email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required [(ngModel)]="user.email"></ion-input>
-                </ion-item>
-                  <!---Input field password-->
-                  <ion-item no-padding>
-                      <ion-label floating>Password</ion-label>
-                      <ion-input required type="password" [(ngModel)]="user.password"></ion-input>
-                  </ion-item>
-                  <!---Input field password-->
-                  <ion-item no-padding>
-                        <ion-label floating>Username</ion-label>
-                        <ion-input required type="text" [(ngModel)]="user.displayName"></ion-input>
-                    </ion-item>
-                    <!---Input field password-->
-                  <ion-item no-padding>
-                        <ion-label floating>First Name</ion-label>
-                        <ion-input required type="text" [(ngModel)]="user.firstName"></ion-input>
-                    </ion-item>
-                    <!---Input field password-->
-                  <ion-item no-padding>
-                        <ion-label floating>Last Name</ion-label>
-                        <ion-input required type="text" [(ngModel)]="user.lastName"></ion-input>
-                    </ion-item>
-                    <!---Input field password-->
-                  <ion-item no-padding>
-                        <ion-label floating>Birthdate</ion-label>
-                        <ion-datetime displayFormat="MMM DD YYYY" required [(ngModel)]="user.birthDate"></ion-datetime>
-                    </ion-item>
-                  
-              </div>
-              <!---Register button-->
-              <button ion-button block (click)="signUp()">Sign Up</button>
-              <!---back button-->
-              <button ion-button forgot-clear clear full (click)="goBack()">Already have an Account?</button>
-            
-          </ion-col>
-      </ion-row>
-  </ion-grid>
+<ion-content [ngStyle]="{'background-image': 'url(' + backgroundImage +')'}" no-bounce overflow-scroll="false">
+  <div class="login-container">
+    <img class="logo" src="assets/images/logo_4.png" />
+    <!--*********** Form ***********-->
+
+    <form [formGroup]="registerForm" (submit)="register()" novalidate>
+
+      <ion-item>
+        <ion-label floating>Username</ion-label>
+        <ion-input tappable formControlName="username" type="text" [class.invalid]="!registerForm.controls.username.valid && registerForm.controls.username.dirty"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input tappable formControlName="email" type="email" [class.invalid]="!registerForm.controls.email.valid && registerForm.controls.email.dirty"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>First Name</ion-label>
+        <ion-input tappable formControlName="firstName" type="text" [class.invalid]="!registerForm.controls.firstName.valid && registerForm.controls.firstName.dirty"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Last Name</ion-label>
+        <ion-input tappable formControlName="lastName" type="text" [class.invalid]="!registerForm.controls.lastName.valid && registerForm.controls.lastName.dirty"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input tappable formControlName="password" type="password" [class.invalid]="!registerForm.controls.password.valid && registerForm.controls.password.dirty"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Birth Date</ion-label>
+        <ion-datetime displayFormat="MMM DD YYYY" formControlName="birthDate" [class.invalid]="!registerForm.controls.birthDate.valid && registerForm.controls.birthDate.dirty"></ion-datetime>
+      </ion-item>
+
+
+
+      <ion-item class="error-message">
+        <p *ngIf="!registerForm.controls.username.valid  &&
+                  registerForm.controls.username.dirty">*Please enter your name.</p>
+        <p *ngIf="!registerForm.controls.email.valid  &&
+                  registerForm.controls.email.dirty">*Please enter a valid email.</p>
+        <p *ngIf="!registerForm.controls.password.valid  &&
+          registerForm.controls.password.dirty">*Password needs more than 6 characters.</p>
+      </ion-item>
+      <button ion-button block type="submit" color="primary">
+        Create an Account
+      </button>
+    </form>
+  </div>
 </ion-content>
+<ion-footer color="blue2">
+    <button class="bottom" ion-button  type="button"  clear full color="light" (click)="goBack()">Already Have an Account?</button>
+</ion-footer>
