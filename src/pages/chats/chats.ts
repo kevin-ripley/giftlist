@@ -12,7 +12,7 @@ import { UserProvider } from '../../providers/user/user';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ImagehandlerProvider } from '../../providers/imagehandler/imagehandler';
 import { List } from '../../models/list';
-
+import firebase from 'firebase';
 
 @IonicPage()
 @Component({
@@ -46,7 +46,7 @@ export class ChatsPage {
     this.events.subscribe('gotrequests', () => {
       this.myrequests = [];
       this.myrequests = this.requestservice.userdetails;
-      this.requestcount = this.myfriends.length;
+      this.requestcount = this.myrequests.length;
     })
     this.events.subscribe('friends', () => {
       this.myfriends = [];

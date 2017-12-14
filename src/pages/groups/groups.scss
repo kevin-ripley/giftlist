@@ -28,7 +28,8 @@ page-groups {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-position: right !important;
   }
   .banner-title {

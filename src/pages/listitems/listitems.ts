@@ -75,6 +75,30 @@ export class ListitemsPage {
   manualAddItem() {
     this.navCtrl.push('ItemcreatePage', { key: this.key });
   }
+  
+  delete(){
+    let confirm = this.alertCtrl.create({
+      title: 'Delete List!',
+      message: 'Are you sure you want to delete this list?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            this.firebaseService.removeList(this.key);
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    confirm.present();
+  
+  }
 
   scan() {
     this.options = {

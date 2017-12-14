@@ -13,8 +13,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class LoginPage {
 
   public loginForm: any;
-  public backgroundImage: any = "../assets/images/gift_rt_bg.jpg";
-  public imgLogo: any = "assets/images/christmas_logo.png";
+  public backgroundImage: any = "../../assets/images/gift_rt_bg.jpg";
   user = {} as User;
 
   constructor(public navCtrl: NavController, public authservice: AuthProvider, public fb: FormBuilder, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {

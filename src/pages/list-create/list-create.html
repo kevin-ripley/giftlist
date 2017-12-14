@@ -21,6 +21,15 @@
                       <ion-label floating>Expiration Date</ion-label>
                       <ion-datetime required type="datetime" [(ngModel)]="list.expiration_date"></ion-datetime>
                   </ion-item>
+                  <ion-item>
+                        <ion-label>Occasion</ion-label>
+                        <ion-select [(ngModel)]="occasion">
+                          <ion-option value="christmas">Christmas</ion-option>
+                          <ion-option value="birthday">Birthday</ion-option>
+                          <ion-option value="wedding">Wedding</ion-option>
+                          <ion-option value="other">Other</ion-option>
+                        </ion-select>
+                      </ion-item>
                  
                   <!---Add List button-->
                   <button ion-button outline block color="secondary" (click)="addList()">New List</button>

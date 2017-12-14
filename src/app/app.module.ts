@@ -25,6 +25,7 @@ import { UserProvider } from '../providers/user/user';
 import { RequestsProvider } from '../providers/requests/requests';
 import { ChatProvider } from '../providers/chat/chat';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { AdMobFree } from '@ionic-native/admob-free';
 
 
 
@@ -54,6 +55,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     SpinnerDialog,
     BarcodeScanner,
     Camera,
+    AdMobFree,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProductsProvider,
     FirebaseServiceProvider,

@@ -21,7 +21,7 @@ export class MyApp {
     });
     platform.ready().then(() => {
       statusBar.styleDefault();
-      splashScreen.show();
+      splashScreen.hide();
       // let splash = this.modalCtrl.create('SplashPage');
       // splash.present();
       

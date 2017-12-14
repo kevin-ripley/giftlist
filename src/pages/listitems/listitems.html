@@ -1,5 +1,10 @@
 <ion-header>
-  <ion-navbar></ion-navbar>
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-only color="red" (click)="delete()">
+          <ion-icon name="trash"></ion-icon>
+          </button>
+      </ion-buttons></ion-navbar>
 </ion-header>
 <ion-content no-bounce overflow-scroll="false">
   <ion-grid no-padding>

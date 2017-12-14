@@ -1,20 +1,63 @@
 page-group-create {
-  .profile-image {
-    img {
-      height: 200px;
-      width: 200px;
-      border-radius: 50%;
-      border: 4px solid rgba(255, 255, 255, 0.4);
-      -webkit-box-shadow: 0px 0px 142px -37px rgba(0, 0, 0, 0.75);
-      -moz-box-shadow: 0px 0px 142px -37px rgba(0, 0, 0, 0.75);
-      box-shadow: 0px 0px 142px -37px rgba(0, 0, 0, 0.75);
-    }
+
+
+  ion-content {
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-color: transparent;
+    background-position: center;
+  }
+  .title {
+    color: #488aff !important;
   }
   .scroll-content {
-    align-content: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
+    margin-top: 0 !important;
   }
+  .img {
+    width: 60%;
+    height: 60%;
+    padding-top: 3vh;
+    margin-bottom: 2vh;
+  }
+  span {
+    color: white;
+  }
+
+ 
+  .error-message .item-inner{
+    border-bottom-color:  transparent !important;
+    box-shadow: inset 0 -1px 0 0  transparent !important;
+  }
+  .error-message p{
+    text-align: right;
+    color:red;
+  }
+  ion-item {
+    color: #488aff !important;
+    padding-left: 0px !important;
+    // margin-bottom: 10px;
+    background-color: transparent !important;
+    font-size: 0.9em;
+  }
+  .item-inner{
+    border-bottom: 1px solid lightblue !important;
+    box-shadow: inset 0 -1px 0 transparent; 
+  }
+  ::-webkit-input-placeholder {
+    color: #488aff !important;
+  }
+  .login-container {
+    color: lightslategrey;
+    position: absolute;
+    top: 0;
+    padding: 10vw;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 2;
+  }
+  ion-button {
+    opacity: 0.8;
+  }
+
 }

@@ -5,4 +5,5 @@ export interface List {
     items: any;
     shared: any;
     expiration_date: any;
+    $key: string;
 }

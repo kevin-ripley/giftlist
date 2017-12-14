@@ -22,14 +22,16 @@ export class FinditemsPage {
 
   scanData : {};
   options :BarcodeScannerOptions;
-  public backgroundImage1: any = "../assets/images/manual.jpg";
-  public backgroundImage2: any = "../assets/images/search.jpg";
-  public backgroundImage3: any = "../assets/images/scan.jpg";
+  public backgroundImage1: any = "../../assets/images/manual.jpg";
+  public backgroundImage2: any = "../../assets/images/search.jpg";
+  public backgroundImage3: any = "../../assets/images/scan.jpg";
   lists: FirebaseListObservable<List[]>;
   testRadioOpen = false;
   testRadioResult: any;
   key: Array<any> = [];
   name: any;
+  
+  
   
   constructor(public alertCtrl: AlertController, public firebaseService: FirebaseServiceProvider, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private barcodeScanner: BarcodeScanner) {
     let loadingPopup = this.loadingCtrl.create({
@@ -39,7 +41,9 @@ export class FinditemsPage {
     loadingPopup.present();
     loadingPopup.dismiss();
   }
+  
   ionViewDidLoad(){
+    
     this.lists = this.firebaseService.getLists();
     this.lists.subscribe(list => {
       // items is an array
