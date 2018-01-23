@@ -56,8 +56,23 @@ export class FirebaseServiceProvider {
 
 
   removeList(key: string): void {
-    this.lists.remove(key)
-      .catch(error => console.log(error))
+    const list = this.afDatabase.object(`lists/${this.userId}/${key}`);
+    //console.log(list);
+    var shared = '';
+    const list_id = this.afDatabase.list(`groups/${this.userId}/${shared}`, {
+      query: {
+        orderByChild: 'lists',
+        equalTo: key
+      }
+    });
+    
+    list_id.subscribe(value => {
+      console.log(value);
+    })
+
+    
+    // this.lists.remove(key)
+    //   .catch(error => console.log(error))
   }
 
   getItems(key: string): FirebaseListObservable<ListItem[]> {

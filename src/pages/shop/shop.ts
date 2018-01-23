@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 import { ProductsProvider } from '../../providers/products/products';
 import 'rxjs/add/operator/map';
-import { AdMobFreeBannerConfig, AdMobFree } from '@ionic-native/admob-free';
+
 
 
 @IonicPage()
@@ -28,9 +28,9 @@ export class ShopPage {
   totalData = 0;
   totalPage = 0;
 
-  constructor(public adMobFree: AdMobFree, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, public provide: ProductsProvider, public loadingCtrl: LoadingController) {
+  constructor( public platform: Platform, public navCtrl: NavController, public navParams: NavParams, public provide: ProductsProvider, public loadingCtrl: LoadingController) {
     this.searchControl = new FormControl();
-    this.displayBanner();
+    
   }
 
   ionViewDidLoad() {
@@ -49,24 +49,24 @@ export class ShopPage {
     
     loadingPopup.dismiss();
   }
-  displayBanner() {
-    const bannerConfig: AdMobFreeBannerConfig = {
-      // we will just use a test id for this tutorial
-      id: 'ca-pub-3508855280895987/9057321542',
-      isTesting: true,
-      autoShow: true,
-      bannerAtTop: true // default is false
-    };
+  // displayBanner() {
+  //   const bannerConfig: AdMobFreeBannerConfig = {
+  //     // we will just use a test id for this tutorial
+  //     id: 'ca-pub-3508855280895987/9057321542',
+  //     isTesting: true,
+  //     autoShow: true,
+  //     bannerAtTop: true // default is false
+  //   };
 
-    this.adMobFree.banner.config(bannerConfig);
+  //   this.adMobFree.banner.config(bannerConfig);
 
-    this.adMobFree.banner.prepare().then((result) => {
-      console.log(result);
-    }, (reason) => {
-      console.log(reason);
-    });
+  //   this.adMobFree.banner.prepare().then((result) => {
+  //     console.log(result);
+  //   }, (reason) => {
+  //     console.log(reason);
+  //   });
 
-  }
+  // }
 
   onSearchInput() {
     this.searching = true;
