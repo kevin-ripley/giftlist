@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Keyboard } from '@ionic-native/keyboard';
 
 
 @IonicPage()
@@ -16,18 +17,20 @@ export class LoginPage {
   public backgroundImage: any = "../../assets/images/gift_rt_bg.jpg";
   user = {} as User;
 
-  constructor(public navCtrl: NavController, public authservice: AuthProvider, public fb: FormBuilder, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
+  constructor(private keyboard: Keyboard, public navCtrl: NavController, public authservice: AuthProvider, public fb: FormBuilder, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     let EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
     this.loginForm = fb.group({
       email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEXP)])],
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
+    
   }
 
   ionViewDidLoad() {
   }
 
   login() {
+    this.keyboard.close();
     if (!this.loginForm.valid) {
       //this.presentAlert('Username password can not be blank')
       console.log("error");

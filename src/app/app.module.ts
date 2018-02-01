@@ -25,6 +25,7 @@ import { UserProvider } from '../providers/user/user';
 import { RequestsProvider } from '../providers/requests/requests';
 import { ChatProvider } from '../providers/chat/chat';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { Keyboard } from '@ionic-native/keyboard';
 
 
 
@@ -64,6 +65,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     UserProvider,
     RequestsProvider,
     ChatProvider,
+    Keyboard,
     SocialSharing,
   ]
 })
