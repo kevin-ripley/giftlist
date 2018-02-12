@@ -23,23 +23,27 @@ import { Profile } from '../../models/profile';
 })
 export class ProfilePage {
   userDetails: FirebaseObjectObservable<Profile>;
+  user = {} as Profile;
   birthDate: any;
   displayName: string;
   email: any;
   firstName: string;
   lastName: string;
   photoURL: any;
+  uid: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public userservice: UserProvider, public zone: NgZone, public alertCtrl: AlertController,
     public imghandler: ImagehandlerProvider, private agAuth: AngularFireAuth, private userService: UserProvider) {
-    this.userDetails = this.userService.getUserInfo(this.agAuth.auth.currentUser.uid);
-
+      this.uid = this.navParams.get('friend');
+    this.userDetails = this.userService.getUserInfo(this.uid);
+    
   }
 
   ionViewDidLoad() {
-    this.userDetails = this.userService.getUserInfo(this.agAuth.auth.currentUser.uid);
+    this.userDetails = this.userService.getUserInfo(this.uid);
     this.userDetails.subscribe((snapshots) => {
+      this.user = snapshots;
       this.birthDate = snapshots.birthDate;
       this.displayName = snapshots.displayName;
       this.email = snapshots.email;

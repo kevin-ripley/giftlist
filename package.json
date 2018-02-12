@@ -20,6 +20,7 @@
     "@angular/http": "5.0.0",
     "@angular/platform-browser": "5.0.0",
     "@angular/platform-browser-dynamic": "5.0.0",
+    "@ionic-native/admob-free": "^4.5.3",
     "@ionic-native/barcode-scanner": "^4.5.2",
     "@ionic-native/camera": "^4.5.2",
     "@ionic-native/core": "4.3.3",
@@ -37,8 +38,10 @@
     "android-versions": "^1.2.2",
     "angularfire2": "^5.0.0-rc.4",
     "build": "0.1.4",
+    "cordova-admob-sdk": "^0.15.0",
     "cordova-android": "^6.4.0",
     "cordova-ios": "4.5.3",
+    "cordova-plugin-admob-free": "^0.14.0",
     "cordova-plugin-camera": "^3.0.0",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-extension": "^1.5.3",
@@ -82,7 +85,8 @@
       "cordova-plugin-filechooser": {},
       "cordova-plugin-filepath": {},
       "cordova-plugin-file": {},
-      "cordova-plugin-x-socialsharing": {}
+      "cordova-plugin-x-socialsharing": {},
+      "cordova-plugin-admob-free": {}
     },
     "platforms": [
       "android",

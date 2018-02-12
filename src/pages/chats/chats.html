@@ -51,7 +51,7 @@
         <!--<p no-padding no-margin color="blue2"><a href="#">{{(profile | async)?.facebook}}</a></p>-->
       </div>
     
-      <!--***********  Segement tab ***********-->
+      <!--***********  Segment tab ***********-->
       <ion-segment mode="md" [(ngModel)]="segmentView" color="primary">
         <ion-segment-button value="one">
           <ion-icon name="contacts"></ion-icon>
@@ -64,14 +64,14 @@
         </ion-segment-button>
       </ion-segment>
     
-      <!--***********  Segement one ***********-->
+      <!--***********  Segment one ***********-->
       <div *ngIf="segmentView==='one'">
         <ion-list no-lines padding>
             <ion-list-header>
             <h2 text-center color="lightblue">Friends</h2>
           </ion-list-header>
           <ion-item *ngFor="let friend of myfriends" padding-bottom>
-            <ion-avatar item-left>
+            <ion-avatar item-left (click)=profile(friend.uid)>
               <img [src]="friend.photoURL">
             </ion-avatar>
             <h2>{{friend.displayName}}</h2>

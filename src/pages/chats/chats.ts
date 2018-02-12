@@ -64,6 +64,9 @@ export class ChatsPage {
   ionViewDidLeave() {
     this.events.unsubscribe('gotrequests');
   }
+  profile(friend){
+    this.navCtrl.push('ProfilePage', { friend: friend});
+  }
 
   editImage() {
     let statusalert = this.alertCtrl.create({

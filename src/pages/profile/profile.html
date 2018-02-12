@@ -12,11 +12,11 @@
 <ion-content elastic-header>
     <ion-item no-lines background-size id="elastic-header" [ngStyle]="{'background-image': 'url(assets/images/gift_bg.jpg)'}">
         <ion-thumbnail>
-            <img src="{{photoURL}}" />
+            <img src="{{this.user.photoURL}}" />
         </ion-thumbnail>
         <div class="title">
-            <h1 parallax-title>{{firstName}} {{lastName}}</h1>
-            <h2 parallax-subtitle>{{ email }}</h2>
+            <h1 parallax-title>{{this.user.firstName}} {{this.user.lastName}}</h1>
+            <h2 parallax-subtitle>{{ this.user.email }}</h2>
         </div>
     </ion-item>
     <!--Content-->
