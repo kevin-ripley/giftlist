@@ -8,7 +8,7 @@ import { IonicPage, NavController, } from 'ionic-angular';
 })
 export class HomePage {
 
-  public backgroundImage: any = "../../assets/images/gift_rt_bg.jpg";
+  public backgroundImage: any = "assets/images/gift_rt_bg.jpg";
   constructor(public navCtrl: NavController) {
     
   }

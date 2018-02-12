@@ -50,7 +50,7 @@ export class GroupchatPage {
       if (res)
         this.creator = true;
     }).catch((err) => {
-      alert(err);
+      alert(err); 
     })
     this.list =  this.groupservice.getGroupLists(this.groupName);
    

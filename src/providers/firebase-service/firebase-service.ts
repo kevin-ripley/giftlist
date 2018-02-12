@@ -56,23 +56,24 @@ export class FirebaseServiceProvider {
 
 
   removeList(key: string): void {
-    const list = this.afDatabase.object(`lists/${this.userId}/${key}`);
-    //console.log(list);
-    var shared = '';
-    const list_id = this.afDatabase.list(`groups/${this.userId}/${shared}`, {
-      query: {
-        orderByChild: 'lists',
-        equalTo: key
+    const list = this.afDatabase.list(`lists/${this.userId}/${key}/listshared`);
+    var shared = [];
+    list.subscribe((snapshots) => {
+      for (var key in snapshots){
+        shared.push(snapshots[key].groupname);
       }
     });
-    
-    list_id.subscribe(value => {
-      console.log(value);
-    })
-
-    
-    // this.lists.remove(key)
-    //   .catch(error => console.log(error))
+    shared.forEach(element => {
+      this.afDatabase.list(`groups/${this.userId}/${element}/lists`).remove(key);
+      var members = this.afDatabase.list(`groups/${this.userId}/${element}/members`);
+      members.subscribe((membs) => {
+        for(var k in membs){
+          this.afDatabase.list(`groups/${membs[k].uid}/${element}/lists`).remove(key);
+        }
+      });
+        
+    });
+    this.afDatabase.list(`lists/${this.userId}`).remove(key);
   }
 
   getItems(key: string): FirebaseListObservable<ListItem[]> {

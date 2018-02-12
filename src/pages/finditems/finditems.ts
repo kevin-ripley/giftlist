@@ -22,9 +22,9 @@ export class FinditemsPage {
 
   scanData : {};
   options :BarcodeScannerOptions;
-  public backgroundImage1: any = "../../assets/images/manual.jpg";
-  public backgroundImage2: any = "../../assets/images/search.jpg";
-  public backgroundImage3: any = "../../assets/images/scan.jpg";
+  public backgroundImage1: any = "assets/images/manual.jpg";
+  public backgroundImage2: any = "assets/images/search.jpg";
+  public backgroundImage3: any = "assets/images/scan.jpg";
   lists: FirebaseListObservable<List[]>;
   testRadioOpen = false;
   testRadioResult: any;

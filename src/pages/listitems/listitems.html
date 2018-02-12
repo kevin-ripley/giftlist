@@ -17,7 +17,7 @@
     </ion-row>
     <!--Content-->
     <ion-row no-padding>
-        <p header-subtitle>Click on Item to Edit Description, Rank, or Delete</p>
+        
       <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
         <ion-list>
           <ion-item no-padding no-lines *ngFor="let data of listItemRef$ | async; let i = index;" (click)="goToItem(data, data.$key)">

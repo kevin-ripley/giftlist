@@ -151,7 +151,8 @@ export class GroupsProvider {
 
   deletelist(key) {
     this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('lists').once('value', (snapshot) => {
-      snapshot.ref.child(key).remove();
+      var list = snapshot.ref.child(key);
+      console.log("Here is the list being deleted!" + list);
     })
   }
 

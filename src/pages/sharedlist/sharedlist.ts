@@ -6,12 +6,6 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { Profile } from '../../models/profile';
 
-/**
- * Generated class for the SharedlistPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -34,7 +28,7 @@ export class SharedlistPage {
     });
     loadingPopup.present();
     this.key = this.navParams.get('key');
-    this.owner = this.navParams.get('owner');
+    this.owner = this.navParams.get('owner'); 
     this.listItemRef$ = this.groupService.getSharedItems(this.owner, this.key);
     loadingPopup.dismiss();
     console.log(this.key, this.owner);
