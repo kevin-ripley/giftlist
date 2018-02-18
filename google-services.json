@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "498265981425",
+    "firebase_url": "https://gift-list-58d8f.firebaseio.com",
+    "project_id": "gift-list-58d8f",
+    "storage_bucket": "gift-list-58d8f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498265981425:android:d2e3ce0c4cfadee8",
+        "android_client_info": {
+          "package_name": "com.kevinripley.giftlist171201"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498265981425-3qs3sfrs19amodsua0e92ocj7naj0g3r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBS2LWGpg763rFQM885OVKQRQTl77FgefY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
