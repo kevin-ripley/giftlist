@@ -37,3 +37,5 @@ UserInterfaceState.xcuserstate
 src/app/firebaseconfig.ts
 
 src/providers/products/products.ts
+google-services.json
+GoogleService-Info.plist
