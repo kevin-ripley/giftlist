@@ -34,8 +34,6 @@
         <ion-datetime displayFormat="MMM DD YYYY" formControlName="birthDate" [class.invalid]="!registerForm.controls.birthDate.valid && registerForm.controls.birthDate.dirty"></ion-datetime>
       </ion-item>
 
-
-
       <ion-item class="error-message">
         <p *ngIf="!registerForm.controls.username.valid  &&
                   registerForm.controls.username.dirty">*Please enter your name.</p>

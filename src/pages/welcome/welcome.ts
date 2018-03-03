@@ -12,7 +12,6 @@ export class WelcomePage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  
 
   login() {
     this.navCtrl.push('LoginPage');
