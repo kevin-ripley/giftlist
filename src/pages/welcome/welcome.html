@@ -1,14 +1,15 @@
-
-<ion-content no-bounce overflow-scroll="false">
-        <img src="assets/images/logo_4.png" />
-  <ion-title text-center>Create Your List and Share!</ion-title>
-  <video controls preload="auto" autoplay playsinline muted loop>
-    <source src="assets/videos/welcome.mp4">
-  </video>
-  <div style="position: absolute; bottom: 0px; width: 100%">
-    <div style="text-align: center">
-      <button ion-button block (click)="register()">SIGN UP</button>
-      <button ion-button clear button-clear (click)="login()">ALREADY A MEMBER? LOG IN</button>
+<ion-content [ngStyle]="{'background-image': 'url(' + backgroundImage +')'}" no-bounce overflow-scroll="false">
+  <div background-size class="default-background">
+    <img src="assets/images/logo_4.png" />
+    <h2 item-title text-center>Create Your List and Share!</h2>
+    <div class="ionic-descript" text-center>
+      <div style="position: absolute; bottom: 0px; width: 100%">
+        <div style="text-align: center">
+          <button ion-button block (click)="register()">SIGN UP</button>
+          <button ion-button clear button-clear (click)="login()">ALREADY A MEMBER? LOG IN</button>
+        </div>
+      </div>
     </div>
   </div>
+
 </ion-content>

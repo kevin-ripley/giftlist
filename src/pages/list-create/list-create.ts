@@ -61,7 +61,7 @@ export class ListCreatePage {
     }
     
     this.firebaseService.addLists(this.list);
-    this.navCtrl.push('ListsPage');
+    this.navCtrl.setRoot('ListsPage');
   }
 
 

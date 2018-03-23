@@ -6,6 +6,7 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 import { GroupsProvider } from '../../providers/groups/groups';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 /**
  * Generated class for the ListitemsPage page.
@@ -31,10 +32,12 @@ export class ListitemsPage {
   testRadioResult;
   list;
   image;
+  name;
 
-  constructor(public events: Events, private groupService: GroupsProvider, public barcodeScanner: BarcodeScanner, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController, public viewCtrl: ViewController) {
+  constructor(public events: Events, public socialSharing: SocialSharing, private groupService: GroupsProvider, public barcodeScanner: BarcodeScanner, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController, public viewCtrl: ViewController) {
     this.key = this.navParams.get('key');
     this.list = this.navParams.get('list');
+    this.name = this.navParams.get('name');
     this.listItemRef$ = this.firebaseService.getItems(this.key);
     this.image = this.navParams.get('image');
   }
@@ -118,6 +121,11 @@ export class ListitemsPage {
     this.navCtrl.push('ShopPage');
   }
 
+  regularShare(){
+    var msg = 'Come Be My Friend At Gift List and See What I Have On My List!';
+    this.socialSharing.share(msg, null, null, null);
+  }
+
   share() {
     let alert = this.alertCtrl.create();
 
@@ -136,7 +144,7 @@ export class ListitemsPage {
         this.testRadioOpen = false;
         this.testRadioResult = data;
         this.groupService.shareList(this.list, this.key, data);
-        this.navCtrl.push('GroupchatPage', { groupName: this.testRadioResult });
+        this.navCtrl.setRoot('GroupchatPage', { groupName: this.testRadioResult });
       }
     });
     alert.present().then(() => {

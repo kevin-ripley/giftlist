@@ -90,9 +90,9 @@
     <plugin name="cordova-plugin-filechooser" spec="^1.0.1" />
     <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
     <plugin name="cordova-plugin-file" spec="^5.0.0" />
-    <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-plugin-admob-free" spec="^0.14.0" />
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="6.4.0" />
+    <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
 </widget>

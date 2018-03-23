@@ -130,9 +130,10 @@ export class ItemcreatePage {
   };
 
   addItem() {
-    console.log(this.listItem.image);
+    
     this.listItem.rank = this.rank;
+    console.log(this.key);
     this.firebaseService.addItem(this.key, this.listItem);
-    this.navCtrl.push('ListitemsPage', { key: this.key });
+    this.navCtrl.setRoot('ListsPage');
   }
 }

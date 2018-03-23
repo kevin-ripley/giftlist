@@ -76,7 +76,7 @@ export class ListsPage {
   }
 
   seeItems(list, key, listImage) {
-    this.navCtrl.push('ListitemsPage', { list: list, key: key, image: listImage});
+    this.navCtrl.push('ListitemsPage', { list: list, key: key, image: listImage}); 
   }
 
 

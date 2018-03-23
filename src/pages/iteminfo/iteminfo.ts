@@ -85,7 +85,20 @@ export class IteminfoPage {
   };
 
   deleteItem(){
-    this.firebaseService.removeItem(this.Ikey, this.Lkey);
+    let confirm = this.alertCtrl.create({
+      title: 'Delete List!',
+      message: 'Are you sure you want to delete this list?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            this.firebaseService.removeItem(this.Ikey, this.Lkey);
       let alert = this.alertCtrl.create({
         title: 'Item Deleted!',
         message: 'Your Item was Deleted From Your List!',
@@ -99,7 +112,14 @@ export class IteminfoPage {
         ]
       });
       alert.present();
-     // this.navCtrl.push('ListitemsPage', {key: this.Lkey});
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    confirm.present();
+    
+     
   }
 
   save(items: ListItem){
