@@ -122,7 +122,7 @@ export class ListitemsPage {
   }
 
   regularShare(){
-    var msg = 'Come Be My Friend At Gift List and See What I Have On My List!';
+    var msg = 'Come check out my list named: ' + this.list.name + ' on GIFT LIST';
     this.socialSharing.share(msg, null, null, null);
   }
 
