@@ -24,7 +24,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { UserProvider } from '../providers/user/user';
 import { RequestsProvider } from '../providers/requests/requests';
 import { ChatProvider } from '../providers/chat/chat';
-import { SocialSharing } from '@ionic-native/social-sharing';
+//import { SocialSharing } from '@ionic-native/social-sharing';
 import { Keyboard } from '@ionic-native/keyboard';
 import { AdMobFree } from '@ionic-native/admob-free';
 
@@ -68,7 +68,7 @@ import { AdMobFree } from '@ionic-native/admob-free';
     RequestsProvider,
     ChatProvider,
     Keyboard,
-    SocialSharing,
+    //SocialSharing,
   ]
 })
 export class AppModule {}
