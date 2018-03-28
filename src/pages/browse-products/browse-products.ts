@@ -76,6 +76,7 @@ export class BrowseProductsPage {
     this.listItem.listkey = this.key;
     this.listItem.rank = this.rank;
     this.firebaseService.addItem(this.key, this.listItem);
+    this.navCtrl.setRoot('ListsPage');
    
   }
 

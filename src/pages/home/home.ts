@@ -16,7 +16,7 @@ export class HomePage {
   showBanner() {
  
     let bannerConfig: AdMobFreeBannerConfig = {
-        isTesting: true, // Remove in production
+        isTesting: false, // Remove in production
         autoShow: true,
         id: 'ca-app-pub-3508855280895987/3094770508'
     };

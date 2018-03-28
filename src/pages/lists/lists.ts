@@ -40,6 +40,17 @@ export class ListsPage {
     })
     loader.dismiss();
   }
+
+  doRefresh(refresher) {
+    this.listRef$ = this.firebaseService.getLists();
+    this.groupService.getmygroups();
+    this.events.subscribe('allmygroups', () => {
+      this.allmygroups = this.groupService.mygroups;
+    })
+    setTimeout(() => {
+      refresher.complete(); // stops the refresher 2 seconds after retreiving the Data
+    }, 2000);
+  }
   
   newList() {
     this.navCtrl.push('ListCreatePage');

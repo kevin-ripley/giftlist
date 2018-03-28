@@ -31,15 +31,18 @@ page-lists {
     -o-background-size: cover;
     background-size: cover;
     background-position: right !important;
+    
+    //@include darkening-blend-mode;
 }
 .banner-title{
     position: absolute;
     bottom: 45%;
     left: 23px;
-    font-size: 22px;
-    font-weight: 400;
-    color: theme-colors('textColors', 'secondary') !important;
-    //   text-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
+    font-size: 30px;
+    font-weight: 500;
+    color: theme-colors('textColors', 'accent') !important;
+    text-shadow: 0 3px 3px theme-colors('textColors', 'secondary');
+    
 }
 .banner-description {
     font-size: 1.0em;
@@ -47,7 +50,7 @@ page-lists {
     bottom: 60px;
     left: 25px;
     color: theme-colors('textColors', 'primary') !important;
-    //text-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    //text-shadow:2px 3px 10px #000000
+    text-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    
 }
 }

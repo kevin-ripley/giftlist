@@ -122,9 +122,22 @@ export class ChatsPage {
     this.navCtrl.push('FriendchatPage');
   }
   regularShare(){
-    var msg = 'Come Be My Friend At Gift List and See What I Have On My List!';
-    this.socialSharing.share(msg, null, null, null);
+    var msg = 'Come Be My Friend on GIFT LIST!';
+    var url = 'http:/www.ripleyoriginals.com/gift-list'
+    this.socialSharing.share(msg, null, null, url);
   }
+  
+  facebookShare(index){
+    var msg  = 'Come Be My Friend on GIFT LIST!';
+    var url = 'http:/www.ripleyoriginals.com/gift-list'
+     this.socialSharing.shareViaFacebook(msg, null, url);
+   }
+
+   twitterShare(index){
+    var msg  = 'Come Be My Friend on GIFT LIST!';
+    var url = 'http:/www.ripleyoriginals.com/gift-list'
+     this.socialSharing.shareViaTwitter(msg, null, url);
+   }
 
   logout() {
     let prompt = this.alertCtrl.create({

@@ -54,6 +54,12 @@ export class FirebaseServiceProvider {
     this.afDatabase.list(`lists/${this.userId}`).push(list);
   }
 
+  add_public_lists(list: List){
+    if (!this.userId) return;
+    list.owner = this.userId;
+    this.afDatabase.list(`public_lists/${this.userId}`).push(list);
+  }
+
 
   removeList(key: string): void {
     const list = this.afDatabase.list(`lists/${this.userId}/${key}/listshared`);
