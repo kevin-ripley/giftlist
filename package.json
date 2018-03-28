@@ -58,6 +58,7 @@
     "es6-promise-plugin": "^4.1.1",
     "firebase": "^4.9.1",
     "ionic-angular": "3.9.2",
+    "ionic-plugin-deeplinks": "^1.0.15",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
     "phonegap-plugin-barcodescanner": "^7.0.0",
@@ -87,7 +88,25 @@
       "cordova-plugin-file": {},
       "cordova-plugin-admob-free": {},
       "cordova-plugin-compat": {},
-      "cordova-plugin-x-socialsharing": {}
+      "cordova-plugin-x-socialsharing": {},
+      "ionic-plugin-deeplinks": {
+        "URL_SCHEME": "giftlist",
+        "DEEPLINK_SCHEME": "https",
+        "DEEPLINK_HOST": "gift-list-58d8f.firebaseapp.com",
+        "ANDROID_PATH_PREFIX": "/",
+        "ANDROID_2_PATH_PREFIX": "/",
+        "ANDROID_3_PATH_PREFIX": "/",
+        "ANDROID_4_PATH_PREFIX": "/",
+        "ANDROID_5_PATH_PREFIX": "/",
+        "DEEPLINK_2_SCHEME": " ",
+        "DEEPLINK_2_HOST": " ",
+        "DEEPLINK_3_SCHEME": " ",
+        "DEEPLINK_3_HOST": " ",
+        "DEEPLINK_4_SCHEME": " ",
+        "DEEPLINK_4_HOST": " ",
+        "DEEPLINK_5_SCHEME": " ",
+        "DEEPLINK_5_HOST": " "
+      }
     },
     "platforms": [
       "ios",
