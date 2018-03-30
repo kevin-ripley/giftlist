@@ -16,10 +16,13 @@ import { SocialSharing } from '@ionic-native/social-sharing';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  segment: 'items'
+})
 @Component({
   selector: 'page-listitems',
   templateUrl: 'listitems.html',
+  
 })
 export class ListitemsPage {
   listItemRef$: FirebaseListObservable<ListItem[]>;

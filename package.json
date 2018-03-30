@@ -88,25 +88,7 @@
       "cordova-plugin-file": {},
       "cordova-plugin-admob-free": {},
       "cordova-plugin-compat": {},
-      "cordova-plugin-x-socialsharing": {},
-      "ionic-plugin-deeplinks": {
-        "URL_SCHEME": "giftlist",
-        "DEEPLINK_SCHEME": "https",
-        "DEEPLINK_HOST": "gift-list-58d8f.firebaseapp.com",
-        "ANDROID_PATH_PREFIX": "/",
-        "ANDROID_2_PATH_PREFIX": "/",
-        "ANDROID_3_PATH_PREFIX": "/",
-        "ANDROID_4_PATH_PREFIX": "/",
-        "ANDROID_5_PATH_PREFIX": "/",
-        "DEEPLINK_2_SCHEME": " ",
-        "DEEPLINK_2_HOST": " ",
-        "DEEPLINK_3_SCHEME": " ",
-        "DEEPLINK_3_HOST": " ",
-        "DEEPLINK_4_SCHEME": " ",
-        "DEEPLINK_4_HOST": " ",
-        "DEEPLINK_5_SCHEME": " ",
-        "DEEPLINK_5_HOST": " "
-      }
+      "cordova-plugin-x-socialsharing": {}
     },
     "platforms": [
       "ios",

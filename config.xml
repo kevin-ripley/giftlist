@@ -94,5 +94,5 @@
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-plugin-admob-free" spec="^0.14.0" />
     <engine name="ios" spec="4.5.3" />
-    <engine name="android" spec="6.3.0" />
+    <engine name="android" spec="~6.3.0" />
 </widget>
