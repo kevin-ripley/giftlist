@@ -7,6 +7,10 @@
     </ion-header>
 
     <ion-content no-bounce overflow-scroll="false">
+        <ion-refresher (ionRefresh)="groupRefresh($event)">
+            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="bubbles" refreshingText="Refreshing...">
+            </ion-refresher-content>
+          </ion-refresher>
         <ion-card tappable  *ngFor="let group of allmygroups" (click)="openChat(group)">
             <div class="banner-bg" [ngStyle]="{'background-image': 'url(' + group.groupPic + ')'}">
               <h2 class="banner-title"> {{group.groupName}}</h2>

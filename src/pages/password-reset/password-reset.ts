@@ -16,7 +16,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class PasswordResetPage {
   email: string;
   public resetPasswordForm;
-  public backgroundImage: any = "../assets/images/gift_rt_bg.jpg";
+  public backgroundImage: any = "assets/images/gift_rt_bg.jpg";
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public userservice: UserProvider, public alertCtrl: AlertController, public fb: FormBuilder,public loadingCtrl: LoadingController) {
     let EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;

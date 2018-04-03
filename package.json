@@ -40,7 +40,7 @@
     "build": "0.1.4",
     "cordova-admob-sdk": "^0.15.0",
     "cordova-android": "6.3.0",
-    "cordova-ios": "4.5.3",
+    "cordova-ios": "4.5.4",
     "cordova-plugin-admob-free": "^0.14.0",
     "cordova-plugin-camera": "^3.0.0",
     "cordova-plugin-device": "^1.1.7",
@@ -58,7 +58,6 @@
     "es6-promise-plugin": "^4.1.1",
     "firebase": "^4.9.1",
     "ionic-angular": "3.9.2",
-    "ionic-plugin-deeplinks": "^1.0.15",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
     "phonegap-plugin-barcodescanner": "^7.0.0",
@@ -91,8 +90,8 @@
       "cordova-plugin-x-socialsharing": {}
     },
     "platforms": [
-      "ios",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

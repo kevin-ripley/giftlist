@@ -21,18 +21,20 @@ export class GroupsPage {
   }
 
   ionViewDidEnter() {
-    let loadingPopup = this.loadingCtrl.create({
-      spinner: 'crescent',
-      content: ''
-    }); 
-    loadingPopup.present();
-    this.groupservice.getmygroups();
-    
+    this.groupservice.getmygroups();    
     this.events.subscribe('allmygroups', () => {
       this.allmygroups = this.groupservice.mygroups;
     })
-    loadingPopup.dismiss();
-    
+   }
+
+  groupRefresh(refresher) {
+    this.groupservice.getmygroups();    
+    this.events.subscribe('allmygroups', () => {
+      this.allmygroups = this.groupservice.mygroups;
+    })
+    setTimeout(() => {
+      refresher.complete(); // stops the refresher 2 seconds after retreiving the Data
+    }, 2000);
   }
 
   ionViewDidLeave() {
