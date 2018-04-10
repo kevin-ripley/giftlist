@@ -1,3 +1,4 @@
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthProvider } from './../../providers/auth/auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, reorderArray, AlertController, FabContainer, ModalController, Events } from 'ionic-angular';
@@ -9,15 +10,9 @@ import { GroupsProvider } from '../../providers/groups/groups';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
-/**
- * Generated class for the ListitemsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage({
-  segment: 'items'
+  segment: 'lists/:userId/:key/items'
 })
 @Component({
   selector: 'page-listitems',
@@ -37,13 +32,16 @@ export class ListitemsPage {
   list;
   image;
   name;
+  userId;
 
   constructor(public events: Events, private groupService: GroupsProvider, private socialSharing: SocialSharing, public barcodeScanner: BarcodeScanner, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController, public viewCtrl: ViewController) {
     this.key = this.navParams.get('key');
     this.list = this.navParams.get('list');
     this.name = this.navParams.get('name');
+    this.userId = this.navParams.get('userId');
     this.listItemRef$ = this.firebaseService.getItems(this.key);
     this.image = this.navParams.get('image');
+    
   }
   getRanking(num) {
 
@@ -127,7 +125,7 @@ export class ListitemsPage {
 
   regularShare(){
     var msg = 'See My List ' + this.list.name;
-   var url = `https://ripleyoriginals.com`
+   var url = `https://gift-list-58d8f.firebaseapp.com/#/tabs/tab-2/lists/${this.userId}/${this.key}/items`
     this.socialSharing.share(msg, null, null, url);
   }
  

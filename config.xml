@@ -95,4 +95,9 @@
     <plugin name="cordova-plugin-admob-free" spec="^0.14.0" />
     <engine name="android" spec="~6.3.0" />
     <engine name="ios" spec="~4.5.4" />
+    <plugin name="ionic-plugin-deeplinks" spec="^1.0.15">
+        <variable name="URL_SCHEME" value="giftlist" />
+        <variable name="DEEPLINK_SCHEME" value="https" />
+        <variable name="DEEPLINK_HOST" value="gift-list-58d8f.firebaseapp.com" />
+    </plugin>
 </widget>

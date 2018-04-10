@@ -1,3 +1,4 @@
+import { User } from './../../models/user';
 import { GroupsProvider } from './../../providers/groups/groups';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { List } from './../../models/list';
@@ -5,11 +6,12 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ItemSliding, Events, LoadingController } from 'ionic-angular';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
-
-
-@IonicPage()
+@IonicPage({
+  segment: 'lists/'
+})
 @Component({
   selector: 'page-lists',
   templateUrl: 'lists.html',
@@ -22,8 +24,12 @@ export class ListsPage {
   groupowner;
   testRadioOpen: boolean;
   testRadioResult;
-  constructor(public loadingCtrl: LoadingController,public events: Events, private groupService: GroupsProvider,public navCtrl: NavController, private firebaseService: FirebaseServiceProvider, private alertCtrl: AlertController) {
-    
+  userId;
+
+  constructor(private afAuth: AngularFireAuth, public loadingCtrl: LoadingController,public events: Events, private groupService: GroupsProvider,public navCtrl: NavController, private firebaseService: FirebaseServiceProvider, private alertCtrl: AlertController) {
+    this.afAuth.authState.subscribe(user => {
+      if (user) this.userId = user.uid
+    })
   }
 
   ionViewDidEnter(){
@@ -87,7 +93,7 @@ export class ListsPage {
   }
 
   seeItems(list, key, listImage) {
-    this.navCtrl.push('ListitemsPage', { list: list, key: key, image: listImage}); 
+    this.navCtrl.push('ListitemsPage', { userId: this.userId, list: list, key: key, image: listImage}); 
   }
 
 

@@ -7,12 +7,6 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 import { ImagehandlerProvider } from '../../providers/imagehandler/imagehandler';
 import { List } from '../../models/list';
 
-/**
- * Generated class for the ItemcreatePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -67,12 +61,13 @@ export class ItemcreatePage {
     this.list.subscribe((snapshots) => {
       this.name = snapshots.name;
     });
-    this.listItem.image = 'https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/itemimages%2Fdont-know-25547_1280.png?alt=media&token=9a68dc0d-a574-4ab9-8b47-9e32c3e5e215';
+    this.listItem.image = 'https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/itemimages%2Fno_picture_available.png?alt=media&token=170ea64f-af20-41a2-b291-f4138103c2ae';
     loadingPopup.dismiss();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ItemcreatePage');
+    this.rank = 3;
   }
   uploadItem() {
     let alert = this.alertCtrl.create({

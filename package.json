@@ -58,6 +58,7 @@
     "es6-promise-plugin": "^4.1.1",
     "firebase": "^4.9.1",
     "ionic-angular": "3.9.2",
+    "ionic-plugin-deeplinks": "^1.0.15",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
     "phonegap-plugin-barcodescanner": "^7.0.0",
@@ -70,7 +71,7 @@
     "@ionic/app-scripts": "3.1.0",
     "typescript": "2.4.2"
   },
-  "description": "A Gift List to Share With Friends and Family",
+  "description": "A Gift List to Share With Family And Friends",
   "cordova": {
     "plugins": {
       "cordova-plugin-network-information": {},
@@ -87,7 +88,12 @@
       "cordova-plugin-file": {},
       "cordova-plugin-admob-free": {},
       "cordova-plugin-compat": {},
-      "cordova-plugin-x-socialsharing": {}
+      "cordova-plugin-x-socialsharing": {},
+      "ionic-plugin-deeplinks": {
+        "URL_SCHEME": "giftlist",
+        "DEEPLINK_SCHEME": "https",
+        "DEEPLINK_HOST": "gift-list-58d8f.firebaseapp.com"
+      }
     },
     "platforms": [
       "android",

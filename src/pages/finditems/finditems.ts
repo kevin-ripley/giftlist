@@ -67,7 +67,7 @@ export class FinditemsPage {
 
   manualAddItem() {
     let alert = this.alertCtrl.create();
-    alert.setTitle('Choose List to Add Item');
+    alert.setTitle('Choose A List To Add Item');
     for(var k in this.key){
       alert.addInput({
         type: 'radio',

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{name}}</ion-title>
+    <ion-title>New Item</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -12,6 +12,12 @@
         <div class="form">
           <!--Form Title-->
           <!---Input field list name-->
+          <ion-item text-center ion-item no-padding (click)="uploadItem()">
+            <ion-icon name='camera'></ion-icon>Upload Image
+          </ion-item>
+
+          <div text-center *ngIf="loaded == true">GREAT! IMAGE UPLOADED!</div>
+
           <ion-item no-padding>
             <ion-label floating>Item Name</ion-label>
             <ion-input required type="text" [(ngModel)]="listItem.name"></ion-input>
@@ -30,12 +36,6 @@
             <ion-label floating>Item Note or Description</ion-label>
             <ion-textarea type="text" [(ngModel)]="listItem.description"></ion-textarea>
           </ion-item>
-
-          <ion-item text-center clear ion-item no-padding (click)="uploadItem()">
-            Upload Image
-          </ion-item>
-          <div text-center *ngIf="loaded == true">NICE! IMAGE UPLOADED!</div>
-          <div p text-center>Rank Your Gift! 5 Being Most Wanted!</div>
           
           <ion-item text-center no-padding>
             <ion-icon text-center primary *ngFor="let item of data.iconStars; let i = index" (click)="onStarClass(data.iconStars, i, $event)">
@@ -43,6 +43,9 @@
               <i icon-medium *ngIf="!item.isActive" class="icon {{item.iconInactive}}"></i>
             </ion-icon>
           </ion-item>
+
+          <div p text-center>Rank Your Gift! 5 Being Most Wanted!</div>
+
           <!---Add List button-->
           <button ion-button outline block color="secondary" (click)="addItem()">New Item</button>
         </div>
