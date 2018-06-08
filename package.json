@@ -24,6 +24,7 @@
     "@ionic-native/barcode-scanner": "^4.5.2",
     "@ionic-native/camera": "^4.5.2",
     "@ionic-native/core": "4.3.3",
+    "@ionic-native/deeplinks": "^4.7.0",
     "@ionic-native/file": "^4.5.2",
     "@ionic-native/file-chooser": "^4.5.2",
     "@ionic-native/file-path": "^4.5.2",

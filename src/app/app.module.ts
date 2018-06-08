@@ -27,6 +27,7 @@ import { ChatProvider } from '../providers/chat/chat';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Keyboard } from '@ionic-native/keyboard';
 import { AdMobFree } from '@ionic-native/admob-free';
+import { Deeplinks } from '@ionic-native/deeplinks';
 
 
 
@@ -69,6 +70,7 @@ import { AdMobFree } from '@ionic-native/admob-free';
     ChatProvider,
     Keyboard,
     SocialSharing,
+    Deeplinks,
   ]
 })
 export class AppModule {}
