@@ -10,7 +10,7 @@ import { Profile } from '../../models/profile';
 @IonicPage()
 @Component({
   selector: 'page-sharedlist',
-  templateUrl: 'sharedlist.html',
+  templateUrl: 'sharedlist.html', 
 })
 export class SharedlistPage {
 

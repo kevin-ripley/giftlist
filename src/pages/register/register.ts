@@ -34,7 +34,7 @@ export class RegisterPage {
   register() {
     if (!this.registerForm.valid){
       console.log(this.registerForm.value);
-      this.presentAlert("invalid form");
+      this.presentAlert("Please Re-Enter Information");
     } else {
 
      this.user.displayName =  this.registerForm.value.username;
