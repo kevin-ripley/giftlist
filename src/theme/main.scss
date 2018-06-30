@@ -466,7 +466,7 @@ $checkbox-md-icon-checkmark-color:theme-colors('textColors', 'accent-first');
 [wizard-body-text]{
   color: theme-colors('textColors', 'accent-first', 'opacity60');
   font-size: font-size-text('h4') !important;
-  letter-spacing: 1px;
+  letter-spacing: 1px; 
   font-weight: 300;
 }
 
@@ -488,10 +488,10 @@ $tabs-border-color: red!default;
 $tabs-color-active: red!default;
 
 $tabs-tab-color-active: #ffffff !default;
-$tabs-ios-tab-icon-color-active: theme-colors('textColors', 'accent-first');
+$tabs-ios-tab-icon-color-active: theme-colors('textColors', 'primary');
 $tabs-md-tab-icon-color-active: theme-colors('textColors', 'accent-first');
 $tabs-md-tab-text-color-active: theme-colors('textColors', 'accent-first');
-
+$tabs-ios-tab-color-inactive: theme-colors('textColors', 'accent');
 [tabs-title] {
   color: theme-colors('textColors', 'accent-first');
 }
