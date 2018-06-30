@@ -1,15 +1,22 @@
-<ion-content [ngStyle]="{'background-image': 'url(' + backgroundImage +')'}" no-bounce overflow-scroll="false">
-  <div background-size class="default-background">
-    <img src="assets/images/logo_4.png" />
-    <h2 item-title text-center>Create Your List and Share!</h2>
-    <div class="ionic-descript" text-center>
-      <div style="position: absolute; bottom: 0px; width: 100%">
-        <div style="text-align: center">
-          <button ion-button block (click)="register()">SIGN UP</button>
-          <button ion-button clear button-clear (click)="login()">ALREADY A MEMBER? LOG IN</button>
-        </div>
+<ion-content class="background">
+    <ion-card>
+      <div class="logo">
+          <img src="assets/images/logo_4.png" />
       </div>
-    </div>
-  </div>
-
-</ion-content>
+      <ion-card-header>
+        Welcome
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list no-lines>
+          <div class="spacer" style="height: 10px;"></div>
+          <button ion-button block round outline color="light" (click)="login()">LOGIN</button>
+          <div class="spacer" style="height: 10px;"></div>
+          <p>OR</p>
+          <div class="spacer" style="height: 10px;"></div>
+          <button ion-button clear full color="light" (click)="register()">Don't have an account? Sign up!</button>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+    
+  
+  </ion-content>

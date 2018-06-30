@@ -11,21 +11,19 @@ page-register {
     }
     .logo {
       // width: 70%;
-      height: auto;
-      padding-top: 2vh;
-      margin-bottom: 3vh;
+      width: 70%;
+      margin-bottom: 1%;
     }
     span {
       color: white;
     }
   
-   
     .error-message .item-inner{
       border-bottom-color:  transparent !important;
       box-shadow: inset 0 -1px 0 0  transparent !important;
     }
-    .error-message p{
-      text-align: right;
+    p{
+      text-align: center;
       color:red;
     }
     ion-item {
@@ -35,9 +33,12 @@ page-register {
       background-color: transparent !important;
       font-size: 0.9em;
     }
+    
+    
     .item-inner{
       border-bottom: 1px solid white !important;
-      box-shadow: inset 0 -1px 0 transparent; 
+      box-shadow: inset 0 -1px 0 transparent;
+      
     }
     ::-webkit-input-placeholder {
       color: #488aff !important;
@@ -46,7 +47,7 @@ page-register {
       color: white;
       position: absolute;
       top: 0;
-      padding: 10vw;
+      padding: 5vw;
       text-align: center;
       width: 100%;
       margin: 0 auto;

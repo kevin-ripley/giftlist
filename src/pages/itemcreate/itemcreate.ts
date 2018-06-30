@@ -69,10 +69,11 @@ export class ItemcreatePage {
     console.log('ionViewDidLoad ItemcreatePage');
     this.rank = 3;
   }
+
   uploadItem() {
     let alert = this.alertCtrl.create({
       title: 'Upload Image',
-      message: 'Upload an Image of the Item',
+      message: 'Upload An Item Image',
       buttons: [
         {
           text: 'No Image To Upload',
@@ -85,10 +86,9 @@ export class ItemcreatePage {
           text: 'Upload',
           handler: () => {
             let loader = this.loadingCtrl.create({
-              content: 'Please wait...'
+              content: 'Please Wait...'
             })
             loader.present();
-
             this.uploadImage.selectImage()
               .then((data) => {
                 this.listItem.image = data;
@@ -101,8 +101,8 @@ export class ItemcreatePage {
       ]
     });
     alert.present();
-
   }
+
   onStarClass(items: any, index: number, e: any) {
     for (var i = 0; i < items.length; i++) {
       items[i].isActive = i <= index;
@@ -125,7 +125,6 @@ export class ItemcreatePage {
   };
 
   addItem() {
-    
     this.listItem.rank = this.rank;
     console.log(this.key);
     this.firebaseService.addItem(this.key, this.listItem);

@@ -15,10 +15,10 @@ export class AuthProvider {
         resolve(true);
       }).catch((err) => {
         let alert = this.alertCtrl.create({
+          message: err.message,
           buttons: ['Ok']
         });
         alert.setTitle('Login Failed');
-        alert.setSubTitle(err);
         alert.present();
         resolve(err);
       })

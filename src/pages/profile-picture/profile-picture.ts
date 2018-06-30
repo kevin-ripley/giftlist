@@ -3,13 +3,6 @@ import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 
-/**
- * Generated class for the ProfilePicturePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-profile-picture',
@@ -26,16 +19,13 @@ export class ProfilePicturePage {
     // console.log('ionViewDidLoad ProfilepicPage');
   }
 
-
-  selectImage()
-  {
-     this.imgservice.selectImage()
-     .then((data) =>
-     {
+  selectImage() {
+    this.imgservice.selectImage()
+      .then((data) => {
         this.imgurl = data;
         this.imgservice.uploadProfileImage(this.imgurl);
-     });
-     this.moveon = false;
+      });
+    this.moveon = false;
   }
 
 

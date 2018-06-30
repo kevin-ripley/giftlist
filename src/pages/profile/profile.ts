@@ -35,9 +35,9 @@ export class ProfilePage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public userservice: UserProvider, public zone: NgZone, public alertCtrl: AlertController,
     public imghandler: ImagehandlerProvider, private agAuth: AngularFireAuth, private userService: UserProvider) {
-      this.uid = this.navParams.get('friend');
+    this.uid = this.navParams.get('friend');
     this.userDetails = this.userService.getUserInfo(this.uid);
-    
+
   }
 
   ionViewDidLoad() {
@@ -51,7 +51,6 @@ export class ProfilePage {
       this.lastName = snapshots.lastName;
       this.photoURL = snapshots.photoURL;
     })
-
   }
 
   editimage() {
@@ -93,7 +92,7 @@ export class ProfilePage {
             });
             return false;
           }
-          
+
         },
         {
           text: 'Yes',
@@ -102,7 +101,7 @@ export class ProfilePage {
           }
         }
       ]
-    }); 
+    });
     prompt.present();
   }
 

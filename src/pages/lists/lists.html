@@ -1,27 +1,24 @@
 <ion-header no-border>
-
   <ion-navbar>
     <ion-title>My Lists</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content no-bounce overflow-scroll="false">
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="bubbles" refreshingText="Refreshing...">
-        </ion-refresher-content>
-      </ion-refresher>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull To Refresh" refreshingSpinner="bubbles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
 
-    <ion-card tappable  *ngFor="let list of listRef$ | async" (click)="seeItems(list, list.$key, list.image)" >
-        <div class="banner-bg" [ngStyle]="{'background-image': 'url(' + list.image + ')'}">
-          <h2 class="banner-title"> {{list.name}}</h2>      
-        </div>
-      </ion-card>
+  <ion-card tappable *ngFor="let list of listRef$ | async" (click)="seeItems(list, list.$key, list.image)">
+    <div class="banner-bg" [ngStyle]="{'background-image': 'url(' + list.image + ')'}">
+      <h2 class="banner-title"> {{list.name}}</h2>
+    </div>
+  </ion-card>
 
   <ion-fab #fab bottom right>
-      <button button-ion-fab ion-fab (click)="newList()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-fab>
+    <button button-ion-fab ion-fab (click)="newList()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
-

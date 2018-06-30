@@ -6,12 +6,6 @@ import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-sca
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { List } from '../../models/list';
 
-/**
- * Generated class for the FinditemsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -20,8 +14,8 @@ import { List } from '../../models/list';
 })
 export class FinditemsPage {
 
-  scanData : {};
-  options :BarcodeScannerOptions;
+  scanData: {};
+  options: BarcodeScannerOptions;
   public backgroundImage1: any = "assets/images/manual.jpg";
   public backgroundImage2: any = "assets/images/search.jpg";
   public backgroundImage3: any = "assets/images/scan.jpg";
@@ -30,9 +24,9 @@ export class FinditemsPage {
   testRadioResult: any;
   key: Array<any> = [];
   name: any;
-  
-  
-  
+
+
+
   constructor(public alertCtrl: AlertController, public firebaseService: FirebaseServiceProvider, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private barcodeScanner: BarcodeScanner) {
     let loadingPopup = this.loadingCtrl.create({
       spinner: 'crescent',
@@ -41,71 +35,67 @@ export class FinditemsPage {
     loadingPopup.present();
     loadingPopup.dismiss();
   }
-  
-  ionViewDidLoad(){
-    
+
+  ionViewDidLoad() {
     this.lists = this.firebaseService.getLists();
     this.lists.subscribe(list => {
-      // items is an array
+      //Item Will Be In Array and Loop Through
       list.forEach(temp => {
         var templist = {
           key: temp.$key,
           name: temp.name
         }
-          this.key.push(templist);
+        this.key.push(templist);
       });
-
-  });
-  
+    });
   }
-  
 
-  brandSearch(){
+  //Future Method For Searching via Brands Like 'Nike,Adidas,Apple,Motorola,etc'
+  brandSearch() {
     let profileModal = this.modalCtrl.create('BrandsearchPage');
     profileModal.present();
   }
 
+  //Add Item To A List Manually
   manualAddItem() {
     let alert = this.alertCtrl.create();
     alert.setTitle('Choose A List To Add Item');
-    for(var k in this.key){
+    for (var k in this.key) {
       alert.addInput({
         type: 'radio',
         label: this.key[k].name,
         value: this.key[k].key,
       });
     }
-    
     alert.addButton('Cancel');
     alert.addButton({
       text: 'OK',
       handler: data => {
         this.testRadioOpen = false;
         this.testRadioResult = data;
-        this.navCtrl.push('ItemcreatePage', {key: this.testRadioResult});
+        this.navCtrl.push('ItemcreatePage', { key: this.testRadioResult });
       }
     });
     alert.present();
-  
+
   }
 
-  shop(){
+  shop() {
     this.navCtrl.push('ShopPage');
   }
 
-  scan(){
-
-      this.options = {
-        prompt : "Scan your Wish! "
+  //Scan A Barcode to Add Item to A List
+  scan() {
+    this.options = {
+      prompt: "Go Ahead And Scan Your Item! "
     }
     this.barcodeScanner.scan(this.options).then((barcodeData) => {
-        this.scanData = barcodeData.text;
-  
-        let itemModal = this.modalCtrl.create('ScannedPage', { scanData: this.scanData });
-        itemModal.present();
+      this.scanData = barcodeData.text;
+      let itemModal = this.modalCtrl.create('ScannedPage', { scanData: this.scanData });
+      itemModal.present();
     }, (err) => {
-        console.log("Error occured : " + err);
-    });      
-    }
+      console.log("Error occured : " + err);
+    });
+  }
 
 }

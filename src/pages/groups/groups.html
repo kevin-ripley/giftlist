@@ -1,26 +1,24 @@
 <ion-header no-border>
-    
-      <ion-navbar>
-        <ion-title>My Groups</ion-title>
-      </ion-navbar>
-    
-    </ion-header>
+  <ion-navbar>
+    <ion-title>My Groups</ion-title>
+  </ion-navbar>
+</ion-header>
 
-    <ion-content no-bounce overflow-scroll="false">
-        <ion-refresher (ionRefresh)="groupRefresh($event)">
-            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="bubbles" refreshingText="Refreshing...">
-            </ion-refresher-content>
-          </ion-refresher>
-        <ion-card tappable  *ngFor="let group of allmygroups" (click)="openChat(group)">
-            <div class="banner-bg" [ngStyle]="{'background-image': 'url(' + group.groupPic + ')'}">
-              <h2 class="banner-title"> {{group.groupName}}</h2>
-              <p class="banner-description">Created By: {{group.creatorName}}</p>         
-            </div>
-          </ion-card>
-    
-      <ion-fab #fab bottom right>
-          <button button-ion-fab ion-fab (click)="addGroup()">
-            <ion-icon name="add"></ion-icon>
-          </button>
-        </ion-fab>
-    </ion-content>
+<ion-content no-bounce overflow-scroll="false">
+  <ion-refresher (ionRefresh)="groupRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="bubbles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card tappable *ngFor="let group of allmygroups" (click)="openChat(group)">
+    <div class="banner-bg" [ngStyle]="{'background-image': 'url(' + group.groupPic + ')'}">
+      <h2 class="banner-title"> {{group.groupName}}</h2>
+      <p class="banner-description">Created By: {{group.creatorName}}</p>
+    </div>
+  </ion-card>
+
+  <ion-fab #fab bottom right>
+    <button button-ion-fab ion-fab (click)="addGroup()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

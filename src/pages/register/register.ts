@@ -49,12 +49,23 @@ export class RegisterPage {
         content: 'Creating..'
       });
       loadingPopup.present();
-      this.userservice.adduser(this.user).then((res: any) => {
+      this.userservice.adduser(this.user).then(() => {
         loadingPopup.dismiss();
-        if (res.success)
           this.navCtrl.push('ProfilePicturePage');
-        else
-          alert('Error' + res);
+      }).catch((err) => {
+        loadingPopup.dismiss();
+        let alert = this.alertCtrl.create({
+          message: err.message,
+          buttons: [
+            {
+             text: 'Ok',
+             role: 'cancel'
+            }
+          ]
+        });
+        alert.setTitle('Registration Failed');
+        alert.present();
+        
       })
     }
   }

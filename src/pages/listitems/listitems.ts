@@ -46,12 +46,10 @@ export class ListitemsPage {
     this.userId = this.navParams.get('userId');
     this.listItemRef$ = this.firebaseService.getItems(this.key);
     this.image = this.navParams.get('image');
-
   }
 
 
   getRanking(num) {
-
     if (num == 4) {
       this.rank = 1;
     }
@@ -88,9 +86,7 @@ export class ListitemsPage {
         this.shared.push(itemSnap.val());
       });
     });
-
   }
-
 
   goToItem(listItem: ListItem, key) {
     this.navCtrl.push('IteminfoPage', { Lkey: this.key, Ikey: key, listItem: listItem });
@@ -108,7 +104,6 @@ export class ListitemsPage {
         {
           text: 'Disagree',
           handler: () => {
-
           }
         },
         {
@@ -121,18 +116,16 @@ export class ListitemsPage {
       ]
     });
     confirm.present();
-
   }
 
   scan() {
     this.options = {
-      prompt: "Scan your Wish! "
+      prompt: "Scan Item! "
     }
     this.barcodeScanner.scan(this.options).then((barcodeData) => {
       this.scanData = barcodeData.text;
       let itemModal = this.modalCtrl.create('ScannedPage', { scanData: this.scanData });
       itemModal.present();
-
     }, (err) => {
       console.log("Error occured : " + err);
     });
@@ -143,7 +136,6 @@ export class ListitemsPage {
   }
 
   regularShare() {
-
     console.log(this.shared);
     this.database.list(`public_lists/${this.userId}`).push({
       displayName: this.afAuth.auth.currentUser.displayName,
@@ -153,18 +145,15 @@ export class ListitemsPage {
 
     this.keyRef$ = this.database.object(`public_lists/${this.userId}`);
     this.keyRef$.subscribe((snapshots) => {
-      for (var key in snapshots){
+      for (var key in snapshots) {
         this.new_key = key;
       }
     });
     console.log(this.new_key);
-
   }
-
 
   share() {
     let alert = this.alertCtrl.create();
-
     for (var k in this.allmygroups) {
       alert.addInput({
         type: 'radio',
@@ -187,9 +176,5 @@ export class ListitemsPage {
       this.testRadioOpen = true;
     });
   }
-
-
-
-
 
 }

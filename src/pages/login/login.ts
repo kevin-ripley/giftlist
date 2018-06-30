@@ -23,7 +23,7 @@ export class LoginPage {
       email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEXP)])],
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
-    
+
   }
 
   ionViewDidLoad() {
@@ -32,8 +32,8 @@ export class LoginPage {
   login() {
     this.keyboard.close();
     if (!this.loginForm.valid) {
-      //this.presentAlert('Username password can not be blank')
-      console.log("error");
+      this.presentAlert('Username/Password Cannot Be Blank')
+      console.log("Error Login Function");
     } else {
       let loadingPopup = this.loadingCtrl.create({
         spinner: 'crescent',

@@ -17,17 +17,16 @@ export class GroupfriendsPage {
   list;
   lists;
   key = [];
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public requestservice: RequestsProvider,
     public events: Events, public groupservice: GroupsProvider) {
-      this.list = this.navParams.get('list');
-      this.list.subscribe(snapshots=>{
-        this.lists = snapshots;
-       });
-      for(var k in this.lists){
-        this.key.push(this.lists[k]);
-      }
-      
-      
+    this.list = this.navParams.get('list');
+    this.list.subscribe(snapshots => {
+      this.lists = snapshots;
+    });
+    for (var k in this.lists) {
+      this.key.push(this.lists[k]);
+    }
   }
 
   ionViewWillEnter() {
@@ -37,7 +36,6 @@ export class GroupfriendsPage {
       this.tempmyfriends = this.myfriends;
     })
     this.events.subscribe('friends', () => {
-
       this.myfriends = [];
       this.myfriends = this.requestservice.myfriends;
       this.groupmembers = this.groupservice.currentgroup;
@@ -52,23 +50,18 @@ export class GroupfriendsPage {
 
   searchuser(searchbar) {
     let tempfriends = this.tempmyfriends;
-
     var q = searchbar.target.value;
-
     if (q.trim() === '') {
       this.myfriends = this.tempmyfriends;
       return;
     }
-
     tempfriends = tempfriends.filter((v) => {
       if (v.displayName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
         return true;
       }
       return false;
     })
-
     this.myfriends = tempfriends;
-
   }
 
   addbuddy(buddy) {

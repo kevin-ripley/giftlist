@@ -4,12 +4,7 @@ import { UserProvider } from '../../providers/user/user';
 import { RequestsProvider } from '../../providers/requests/requests';
 import { req } from '../../models/request';
 import firebase from 'firebase';
-/**
- * Generated class for the BuddiesPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @IonicPage()
 @Component({
   selector: 'page-friends',
@@ -19,7 +14,7 @@ export class FriendsPage {
   newrequest = {} as req;
   temparr = [];
   filteredusers = [];
-  searchString:any="";
+  searchString: any = "";
   myfriends;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public userservice: UserProvider, public alertCtrl: AlertController,
@@ -27,7 +22,7 @@ export class FriendsPage {
     this.userservice.getallusers().then((res: any) => {
       this.filteredusers = res;
       this.temparr = res;
-   })
+    })
   }
 
   ionViewWillEnter() {
@@ -37,10 +32,9 @@ export class FriendsPage {
       this.myfriends = [];
       this.myfriends = this.requestservice.myfriends;
     })
-
   }
 
-  addUser(key){
+  addUser(key) {
     let confirm = this.alertCtrl.create({
       title: 'Add Friend',
       message: 'Add ' + key.firstName + ' ' + key.lastName + ' as a Friend?',
@@ -62,8 +56,6 @@ export class FriendsPage {
     confirm.present();
   }
 
-  
-
   searchuser(searchbar) {
     console.log(this.filteredusers);
     this.filteredusers = this.temparr;
@@ -71,15 +63,14 @@ export class FriendsPage {
     if (q.trim() == '') {
       return;
     }
-
     this.filteredusers = this.filteredusers.filter((v) => {
       if (v.displayName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
         return true;
       }
-      else if(v.firstName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+      else if (v.firstName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
         return true;
       }
-      else if(v.lastName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+      else if (v.lastName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
         return true;
       }
       return false;
@@ -90,25 +81,23 @@ export class FriendsPage {
     this.newrequest.sender = firebase.auth().currentUser.uid;
     this.newrequest.recipient = recipient.uid;
     if (this.newrequest.sender === this.newrequest.recipient)
-      alert('You are your friend always');
-    
+      alert('You Are Your Friend Always');
     else {
       let successalert = this.alertCtrl.create({
-        title: 'Request sent',
+        title: 'Request Sent',
         subTitle: 'Your request was sent to ' + recipient.displayName,
-        buttons: ['ok']
+        buttons: ['OK']
       });
-    
       this.requestservice.sendrequest(this.newrequest).then((res: any) => {
         if (res.success) {
           successalert.present();
           let sentuser = this.filteredusers.indexOf(recipient);
           this.filteredusers.splice(sentuser, 1);
         }
-        else{
+        else {
           let failalert = this.alertCtrl.create({
-            title: 'User is already your friend!',
-            buttons: ['ok']
+            title: 'User Is Already Your Friend!',
+            buttons: ['OK']
           });
           failalert.present();
           this.navCtrl.pop();

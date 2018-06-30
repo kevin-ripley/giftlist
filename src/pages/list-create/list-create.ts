@@ -12,10 +12,10 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 })
 export class ListCreatePage {
   silver_christmas = "https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/itembackgrounds%2Fchristmas-silver.jpg?alt=media&token=221606cb-21bd-47e3-be5f-66079fbd8ced";
-  traditional_christmas ="https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/itembackgrounds%2Fchristmas.jpg?alt=media&token=95e3fcb7-3fe7-4682-811e-cfcf2fad592e";
-  
+  traditional_christmas = "https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/itembackgrounds%2Fchristmas.jpg?alt=media&token=95e3fcb7-3fe7-4682-811e-cfcf2fad592e";
+
   gift = "https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/itembackgrounds%2Fgift_bg.jpg?alt=media&token=a2d94e43-e1a5-468f-9553-918aed847c8f";
-  christmas = [this.silver_christmas,this.traditional_christmas, this.gift];
+  christmas = [this.silver_christmas, this.traditional_christmas, this.gift];
 
   rose_gift = "https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/itembackgrounds%2Fgift-roses.jpg?alt=media&token=0623ea75-047b-4f8b-8e31-e2c99fdea0b6";
   flowers = "https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/itembackgrounds%2Fwedding-flowers.jpg?alt=media&token=09d97bfc-2667-4667-97ea-a3bdf767484a";
@@ -40,26 +40,25 @@ export class ListCreatePage {
     this.listRef$ = this.firebaseService.getLists();
   }
 
-  addList(){
-    if(this.occasion == 'christmas'){
+  addList() {
+    if (this.occasion == 'christmas') {
       var randomNum = Math.floor(Math.random() * this.christmas.length);
       this.imgurl = this.christmas[randomNum];
       this.list.image = this.imgurl;
     }
-    if(this.occasion == 'wedding'){
+    if (this.occasion == 'wedding') {
       var randomNum = Math.floor(Math.random() * this.wedding.length);
       this.imgurl = this.wedding[randomNum];
       this.list.image = this.imgurl;
     }
-    if(this.occasion == 'birthday'){
+    if (this.occasion == 'birthday') {
       var randomNum = Math.floor(Math.random() * this.birthday.length);
       this.imgurl = this.birthday[randomNum];
       this.list.image = this.imgurl;
     }
-    if(this.occasion == 'other'){
+    if (this.occasion == 'other') {
       this.list.image = this.other;
     }
-    
     this.firebaseService.addLists(this.list);
     this.navCtrl.setRoot('ListsPage');
   }

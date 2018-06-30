@@ -16,40 +16,37 @@
             <ion-icon name='camera'></ion-icon>Upload Image
           </ion-item>
 
-          <div text-center *ngIf="loaded == true">GREAT! IMAGE UPLOADED!</div>
+          <div text-center *ngIf="loaded == true">IMAGE UPLOADED!</div>
 
           <ion-item no-padding>
-            <ion-label floating>Item Name</ion-label>
+            <ion-label floating>Item Name:</ion-label>
             <ion-input required type="text" [(ngModel)]="listItem.name"></ion-input>
           </ion-item>
           <!---Input field expiration date-->
           <ion-item no-padding>
-            <ion-label floating>Item Price</ion-label>
+            <ion-label floating>Item Price:</ion-label>
             <ion-input required type="number" [(ngModel)]="listItem.price"></ion-input>
           </ion-item>
           <ion-item no-padding>
-            <ion-label floating>Item Seller</ion-label>
+            <ion-label floating>Item Seller:</ion-label>
             <ion-input type="text" [(ngModel)]="listItem.seller"></ion-input>
           </ion-item>
 
           <ion-item no-padding>
-            <ion-label floating>Item Note or Description</ion-label>
+            <ion-label floating>Item Description:</ion-label>
             <ion-textarea type="text" [(ngModel)]="listItem.description"></ion-textarea>
           </ion-item>
-          
+
           <ion-item text-center no-padding>
             <ion-icon text-center primary *ngFor="let item of data.iconStars; let i = index" (click)="onStarClass(data.iconStars, i, $event)">
               <i icon-medium *ngIf="item.isActive" class="icon {{item.iconActive}}"></i>
               <i icon-medium *ngIf="!item.isActive" class="icon {{item.iconInactive}}"></i>
             </ion-icon>
           </ion-item>
-
           <div p text-center>Rank Your Gift! 5 Being Most Wanted!</div>
-
           <!---Add List button-->
-          <button ion-button outline block color="secondary" (click)="addItem()">New Item</button>
+          <button ion-button outline block color="secondary" (click)="addItem()">ADD ITEM</button>
         </div>
-
       </ion-col>
     </ion-row>
   </ion-grid>

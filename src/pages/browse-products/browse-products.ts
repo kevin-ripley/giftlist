@@ -5,13 +5,6 @@ import { ListItem } from '../../models/listItem';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 
-/**
- * Generated class for the BrowseProductsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-browse-products',
@@ -61,8 +54,7 @@ export class BrowseProductsPage {
     this.lists = this.firebaseService.getLists();
   }
 
-  addToList(listItem: ListItem){
-
+  addToList(item: ListItem){
     this.listItem.name = this.item.name;
     this.listItem.price = this.item.salePrice;
     this.listItem.image = this.item.largeImage;
@@ -75,7 +67,8 @@ export class BrowseProductsPage {
     this.listItem.seller = 'Walmart';
     this.listItem.listkey = this.key;
     this.listItem.rank = this.rank;
-    this.firebaseService.addItem(this.key, this.listItem);
+    this.firebaseService.addItem(this.key, item);
+
     this.navCtrl.setRoot('ListsPage');
    
   }

@@ -17,7 +17,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
   templateUrl: 'lists.html',
 })
 export class ListsPage {
-
   listRef$: FirebaseListObservable<List[]>;
   refresher: any;
   allmygroups;
@@ -26,13 +25,13 @@ export class ListsPage {
   testRadioResult;
   userId;
 
-  constructor(private afAuth: AngularFireAuth, public loadingCtrl: LoadingController,public events: Events, private groupService: GroupsProvider,public navCtrl: NavController, private firebaseService: FirebaseServiceProvider, private alertCtrl: AlertController) {
+  constructor(private afAuth: AngularFireAuth, public loadingCtrl: LoadingController, public events: Events, private groupService: GroupsProvider, public navCtrl: NavController, private firebaseService: FirebaseServiceProvider, private alertCtrl: AlertController) {
     this.afAuth.authState.subscribe(user => {
       if (user) this.userId = user.uid
     })
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     let loader = this.loadingCtrl.create({
       content: 'Loading Components, Please Wait...'
     });
@@ -57,7 +56,7 @@ export class ListsPage {
       refresher.complete(); // stops the refresher 2 seconds after retreiving the Data
     }, 2000);
   }
-  
+
   newList() {
     this.navCtrl.push('ListCreatePage');
   }
@@ -68,8 +67,7 @@ export class ListsPage {
 
   shareList(list, key) {
     let alert = this.alertCtrl.create();
-
-    for(var k in this.allmygroups){
+    for (var k in this.allmygroups) {
       alert.addInput({
         type: 'radio',
         label: this.allmygroups[k].groupName,
@@ -84,7 +82,7 @@ export class ListsPage {
         this.testRadioOpen = false;
         this.testRadioResult = data;
         this.groupService.shareList(list, key, data);
-        this.navCtrl.push('GroupchatPage', { groupName: this.testRadioResult});
+        this.navCtrl.push('GroupchatPage', { groupName: this.testRadioResult });
       }
     });
     alert.present().then(() => {
@@ -93,9 +91,7 @@ export class ListsPage {
   }
 
   seeItems(list, key, listImage) {
-    this.navCtrl.push('ListitemsPage', { userId: this.userId, list: list, key: key, image: listImage}); 
+    this.navCtrl.push('ListitemsPage', { userId: this.userId, list: list, key: key, image: listImage });
   }
-
-
 
 }

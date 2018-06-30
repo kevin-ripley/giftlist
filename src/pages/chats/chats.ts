@@ -30,13 +30,13 @@ export class ChatsPage {
   friendcount: any;
   requestcount: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public requestservice: RequestsProvider,
-    public events: Events,public zone: NgZone, public firebaseService: FirebaseServiceProvider, public imghandler: ImagehandlerProvider, public alertCtrl: AlertController, public userService: UserProvider, public agAuth: AngularFireAuth , private chatservice: ChatProvider, public socialSharing: SocialSharing, public loadingCtrl: LoadingController) {
+    public events: Events, public zone: NgZone, public firebaseService: FirebaseServiceProvider, public imghandler: ImagehandlerProvider, public alertCtrl: AlertController, public userService: UserProvider, public agAuth: AngularFireAuth, private chatservice: ChatProvider, public socialSharing: SocialSharing, public loadingCtrl: LoadingController) {
   }
 
 
   ionViewWillEnter() {
     let loadingPopup = this.loadingCtrl.create({
-      spinner: 'crescent', 
+      spinner: 'crescent',
       content: ''
     });
     loadingPopup.present();
@@ -53,19 +53,19 @@ export class ChatsPage {
       this.myfriends = this.requestservice.myfriends;
       this.friendcount = this.myfriends.length;
     })
-    
+
     console.log(this.friendcount);
     this.listRef$ = this.firebaseService.getLists();
     this.userDetails = this.userService.getUserInfo(this.agAuth.auth.currentUser.uid);
     loadingPopup.dismiss();
   }
 
-
   ionViewDidLeave() {
     this.events.unsubscribe('gotrequests');
   }
-  profile(friend){
-    this.navCtrl.push('ProfilePage', { friend: friend});
+
+  profile(friend) {
+    this.navCtrl.push('ProfilePage', { friend: friend });
   }
 
   editImage() {
@@ -90,7 +90,6 @@ export class ChatsPage {
           statusalert.present();
         })
       });
-
   }
 
   addbuddy() {
@@ -99,7 +98,6 @@ export class ChatsPage {
 
   accept(item) {
     this.requestservice.acceptrequest(item).then(() => {
-
       let newalert = this.alertCtrl.create({
         title: 'Friend Added Successfully!',
         subTitle: '',
@@ -117,27 +115,23 @@ export class ChatsPage {
     })
   }
 
-  friendchat(friend) {
-    this.chatservice.initializefriend(friend);
-    this.navCtrl.push('FriendchatPage');
-  }
-  regularShare(){
+  regularShare() {
     var msg = 'Come Be My Friend on GIFT LIST!';
-    var url = 'http:/www.ripleyoriginals.com/gift-list'
+    var url = 'http:/www.thegiftlistapp.rocks'
     this.socialSharing.share(msg, null, null, url);
   }
-  
-  facebookShare(index){
-    var msg  = 'Come Be My Friend on GIFT LIST!';
-    var url = 'http:/www.ripleyoriginals.com/gift-list'
-     this.socialSharing.shareViaFacebook(msg, null, url);
-   }
 
-   twitterShare(index){
-    var msg  = 'Come Be My Friend on GIFT LIST!';
-    var url = 'http:/www.ripleyoriginals.com/gift-list'
-     this.socialSharing.shareViaTwitter(msg, null, url);
-   }
+  facebookShare(index) {
+    var msg = 'Come Be My Friend on GIFT LIST!';
+    var url = 'http:/www.thegiftlistapp.rocks'
+    this.socialSharing.shareViaFacebook(msg, null, url);
+  }
+
+  twitterShare(index) {
+    var msg = 'Come Be My Friend on GIFT LIST!';
+    var url = 'http:/www.thegiftlistapp.rocks'
+    this.socialSharing.shareViaTwitter(msg, null, url);
+  }
 
   logout() {
     let prompt = this.alertCtrl.create({
@@ -153,7 +147,6 @@ export class ChatsPage {
             });
             return false;
           }
-          
         },
         {
           text: 'Yes',
@@ -162,7 +155,7 @@ export class ChatsPage {
           }
         }
       ]
-    }); 
+    });
     prompt.present();
   }
 

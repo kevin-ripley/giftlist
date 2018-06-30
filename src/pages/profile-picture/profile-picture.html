@@ -1,16 +1,15 @@
-  
-  <ion-content class="bg"> 
-    <h1 text-center>Profile Picture</h1>
-    <div class="profile-image">
-      <img src="{{imgurl}}">
-    </div>
-    <div>
-      <button ion-button round outline (click)="selectImage()">Choose an image</button>
-    </div>
-    <div [hidden]="!moveon">
-      <button ion-button round outline (click)="proceed()">Skip this step</button>
-    </div>
-    <div [hidden]="moveon">
-      <button ion-button round outline (click)="updateproceed()">Upload & proceed</button>
-    </div>
-  </ion-content>
+<ion-content class="bg">
+  <h1 text-center>Profile Picture</h1>
+  <div class="profile-image">
+    <img src="{{imgurl}}">
+  </div>
+  <div>
+    <button ion-button round outline (click)="selectImage()">Choose An Image</button>
+  </div>
+  <div [hidden]="!moveon">
+    <button ion-button round outline (click)="proceed()">Skip This Step</button>
+  </div>
+  <div [hidden]="moveon">
+    <button ion-button round outline (click)="updateproceed()">Upload And Proceed</button>
+  </div>
+</ion-content>

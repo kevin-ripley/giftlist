@@ -4,12 +4,6 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { GroupsProvider } from '../../providers/groups/groups';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-/**
- * Generated class for the GroupCreatePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -23,7 +17,6 @@ export class GroupCreatePage {
     groupPic: "https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/default_group.png?alt=media&token=a369df29-b8ca-40d7-bf02-6d4e7abe23d1"
   }
   constructor(public fb: FormBuilder, public groupservice: GroupsProvider, public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private imghandler: ImagehandlerProvider, private loadingCtrl: LoadingController) {
-
     this.groupNameForm = fb.group({
       groupName: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]+[0-9]{2,4}')])]
     });
@@ -32,16 +25,15 @@ export class GroupCreatePage {
   createGroup() {
     if (!this.groupNameForm.valid) {
       console.log(this.groupNameForm.value);
-      this.presentAlert("Invalid GroupName");
+      this.presentAlert("Invalid Group Name. Ex: GroupName18");
     } else {
       this.newgroup.groupName = this.groupNameForm.value.groupName;
       let loadingPopup = this.loadingCtrl.create({
         spinner: 'crescent',
-        content: 'Creating..'
+        content: 'Creating...'
       });
       loadingPopup.present();
       this.groupservice.addgroup(this.newgroup).then(() => {
-
         this.navCtrl.pop();
         loadingPopup.dismiss();
       }).catch((err) => {
@@ -58,12 +50,9 @@ export class GroupCreatePage {
     alert.present();
   }
 
-  
-
   editImage() {
-
     let loader = this.loadingCtrl.create({
-      content: 'Loading, please wait..'
+      content: 'Loading, Please Wait..'
     });
     loader.present();
     this.imghandler.selectImage()
@@ -74,7 +63,6 @@ export class GroupCreatePage {
         }
       });
     loader.dismiss();
-
   }
 
 

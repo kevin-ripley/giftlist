@@ -7,8 +7,6 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { ListItem } from '../../models/listItem';
 
-
-
 @IonicPage()
 @Component({
   selector: 'page-groupchat',
@@ -39,9 +37,10 @@ export class GroupchatPage {
     }).catch((err) => {
       alert(err);
     })
-    this.list =  this.groupservice.getGroupLists(this.groupName);
-   
+    this.list = this.groupservice.getGroupLists(this.groupName);
+
   }
+
   ionViewDidEnter() {
     this.photoURL = this.afAuth.auth.currentUser.photoURL;
     this.alignuid = this.afAuth.auth.currentUser.uid;
@@ -50,21 +49,20 @@ export class GroupchatPage {
       if (res)
         this.creator = true;
     }).catch((err) => {
-      alert(err); 
+      alert(err);
     })
-    this.list =  this.groupservice.getGroupLists(this.groupName);
-   
-    }
-
-  ionViewDidLeave(){
-   this.events.unsubscribe('newgrouplist');
+    this.list = this.groupservice.getGroupLists(this.groupName);
   }
 
-  openList(key, owner){
+  ionViewDidLeave() {
+    this.events.unsubscribe('newgrouplist');
+  }
+
+  openList(key, owner) {
     this.navCtrl.push('SharedlistPage', { key: key, owner: owner });
-
   }
-  deleteList(key){
+
+  deleteList(key) {
     this.groupservice.deletelist(key);
   }
 
@@ -78,7 +76,7 @@ export class GroupchatPage {
           text: 'Add member',
           icon: 'person-add',
           handler: () => {
-            this.navCtrl.push('GroupfriendsPage', {list: this.list});
+            this.navCtrl.push('GroupfriendsPage', { list: this.list });
           }
         },
         {
