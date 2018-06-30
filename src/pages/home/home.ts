@@ -18,7 +18,7 @@ export class HomePage {
       isTesting: false, // Remove in production
       autoShow: true,
       id: 'ca-app-pub-3508855280895987/3094770508'
-    };
+    }; 
     this.admob.banner.config(bannerConfig);
     this.admob.banner.prepare().then(() => {
       // success

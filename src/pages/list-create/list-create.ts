@@ -1,3 +1,4 @@
+import { AdMobFree, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free';
 import { List } from './../../models/list';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -36,8 +37,21 @@ export class ListCreatePage {
   imgurl = '';
   occasion: any;
 
-  constructor(public navCtrl: NavController, private firebaseService: FirebaseServiceProvider) {
+  constructor(public navCtrl: NavController, private firebaseService: FirebaseServiceProvider, public admob: AdMobFree) {
     this.listRef$ = this.firebaseService.getLists();
+  }
+
+  showAd(){
+    let interstitialConfig: AdMobFreeInterstitialConfig = {
+      autoShow: true,
+      id: 'ca-app-pub-3508855280895987/5275788317'
+  };
+
+  this.admob.interstitial.config(interstitialConfig);
+
+  this.admob.interstitial.prepare().then(() => {
+      // success
+  });
   }
 
   addList() {
