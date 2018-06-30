@@ -12,9 +12,10 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 })
 export class GroupCreatePage {
   public groupNameForm;
+  public backgroundImage: any = "assets/images/groups.png";
   newgroup = {
     groupName: 'GroupName',
-    groupPic: "https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/default_group.png?alt=media&token=a369df29-b8ca-40d7-bf02-6d4e7abe23d1"
+    groupPic: this.backgroundImage
   }
   constructor(public fb: FormBuilder, public groupservice: GroupsProvider, public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private imghandler: ImagehandlerProvider, private loadingCtrl: LoadingController) {
     this.groupNameForm = fb.group({

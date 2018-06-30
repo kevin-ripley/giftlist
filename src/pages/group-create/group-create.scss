@@ -13,16 +13,12 @@ page-group-create {
   .scroll-content {
     margin-top: 0 !important;
   }
-  .img {
-    width: 60%;
-    height: 60%;
-    padding-top: 3vh;
-    margin-bottom: 2vh;
-  }
-  span {
-    color: white;
-  }
 
+  .group_default {
+    height: auto;
+    padding-top: 2vh;
+    margin-bottom: 5vh;
+  }
  
   .error-message .item-inner{
     border-bottom-color:  transparent !important;
@@ -47,7 +43,7 @@ page-group-create {
     color: #488aff !important;
   }
   .login-container {
-    color: lightslategrey;
+    color: lightgray;
     position: absolute;
     top: 0;
     padding: 10vw;
@@ -56,6 +52,7 @@ page-group-create {
     margin: 0 auto;
     z-index: 2;
   }
+  
   ion-button {
     opacity: 0.8;
   }

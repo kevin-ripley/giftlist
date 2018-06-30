@@ -18,19 +18,15 @@ export class ShopPage {
   products: Observable<any>;
   searchTerm: string = '';
   searchControl: FormControl;
-  items: any;
+  items = [];
   searching: any = false;
-
   data: any;
   errorMessage: string;
-  page = 1;
-  perPage = 0;
-  totalData = 0;
-  totalPage = 0;
+  page = 0;
+  
 
   constructor( public platform: Platform, public navCtrl: NavController, public navParams: NavParams, public provide: ProductsProvider, public loadingCtrl: LoadingController) {
-    this.searchControl = new FormControl();
-    
+    this.searchControl = new FormControl(); 
   }
 
   ionViewDidLoad() {
@@ -40,15 +36,13 @@ export class ShopPage {
     });
     loadingPopup.present();
     this.setFilteredItems();
-    this.searchControl.valueChanges.debounceTime(400).subscribe(search => {
+    this.searchControl.valueChanges.debounceTime(2000).subscribe(search => {
       this.searching = false;
       this.setFilteredItems();
-
-    });
-    
-    
+    });    
     loadingPopup.dismiss();
   }
+
   // displayBanner() {
   //   const bannerConfig: AdMobFreeBannerConfig = {
   //     // we will just use a test id for this tutorial
@@ -68,21 +62,32 @@ export class ShopPage {
 
   // }
 
+  loadMore(infiniteScroll){
+    this.page += 1;
+    this.setFilteredItems(infiniteScroll);      
+  }
+
   onSearchInput() {
     this.searching = true;
     this.setFilteredItems();
+    this.page = 0;
+    this.items = [];
   }
-
 
   // Grabbing Items from the Products Provider
-  setFilteredItems() {
-    this.provide.getWalmart(this.searchTerm)
+  setFilteredItems(infiniteScroll?) {
+    
+    this.provide.getWalmart(this.searchTerm, this.page)
       .subscribe(data => {
         this.data = data;
-        this.items = this.data.items;
+        this.items = this.items.concat(this.data.items);
+        if (infiniteScroll) {
+          infiniteScroll.complete();
+        }
       });
-
+    
   }
+
   // If Item is clicked then push to Browse Products Page with Detail
   openDetails(item) {
     this.navCtrl.push('BrowseProductsPage', { item: item });

@@ -16,16 +16,16 @@ page-home {
         display: table-cell;
         vertical-align: middle;
         img[no-padding]{
-          size: 75%;
+          width: 70%;
         }
         h2[item-title] {
           margin: 0;
-          color: theme-colors('mainColors', 'primary') !important;
+          color: light !important;
         }
         
   
         p[item-subtitle] {
-          color: theme-colors('mainColors', 'primary') !important;
+          color: light !important;
         }
       }
   

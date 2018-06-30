@@ -7,19 +7,24 @@
         <ion-icon start name="star"></ion-icon>Add Lists</h2>
       <h2 item-title>
         <ion-icon start name="star"></ion-icon>Create Groups</h2>
-      <p item-subtitle>And Share Your Gift Lists!</p>
-      <button ion-button color="secondary" block outline icon-left (click)="manual()">
+      <h2 item-title>And Share Your Gift Lists!</h2>
+      <button ion-button color="secondary" block outline color="light" icon-left (click)="manual()">
         <ion-icon name="create"></ion-icon>
-        New List
+        CREATE A NEW LIST
       </button>
 
-      <button ion-button color="secondary" block outline icon-left (click)="group()">
+      <button ion-button color="secondary" block outline color="light" icon-left (click)="group()">
         <ion-icon name="people"></ion-icon>
-        New Group
+        CREATE A NEW GROUP
       </button>
-      <button ion-button color="secondary" block outline icon-left (click)="friends()">
+      <button ion-button color="secondary" block outline color="light" icon-left (click)="items()">
+          <ion-icon name="basket"></ion-icon>
+          FIND ITEMS TO ADD TO YOUR LISTS
+        </button>
+
+      <button ion-button color="secondary" block outline color="light" icon-left (click)="friends()">
         <ion-icon name="search"></ion-icon>
-        Find Friends
+        SEARCH FOR FRIENDS
       </button>
     </div>
   </div>
