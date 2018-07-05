@@ -1,17 +1,11 @@
 <ion-header>
   <ion-navbar>
-    
+    <ion-title text-center>{{ displayName }}'s Gift List</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content no-bounce overflow-scroll="false">
   <ion-grid no-padding>
-    <ion-row padding background-size container-header-image *ngFor="let data of sharedRef$ | async; let i = index;">
-      <ion-col text-center>
-        <h2 header-title><u>{{data.displayName}}'s List</u></h2>
-      </ion-col>
-    </ion-row>
-    
-    <ion-row no-padding>
+       <ion-row no-padding>
 
       <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
         <ion-list>

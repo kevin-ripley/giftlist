@@ -81,7 +81,7 @@ export class ChatsPage {
             statusalert.setSubTitle('Your Profile Image Was Changed!');
             statusalert.present();
             this.zone.run(() => {
-              this.photoURL = data;
+              this.photoURL = data; 
             })
           }
         }).catch((err) => {

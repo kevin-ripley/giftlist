@@ -35,18 +35,19 @@ export class ProfilePicturePage {
     })
     loader.present();
     this.userservice.updateimage(this.imgurl).then((res: any) => {
-      loader.dismiss();
+      loader.dismiss(); 
       if (res.success) {
-        this.navCtrl.setRoot('TabsPage');
+        this.navCtrl.setRoot('HomePage');
       }
       else {
+        loader.dismiss();
         alert(res);
       }
     })
   }
 
   proceed() {
-    this.navCtrl.setRoot('TabsPage');
+    this.navCtrl.setRoot('HomePage');
   }
 
 }

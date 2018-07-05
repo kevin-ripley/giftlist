@@ -37,6 +37,10 @@ export class SharedlistPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SharedlistPage');
   }
+  
+  goToItem(listItem: ListItem, key) {
+    this.navCtrl.push('IteminfoPage', { Lkey: this.key, Ikey: key, listItem: listItem });
+  }
 
   moreInfo(key: string){
     this.navCtrl.push('IteminfoPage', {Ikey : key, Lkey: this.key});

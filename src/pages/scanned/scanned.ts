@@ -22,6 +22,7 @@ export class ScannedPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseService: FirebaseServiceProvider, public productService: ProductsProvider) {
     this.barcode = this.navParams.get('scanData');
+    console.log(this.barcode); 
     this.productService.getItem(this.barcode).then(data => {
       this.listItem = data.items;
     });
@@ -32,6 +33,9 @@ export class ScannedPage {
     this.navCtrl.push('BrowseProductsPage', {item: item});
   }
 
+  back(){
+    this.navCtrl.pop();
+  }
 
   ionViewDidLoad() { 
     console.log('ionViewDidLoad ScannedPage');

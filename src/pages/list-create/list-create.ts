@@ -74,6 +74,7 @@ export class ListCreatePage {
       this.list.image = this.other;
     }
     this.firebaseService.addLists(this.list);
+    this.showAd();
     this.navCtrl.setRoot('ListsPage');
   }
 

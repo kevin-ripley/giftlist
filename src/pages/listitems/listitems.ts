@@ -38,6 +38,7 @@ export class ListitemsPage {
   userId;
   shareRef$;
   new_key;
+  list_key: any;
 
   constructor(private afAuth: AngularFireAuth, public events: Events, private groupService: GroupsProvider, private database: AngularFireDatabase, private socialSharing: SocialSharing, public barcodeScanner: BarcodeScanner, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController, public viewCtrl: ViewController) {
     this.key = this.navParams.get('key');
@@ -124,8 +125,7 @@ export class ListitemsPage {
     }
     this.barcodeScanner.scan(this.options).then((barcodeData) => {
       this.scanData = barcodeData.text;
-      let itemModal = this.modalCtrl.create('ScannedPage', { scanData: this.scanData });
-      itemModal.present();
+      this.navCtrl.push('ScannedPage', { scanData: this.scanData });
     }, (err) => {
       console.log("Error occured : " + err);
     });
@@ -136,20 +136,16 @@ export class ListitemsPage {
   }
 
   regularShare() {
-    console.log(this.shared);
-    this.database.list(`public_lists/${this.userId}`).push({
+    this.list_key = this.database.list(`public_lists/${this.userId}`).push({
       displayName: this.afAuth.auth.currentUser.displayName,
       image: this.image,
       items: this.shared
-    });
-
-    this.keyRef$ = this.database.object(`public_lists/${this.userId}`);
-    this.keyRef$.subscribe((snapshots) => {
-      for (var key in snapshots) {
-        this.new_key = key;
-      }
-    });
-    console.log(this.new_key);
+    }).key;
+    var msg = 'Come See My List I Made on Gift List!';
+    var url = `https://gift-list-58d8f.firebaseapp.com/#/public-lists/${this.userId}/${this.list_key}`;
+    var img = 'https://firebasestorage.googleapis.com/v0/b/gift-list-58d8f.appspot.com/o/feature_graphic_gl.png?alt=media&token=b63a4548-5ee6-44fe-8688-29eab598fbef';
+    this.socialSharing.share(msg, null, img, url);
+    console.log(this.list_key); 
   }
 
   share() {

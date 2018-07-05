@@ -99,7 +99,7 @@ export class ItemcreatePage {
           }
         }
       ]
-    });
+    }); 
     alert.present();
   }
 

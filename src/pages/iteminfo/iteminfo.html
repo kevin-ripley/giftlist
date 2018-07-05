@@ -6,7 +6,7 @@
 
 <ion-content no-bounce overflow-scroll="false">
   <ion-list no-lines>
-    <button ion-button block (click)="editing = !editing" *ngIf='!editing'>Edit Item</button>
+    <button ion-button block (click)="editing = !editing" *ngIf='!editing && owner'>Edit Item</button>
     <img [src]=items.image>
     <ion-item *ngIf='!editing' text-center no-padding text-wrap>{{ items.name }}</ion-item>
     <ion-item *ngIf='!editing' text-center no-padding text-wrap>Description: {{items.description}}</ion-item>

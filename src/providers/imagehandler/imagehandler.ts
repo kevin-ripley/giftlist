@@ -22,12 +22,12 @@ export class ImagehandlerProvider {
         sourceType: this._CAMERA.PictureSourceType.PHOTOLIBRARY,
         destinationType: this._CAMERA.DestinationType.DATA_URL,
         quality: 100,
-        targetWidth: 320,
-        targetHeight: 240,
+        targetWidth: 450,
+        targetHeight: 600,
         encodingType: this._CAMERA.EncodingType.JPEG,
         correctOrientation: true
       };
-
+ 
       this._CAMERA.getPicture(cameraOptions)
         .then((data) => {
           this.cameraImage = "data:image/jpeg;base64," + data;

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { ListItem } from '../../models/listItem';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @IonicPage()
 @Component({
@@ -44,14 +45,21 @@ export class IteminfoPage {
     ]
   };
   editing;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController) {
+  owner;
+  constructor(public navCtrl: NavController, private afAuth: AngularFireAuth, public navParams: NavParams, private firebaseService: FirebaseServiceProvider, public alertCtrl: AlertController) {
+    this.owner = false;
   }
 
   ionViewWillLoad() {
     this.Lkey = this.navParams.get('Lkey');
     this.Ikey = this.navParams.get('Ikey');
     this.items = this.navParams.get('listItem');
+    
     this.editing = false;
+    this.afAuth.authState.subscribe(user => {
+      if (user) this.owner = true
+    })
+    
   }
 
   onStarClass(items: any, index: number, e: any) {

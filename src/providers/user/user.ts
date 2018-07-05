@@ -69,7 +69,7 @@ export class UserProvider {
   Inputs - Url of the image stored in firebase.
   OUtputs - Promise.
   
-  */
+  */ 
 
   updateimage(imageurl) {
       var promise = new Promise((resolve, reject) => {
@@ -77,10 +77,8 @@ export class UserProvider {
               displayName: this.afireauth.auth.currentUser.displayName,
               photoURL: imageurl      
           }).then(() => {
-              firebase.database().ref('/users/' + firebase.auth().currentUser.uid).update({
-              displayName: this.afireauth.auth.currentUser.displayName,
+              firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
               photoURL: imageurl,
-              uid: firebase.auth().currentUser.uid
               }).then(() => {
                   resolve({ success: true });
                   }).catch((err) => {
