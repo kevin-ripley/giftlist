@@ -29,6 +29,7 @@ export class ChatsPage {
   photoURL: any;
   friendcount: any;
   requestcount: any;
+  img: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public requestservice: RequestsProvider,
     public events: Events, public zone: NgZone, public firebaseService: FirebaseServiceProvider, public imghandler: ImagehandlerProvider, public alertCtrl: AlertController, public userService: UserProvider, public agAuth: AngularFireAuth, private chatservice: ChatProvider, public socialSharing: SocialSharing, public loadingCtrl: LoadingController) {
   }
@@ -54,7 +55,7 @@ export class ChatsPage {
       this.friendcount = this.myfriends.length;
     })
 
-    console.log(this.friendcount);
+  
     this.listRef$ = this.firebaseService.getLists();
     this.userDetails = this.userService.getUserInfo(this.agAuth.auth.currentUser.uid);
     loadingPopup.dismiss();
@@ -74,22 +75,26 @@ export class ChatsPage {
     });
     this.imghandler.selectImage()
       .then((data) => {
-        this.imghandler.uploadProfileImage(data);
-        this.userService.updateimage(data).then((res: any) => {
-          if (res.success) {
-            statusalert.setTitle('Updated');
-            statusalert.setSubTitle('Your Profile Image Was Changed!');
+        this.imghandler.uploadProfileImage(data).then((snapshot : any) => {
+          this.img = snapshot.downloadURL;
+          this.userService.updateimage(this.img).then((res: any) => {
+            if (res.success) {
+              statusalert.setTitle('Updated');
+              statusalert.setSubTitle('Your Profile Image Was Changed!');
+              statusalert.present();
+              this.zone.run(() => {
+                this.photoURL = data; 
+              })
+            }
+          }).catch((err) => {
+            statusalert.setTitle('Failed');
+            statusalert.setSubTitle('There Was An Error Changing Your Image');
             statusalert.present();
-            this.zone.run(() => {
-              this.photoURL = data; 
-            })
-          }
-        }).catch((err) => {
-          statusalert.setTitle('Failed');
-          statusalert.setSubTitle('There Was An Error Changing Your Image');
-          statusalert.present();
+          })
+        });
+         
         })
-      });
+        
   }
 
   addbuddy() {

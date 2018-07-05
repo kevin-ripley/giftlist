@@ -19,12 +19,13 @@ export class ImagehandlerProvider {
   selectImage(): Promise<any> {
     return new Promise(resolve => {
       let cameraOptions: CameraOptions = {
+        quality: 95,
+        targetWidth: 300,
+        targetHeight: 300,
         sourceType: this._CAMERA.PictureSourceType.PHOTOLIBRARY,
         destinationType: this._CAMERA.DestinationType.DATA_URL,
-        quality: 100,
-        targetWidth: 450,
-        targetHeight: 600,
         encodingType: this._CAMERA.EncodingType.JPEG,
+        mediaType: this._CAMERA.MediaType.PICTURE,
         correctOrientation: true
       };
  
@@ -45,7 +46,7 @@ export class ImagehandlerProvider {
 
     return new Promise((resolve, reject) => {
       storageRef = firebase.storage().ref('profileimages/' + firebase.auth().currentUser.uid + '/' + image);
-      parseUpload = storageRef.putString(imageString, 'data_url');
+      parseUpload = storageRef.putString(imageString, firebase.storage.StringFormat.DATA_URL);
 
       parseUpload.on('state_changed', (_snapshot) => {
         // We could log the progress here IF necessary
@@ -57,7 +58,7 @@ export class ImagehandlerProvider {
         (success) => {
           resolve(parseUpload.snapshot);
         });
-    });
+    }); 
   }
 
   uploadItemImage(imageString): Promise<any> {

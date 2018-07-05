@@ -3,7 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
 import { FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Profile } from '../../models/profile';
- 
+
 /*
   Generated class for the UserProvider provider.
  
@@ -14,10 +14,11 @@ import { Profile } from '../../models/profile';
 export class UserProvider {
   userdetails;
   firedata = firebase.database().ref('/users');
-  
-  constructor(public afireauth: AngularFireAuth, public afDatabase: AngularFireDatabase,) {
+  ref: any;
+
+  constructor(public afireauth: AngularFireAuth, public afDatabase: AngularFireDatabase, ) {
   }
- 
+
 
   adduser(newuser) {
     var promise = new Promise((resolve, reject) => {
@@ -36,11 +37,11 @@ export class UserProvider {
             email: this.afireauth.auth.currentUser.email
           }).then(() => {
             resolve({ success: true });
-            }).catch((err) => {
-              reject(err);
-          })
           }).catch((err) => {
             reject(err);
+          })
+        }).catch((err) => {
+          reject(err);
         })
       }).catch((err) => {
         reject(err);
@@ -69,38 +70,41 @@ export class UserProvider {
   Inputs - Url of the image stored in firebase.
   OUtputs - Promise.
   
-  */ 
+  */
 
   updateimage(imageurl) {
-      var promise = new Promise((resolve, reject) => {
-          this.afireauth.auth.currentUser.updateProfile({
-              displayName: this.afireauth.auth.currentUser.displayName,
-              photoURL: imageurl      
-          }).then(() => {
-              firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
-              photoURL: imageurl,
-              }).then(() => {
-                  resolve({ success: true });
-                  }).catch((err) => {
-                      reject(err);
-                  })
-          }).catch((err) => {
-                reject(err);
-             })  
+
+    var promise = new Promise((resolve, reject) => {
+      this.afireauth.auth.currentUser.updateProfile({
+        displayName: this.afireauth.auth.currentUser.displayName,
+        photoURL: imageurl
+      }).then(() => {
+        this.firedata.child(this.afireauth.auth.currentUser.uid).update({
+          uid: this.afireauth.auth.currentUser.uid,
+          displayName: this.afireauth.auth.currentUser.displayName,
+          photoURL: imageurl
+        }).then(() => {
+          resolve({ success: true });
+        }).catch((err) => {
+          reject(err);
+        })
+      }).catch((err) => {
+        reject(err);
       })
-      return promise;
+    })
+   return promise;
   }
 
-  getUserInfo(uid: string): FirebaseObjectObservable<Profile>{
-   return this.afDatabase.object(`users/${uid}`);
+  getUserInfo(uid: string): FirebaseObjectObservable<Profile> {
+    return this.afDatabase.object(`users/${uid}`);
   }
 
   getuserdetails() {
     var promise = new Promise((resolve, reject) => {
-    this.firedata.child(firebase.auth().currentUser.uid).once('value', (snapshot) => {
-      resolve(snapshot.val());
-    }).catch((err) => {
-      reject(err);
+      this.firedata.child(firebase.auth().currentUser.uid).once('value', (snapshot) => {
+        resolve(snapshot.val());
+      }).catch((err) => {
+        reject(err);
       })
     })
     return promise;
@@ -109,21 +113,21 @@ export class UserProvider {
   updatedisplayname(newname) {
     var promise = new Promise((resolve, reject) => {
       this.afireauth.auth.currentUser.updateProfile({
-      displayName: newname,
-      photoURL: this.afireauth.auth.currentUser.photoURL
-    }).then(() => {
-      this.firedata.child(firebase.auth().currentUser.uid).update({
         displayName: newname,
-        photoURL: this.afireauth.auth.currentUser.photoURL,
-        uid: this.afireauth.auth.currentUser.uid
+        photoURL: this.afireauth.auth.currentUser.photoURL
       }).then(() => {
-        resolve({ success: true });
+        this.firedata.child(firebase.auth().currentUser.uid).update({
+          displayName: newname,
+          photoURL: this.afireauth.auth.currentUser.photoURL,
+          uid: this.afireauth.auth.currentUser.uid
+        }).then(() => {
+          resolve({ success: true });
+        }).catch((err) => {
+          reject(err);
+        })
       }).catch((err) => {
         reject(err);
       })
-      }).catch((err) => {
-        reject(err);
-    })
     })
     return promise;
   }
@@ -135,7 +139,7 @@ export class UserProvider {
         let userdata = snapshot.val();
         let temparr = [];
         for (var key in userdata) {
-          if(userdata[key].uid != firebase.auth().currentUser.uid){
+          if (userdata[key].uid != firebase.auth().currentUser.uid) {
             temparr.push(userdata[key]);
           }
         }
@@ -147,5 +151,5 @@ export class UserProvider {
     return promise;
   }
 
- 
+
 }

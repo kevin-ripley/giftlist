@@ -20,22 +20,34 @@ export class ProfilePicturePage {
   }
 
   selectImage() {
+    
     this.imgservice.selectImage()
       .then((data) => {
-        this.imgurl = data;
-        this.imgservice.uploadProfileImage(this.imgurl);
-      });
+        this.imgservice.uploadProfileImage(data).then((snapshot : any) => {
+          this.imgurl = snapshot.downloadURL;
+          this.userservice.updateimage(this.imgurl).then((res: any) => {
+            if (res.success) {
+              this.navCtrl.setRoot('HomePage');
+            }
+          }).catch((err) => {
+            console.log(JSON.stringify(err));
+          })
+        });
+         
+        })
+        
     this.moveon = false;
-  }
+  } 
 
 
   updateproceed() {
     let loader = this.loadingCtrl.create({
-      content: 'Please wait'
+      content: `uploading`
     })
     loader.present();
+
     this.userservice.updateimage(this.imgurl).then((res: any) => {
-      loader.dismiss(); 
+      loader.dismiss();   
       if (res.success) {
         this.navCtrl.setRoot('HomePage');
       }
