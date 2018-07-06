@@ -25,7 +25,14 @@ export class RequestsProvider {
     var promise = new Promise((resolve, reject) => {
       this.firefriends.child(req.recipient).on('value', (snapshot) => {
         let friends = snapshot.val();
-        if (friends){
+        var friend = false;
+        for (var i in friends){
+          if(firebase.auth().currentUser.uid == friends[i].uid){
+            friend = true;
+          }
+          console.log(friends[i].uid + " and it is " + friend);
+        }
+        if (friend){
           resolve({ success: false });
       }else{
         this.firereq.child(req.recipient).push().set({
@@ -66,7 +73,7 @@ export class RequestsProvider {
   }  
 
   acceptrequest(buddy) {
-    var promise = new Promise((resolve, reject) => {
+    var promise = new Promise((resolve, reject) => { 
       this.myfriends = [];
       this.firefriends.child(firebase.auth().currentUser.uid).push().set({
         uid: buddy.uid

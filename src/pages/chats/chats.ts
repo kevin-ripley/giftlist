@@ -98,7 +98,7 @@ export class ChatsPage {
   }
 
   addbuddy() {
-    this.navCtrl.push('FriendsPage');
+    this.navCtrl.push('FriendsPage'); 
   }
 
   accept(item) {

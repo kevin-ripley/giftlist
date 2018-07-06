@@ -95,6 +95,7 @@ export class FriendsPage {
           this.filteredusers.splice(sentuser, 1);
         }
         else {
+          console.log(JSON.stringify(res));
           let failalert = this.alertCtrl.create({
             title: 'User Is Already Your Friend!',
             buttons: ['OK']
