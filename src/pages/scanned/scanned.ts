@@ -4,12 +4,6 @@ import { ListItem } from './../../models/listItem';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the ScannedPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -19,13 +13,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class ScannedPage {
   barcode: any;
   listItem: any;
-
+  item: any;
+  data: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseService: FirebaseServiceProvider, public productService: ProductsProvider) {
     this.barcode = this.navParams.get('scanData');
-    console.log(this.barcode); 
-    this.productService.getItem(this.barcode).then(data => {
-      this.listItem = data.items;
-    });
   }
 
   // If Item is clicked then push to Browse Products Page with Detail
@@ -38,8 +29,12 @@ export class ScannedPage {
   }
 
   ionViewDidLoad() { 
-    console.log('ionViewDidLoad ScannedPage');
-    console.log(this.barcode);
+    this.barcode = this.navParams.get('scanData');
+    this.productService.getItem(this.barcode).subscribe(data => {
+      this.data = data;
+      this.listItem = this.data.items;
+      console.log(this.data + " is the data coming back");
+    });
   }
 
 }

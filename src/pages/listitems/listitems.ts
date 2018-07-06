@@ -124,8 +124,9 @@ export class ListitemsPage {
       prompt: "Scan Item! "
     }
     this.barcodeScanner.scan(this.options).then((barcodeData) => {
+      
       this.scanData = barcodeData.text;
-      this.navCtrl.push('ScannedPage', { scanData: this.scanData });
+     this.navCtrl.push('ScannedPage', { scanData: this.scanData });
     }, (err) => {
       console.log("Error occured : " + err);
     });

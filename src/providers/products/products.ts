@@ -13,21 +13,14 @@ export class ProductsProvider {
   combined: any;
 
   url : string = 'http://api.walmartlabs.com/v1/search?query=';
+  upc_url : string = 'http://api.walmartlabs.com/v1/items?apiKey=kzejb2ckufsrgv27c43anc59&upc='
   constructor(public http: HttpClient) {
   }
 
   
   getItem(data){ 
-    if (this.items) {
-      // already loaded data
-      return Promise.resolve(this.items);
-    }
-    return new Promise(resolve => {
-      this.http.get('http://api.walmartlabs.com/v1/items?apiKey=kzejb2ckufsrgv27c43anc59&upc=' + data)
-        .subscribe(data => {
-          resolve(data);
-        });
-      });
+    
+    return this.http.get(this.upc_url + data);
   }
   
   getWalmart(data, num){
