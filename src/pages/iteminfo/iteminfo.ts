@@ -86,8 +86,8 @@ export class IteminfoPage {
 
   deleteItem() {
     let confirm = this.alertCtrl.create({
-      title: 'Delete List!',
-      message: 'Are you sure you want to delete this list?',
+      title: 'Delete Item!',
+      message: 'Are you sure you want to delete this item?',
       buttons: [
         {
           text: 'Disagree',
@@ -105,7 +105,7 @@ export class IteminfoPage {
                 {
                   text: 'Okay',
                   handler: () => {
-                    console.log('Okay Clicked!');
+                    console.log('Okay Clicked!'); 
                   }
                 }
               ]
@@ -120,6 +120,7 @@ export class IteminfoPage {
   }
 
   save(items: ListItem) {
+  items.rank = this.rank;
     this.firebaseService.updateItem(this.Lkey, this.Ikey, items);
     this.editing = false;
   }

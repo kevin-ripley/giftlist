@@ -124,7 +124,6 @@ export class ListitemsPage {
       prompt: "Scan Item! "
     }
     this.barcodeScanner.scan(this.options).then((barcodeData) => {
-      
       this.scanData = barcodeData.text;
      this.navCtrl.push('ScannedPage', { scanData: this.scanData });
     }, (err) => {
@@ -140,6 +139,7 @@ export class ListitemsPage {
     this.list_key = this.database.list(`public_lists/${this.userId}`).push({
       displayName: this.afAuth.auth.currentUser.displayName,
       image: this.image,
+      created: new Date().getTime(),
       items: this.shared
     }).key;
     var msg = 'Come See My List I Made on Gift List!';

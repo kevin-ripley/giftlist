@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.kevinripley.giftlist171201" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.kevinripley.giftlist171201" version="0.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Gift List</name>
     <description>Share your list with friends and family!</description>
     <author email="ripleyoriginals@gmail.com" href="http://ripleyoriginals.com/">Kevin Ripley</author>
@@ -98,7 +98,7 @@
         <variable name="DEEPLINK_SCHEME" value="https" />
         <variable name="DEEPLINK_HOST" value="gift-list-58d8f.firebaseapp.com" />
     </plugin>
+    <allow-navigation href="http://192.168.1.5:8101" />
     <engine name="android" spec="6.3.0" />
     <engine name="ios" spec="4.5.4" />
-    <allow-navigation href="http://192.168.1.5:8101" />
 </widget>
