@@ -54,7 +54,7 @@ export class IteminfoPage {
     this.Lkey = this.navParams.get('Lkey');
     this.Ikey = this.navParams.get('Ikey');
     this.items = this.navParams.get('listItem');
-    
+   
     this.editing = false;
     this.afAuth.authState.subscribe(user => {
       if (user) this.owner = true
@@ -120,7 +120,12 @@ export class IteminfoPage {
   }
 
   save(items: ListItem) {
-  items.rank = this.rank;
+    if(items.rank == 'undefined'){
+      items.rank = this.rank;
+    }
+    else{
+      items.rank = this.items.rank;
+    }
     this.firebaseService.updateItem(this.Lkey, this.Ikey, items);
     this.editing = false;
   }
