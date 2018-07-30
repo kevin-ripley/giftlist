@@ -24,7 +24,6 @@ import { Profile } from '../../models/profile';
 export class ProfilePage {
   userDetails: FirebaseObjectObservable<Profile>;
   user = {} as Profile;
-  birthDate: any;
   displayName: string;
   email: any;
   firstName: string;
@@ -44,7 +43,6 @@ export class ProfilePage {
     this.userDetails = this.userService.getUserInfo(this.uid);
     this.userDetails.subscribe((snapshots) => {
       this.user = snapshots;
-      this.birthDate = snapshots.birthDate;
       this.displayName = snapshots.displayName;
       this.email = snapshots.email;
       this.firstName = snapshots.firstName;

@@ -33,7 +33,6 @@ export class UserProvider {
             photoURL: 'https://firebasestorage.googleapis.com/v0/b/myapp-4eadd.appspot.com/o/chatterplace.png?alt=media&token=e51fa887-bfc6-48ff-87c6-e2c61976534e',
             firstName: newuser.firstName,
             lastName: newuser.lastName,
-            birthDate: newuser.birthDate,
             email: this.afireauth.auth.currentUser.email
           }).then(() => {
             resolve({ success: true });

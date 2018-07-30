@@ -37,11 +37,6 @@
         <ion-input tappable formControlName="password" type="password" [class.invalid]="!registerForm.controls.password.valid && registerForm.controls.password.dirty"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label floating>BIRTH DATE</ion-label>
-        <ion-datetime displayFormat="MMM DD YYYY" formControlName="birthDate" [class.invalid]="!registerForm.controls.birthDate.valid && registerForm.controls.birthDate.dirty"></ion-datetime>
-      </ion-item>
-
       <button ion-button block type="submit" color="primary">
         Create an Account
       </button>

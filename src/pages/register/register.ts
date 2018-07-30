@@ -26,7 +26,6 @@ export class RegisterPage {
       firstName: ['', Validators.compose([Validators.minLength(2), Validators.required])],
       lastName: ['', Validators.compose([Validators.minLength(2), Validators.required])],
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
-      birthDate: ['', Validators.compose([Validators.required])],
 
     });
   }
@@ -42,7 +41,7 @@ export class RegisterPage {
      this.user.firstName = this.registerForm.value.firstName;
      this.user.lastName = this.registerForm.value.lastName; 
      this.user.password = this.registerForm.value.password;
-     this.user.birthDate = this.registerForm.value.birthDate;
+     
 
       let loadingPopup = this.loadingCtrl.create({
         spinner: 'crescent', 
