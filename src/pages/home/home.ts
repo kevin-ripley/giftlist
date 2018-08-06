@@ -40,5 +40,8 @@ export class HomePage {
   friends() {
     this.navCtrl.push('ChatsPage');
   }
+  tutorials(){
+    this.navCtrl.push('IntroSliderPage');
+  }
 
 }

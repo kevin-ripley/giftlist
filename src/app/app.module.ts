@@ -1,3 +1,4 @@
+import { WizardLayout1 } from './../components/wizard/layout-1/wizard-layout-1';
 import { firebaseConfig } from './firebaseconfig';
 import { FilePath } from '@ionic-native/file-path';
 import { FileChooser } from '@ionic-native/file-chooser';
@@ -5,7 +6,7 @@ import { File } from '@ionic-native/file';
 import { ProductsProvider } from './../providers/products/products';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AngularFireModule } from 'angularfire2';
@@ -70,7 +71,8 @@ import { Deeplinks } from '@ionic-native/deeplinks';
     ChatProvider,
     Keyboard,
     SocialSharing,
-    Deeplinks,
-  ]
+    Deeplinks
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

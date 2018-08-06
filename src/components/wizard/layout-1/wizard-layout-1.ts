@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { IonicPage, Slides } from 'ionic-angular';
 
-@IonicPage()
+
 @Component({
     selector: 'wizard-layout-1',
     templateUrl: 'wizard.html'

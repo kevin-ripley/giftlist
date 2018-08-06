@@ -50,11 +50,7 @@ export class FinditemsPage {
     });
   }
 
-  //Future Method For Searching via Brands Like 'Nike,Adidas,Apple,Motorola,etc'
-  brandSearch() {
-    let profileModal = this.modalCtrl.create('BrandsearchPage');
-    profileModal.present();
-  }
+
 
   //Add Item To A List Manually
   manualAddItem() {
