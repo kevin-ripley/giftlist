@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { IonicPage, Slides } from 'ionic-angular';
 
-
+@IonicPage()
 @Component({
     selector: 'wizard-layout-1',
     templateUrl: 'wizard.html'
@@ -25,7 +25,7 @@ export class WizardLayout1 {
     changeSlide(index: number): void {
         if (index > 0) {
             this.slider.slideNext(300);
-        } else {
+        } else { 
             this.slider.slidePrev(300);
         }
     }

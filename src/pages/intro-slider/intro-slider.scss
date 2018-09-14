@@ -1,27 +1,52 @@
 page-intro-slider {
-  /*  #Style Wizard Simple + icon
-===========================================*/
-  .swiper-container {
-    @include gradient-accent ($color-1, $color-2);
-  }
-  ion-slide {
-    padding: 0 25px;
-  }
-  .swiper-pagination {
-    bottom: 50px !important;
-    .swiper-pagination-bullet {
-      background: theme-colors('mainColors', 'accent') !important;
-    }
-  } // Button Wizard
-  [button-clear] {
-    color: theme-colors('textColors', 'accent-first') !important;
-    margin-top: -45px;
-    margin-left: 20px;
-    margin-right: 30px;
+  [wizard-titl] {
     z-index: 9;
-    padding: 10px 15px;
     position: relative;
-    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+  .swiper-slide {
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    @include darkening-blend-mode;
+  }
+
+  [default-button] {
+    width: 90%;
+    margin: 0 auto;
     display: block;
+  }
+
+  .swiper-pagination {
+    bottom: 15px !important;
+
+    .swiper-pagination-bullet {
+      background: theme-colors('mainColors', 'primary') !important;
+    }
+  }
+
+  ion-slides {
+    height: 88%;
+    margin-top: 20px;
+  }
+
+  [wizard-title] {
+    z-index: 2;
+    position: relative;
+  }
+
+  .swiper-pagination {
+    bottom: 20px;
+  }
+
+  .swiper-wrapper {
+    height: 90%;
+  }
+
+  .swiper-container {
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
   }
 }

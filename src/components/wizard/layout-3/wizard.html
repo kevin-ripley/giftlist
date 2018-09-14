@@ -14,7 +14,7 @@
 </ion-slides>
 <!--Button section-->
 <div *ngIf="data != null">
-    <button navigation text-center button-clear clear ion-button (click)="changeSlide(1)" *ngIf="prev">
+    <button navigation text-center button-clear clear ion-button (click)="changeSlide(1)">
         {{data.btnNext}}
     </button>
     <button navigation text-center button-clear clear ion-button (click)="onEvent('onFinish')" *ngIf="finish">

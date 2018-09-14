@@ -3,12 +3,8 @@
 <!--Content -->
 <ion-content>
 <ion-slides (ionSlideDidChange)="slideHasChanged()" pager="true" *ngIf="data != null">
-    <ion-slide *ngFor="let item of data.items;">
-        <ion-icon icon-large>
-            <i class="icon {{item.iconSlider}}"></i>
-        </ion-icon>
+    <ion-slide background-size *ngFor="let item of data.items;" [ngStyle]="{'background-image': 'url(' + item.backgroundImage + ')'}">
         <h1 wizard-title>{{item.title}}</h1>
-        <p wizard-body-text>{{item.description}}</p>
     </ion-slide>
 </ion-slides>
 

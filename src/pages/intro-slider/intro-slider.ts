@@ -1,12 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 
-/**
- * Generated class for the IntroSliderPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -22,7 +16,7 @@ export class IntroSliderPage {
   path: boolean = false;
   prev: boolean = true;
   next: boolean = true;
-  finish: boolean = true
+  finish: boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.prev = false;
@@ -32,30 +26,23 @@ export class IntroSliderPage {
     console.log('Intro Slider Page');
 
     this.data = {
-      'toolBarTitle': 'Simple + icon',
-      'btnFinish': 'Finish',
-      'items': [
-        {
-          logo: '',
-          iconSlider: 'icon-star-outline',
-          title: 'Fragment Example 1',
-          description: 'Text for Fragment Example 1 Duis aute irure dolor in reprehenderit'
-        },
-        {
-          logo: '',
-          iconSlider: 'icon-star-half',
-          title: 'Fragment Example 2',
-          description: 'Text for Fragment Example 2 Duis aute irure dolor in'
-        },
-        {
-          logo: '',
-          iconSlider: 'icon-star',
-          title: 'Fragment Example 3',
-          description: 'Text for Fragment Example 3 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-          buttonFinish: 'Finish'
-
-        }
-      ]
+      'toolBarTitle': 'Big image',
+            'btnNext': 'Next',
+            'btnFinish': 'Finish',
+            'items': [
+                {
+                    backgroundImage: 'assets/images/avatar-large/1.jpg',
+                    title: 'Add A List and Add an Item to the List'
+                },
+                {
+                    backgroundImage: 'assets/images/avatar-large/2.jpg',
+                    title: 'Add Friends, Create Groups, and Share your List'
+                },
+                {
+                    backgroundImage: 'assets/images/avatar-large/3.jpg',
+                    title: 'Also Share via Twitter, Facebook, Messaging, etc.'
+                }
+            ]
     };
     this.events = {
       'onFinish': function (event: any) {
