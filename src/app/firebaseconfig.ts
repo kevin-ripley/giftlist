@@ -5,4 +5,4 @@ export const firebaseConfig = {
     projectId: "gift-list-58d8f",
     storageBucket: "gift-list-58d8f.appspot.com",
     messagingSenderId: "498265981425"
-  };
+  }; 
