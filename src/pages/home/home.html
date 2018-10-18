@@ -1,37 +1,44 @@
 <ion-content [ngStyle]="{'background-image': 'url(' + backgroundImage +')'}" no-bounce overflow-scroll="false">
-  <div background-size class="default-background">
-    <div class="ionic-descript" text-center>
-      <img no-padding src="assets/images/logo_4.png" />
+  
+  <ion-grid>
+    <ion-row><ion-col offset-3><img no-padding class = "image_logo" src="assets/images/logo_4.png" /></ion-col></ion-row>
+    <ion-row>
+      <ion-col col-6 tappable> 
+        <div class="image-container" (click)="manual()">
+          <h1 text-wrap class ="icons">CREATE A NEW LIST</h1>
+      </div>
+      </ion-col>
 
-      <h2 item-title>
-        <ion-icon start name="star"></ion-icon>Add Lists</h2>
-      <h2 item-title>
-        <ion-icon start name="star"></ion-icon>Create Groups</h2>
-      <h2 item-title>And Share Your Gift Lists!</h2>
-      <button ion-button color="secondary" block outline color="light" icon-left (click)="manual()">
-        <ion-icon name="create"></ion-icon>
-        CREATE A NEW LIST
-      </button>
+      <ion-col col-6>
+          <div class="image-container" (click)="group()">
+          <h1 text-wrap class ="icons">CREATE A NEW GROUP</h1>
+      </div>
+      </ion-col>
+    </ion-row>
 
-      <button ion-button color="secondary" block outline color="light" icon-left (click)="group()">
-        <ion-icon name="people"></ion-icon>
-        CREATE A NEW GROUP
-      </button>
-      <button ion-button color="secondary" block outline color="light" icon-left (click)="items()">
-          <ion-icon name="basket"></ion-icon>
-          FIND ITEMS TO ADD TO YOUR LISTS
-        </button>
+    <ion-row>
+      <ion-col col-6>
+          <div class="image-container" (click)="items()">
+          <h1 text-wrap class ="icons"> FIND ITEMS FOR LISTS</h1>
+      </div>
+      </ion-col>
 
-      <button ion-button color="secondary" block outline color="light" icon-left (click)="friends()">
-        <ion-icon name="search"></ion-icon>
-        SEARCH FOR FRIENDS
-      </button>
+      <ion-col col-6>
+          <div class="image-container" (click)="friends()">
+              <h1 text-wrap class ="icons"> SEARCH FOR FRIENDS </h1>
+      </div>
+      </ion-col>
+    </ion-row>
 
-      <button ion-button color="secondary" block outline color="light" icon-left (click)="tutorials()">
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button color="secondary" block outline color="light" icon-left (click)="tutorials()">
           <ion-icon name="search"></ion-icon>
           TUTORIALS
         </button>
-    </div>
-  </div>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
 
 </ion-content>

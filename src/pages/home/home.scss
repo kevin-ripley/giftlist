@@ -6,37 +6,58 @@ page-home {
     border-color: transparent;
     background-position: center;
     background-size: cover;
-  }
-    .default-background {
-      height: 100%;
-      width: 100%;
-      display: table;
-  
-      .ionic-descript {
-        display: table-cell;
-        vertical-align: middle;
-        img[no-padding]{
-          width: 70%;
-        }
-        h2[item-title] {
-          margin: 0;
-          color: light !important;
-        }
-        
-  
-        p[item-subtitle] {
-          color: light !important;
-        }
-      }
-  
-      a {
-        color: theme-colors('mainColors', 'primary') !important;
-        text-decoration: underline;
-        visibility: visible !important;
-        position: absolute;
-        bottom: 25px;
-        left: 25px;
-      }
+
+    .image_logo {
+      vertical-align: middle;
+      width: 80%;
     }
+
+    .image-container {
+      min-height: 150px;
+      background-size: cover;
+      border: thick double #32a1ce;
+    }
+
+    .icons {
+      text-align: center;
+      padding: 5px;
+
+    }
+
+
+
   }
-  
+
+
+  // .default-background {
+  //   height: 100%;
+  //   width: 100%;
+  //   display: table;
+
+  //   .ionic-descript {
+  //     display: table-cell;
+  //     vertical-align: middle;
+  //     img[no-padding]{
+  //       width: 70%;
+  //     }
+  //     h2[item-title] {
+  //       margin: 0;
+  //       color: light !important;
+  //     }
+
+
+  //     p[item-subtitle] {
+  //       color: light !important;
+  //     }
+  //   }
+
+  //   a {
+  //     color: theme-colors('mainColors', 'primary') !important;
+  //     text-decoration: underline;
+  //     visibility: visible !important;
+  //     position: absolute;
+  //     bottom: 25px;
+  //     left: 25px;
+  //   }
+  // }
+}
