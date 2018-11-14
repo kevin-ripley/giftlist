@@ -1,6 +1,6 @@
 <ion-content [ngStyle]="{'background-image': 'url(' + backgroundImage +')'}" no-bounce overflow-scroll="false">
   <div class="login-container">
-    <img class="logo" src="assets/images/logo_4.png" />
+    <img class="logo" src="assets/images/gl_christmas.png" />
     <!--*********** Form ***********-->
 
     <form [formGroup]="registerForm" (submit)="register()" novalidate>
@@ -37,12 +37,12 @@
         <ion-input tappable formControlName="password" type="password" [class.invalid]="!registerForm.controls.password.valid && registerForm.controls.password.dirty"></ion-input>
       </ion-item>
 
-      <button ion-button block type="submit" color="primary">
+      <button ion-button block type="submit" color="green">
         Create an Account
       </button>
     </form>
   </div>
 </ion-content>
 <ion-footer color="blue2">
-  <button class="bottom" ion-button type="button" clear full color="light" (click)="goBack()">Already Have an Account?</button>
+  <button class="bottom" ion-button type="button" clear full (click)="goBack()">Already Have an Account?</button>
 </ion-footer>

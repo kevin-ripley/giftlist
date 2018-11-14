@@ -54,6 +54,7 @@ export class IteminfoPage {
     this.Lkey = this.navParams.get('Lkey');
     this.Ikey = this.navParams.get('Ikey');
     this.items = this.navParams.get('listItem');
+    this.rank = this.items.rank;
    
     this.editing = false;
     this.afAuth.authState.subscribe(user => {
@@ -81,6 +82,7 @@ export class IteminfoPage {
     if (index == 0) {
       this.rank = 4;
     }
+    console.log("This was chosen to be " + this.rank);
     this.firebaseService.updateItemRank(this.Lkey, this.Ikey, this.rank)
   };
 
@@ -120,12 +122,13 @@ export class IteminfoPage {
   }
 
   save(items: ListItem) {
-    if(items.rank == 'undefined'){
+    // console.log("This is on save and equals " + items.rank);
+    // if(items.rank == 'undefined'){
+    //   items.rank = this.rank;
+    // }
+    // else{
       items.rank = this.rank;
-    }
-    else{
-      items.rank = this.items.rank;
-    }
+    // }
     this.firebaseService.updateItem(this.Lkey, this.Ikey, items);
     this.editing = false;
   }

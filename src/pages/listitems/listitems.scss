@@ -15,8 +15,8 @@ page-listitems {
       }
     }
     [header-titler] {
-      color: #455B65;
-      font-size: 20px;
+      color: theme-colors('textColors', 'primary');
+      font-size: 30px;
       font-weight: 400;
       margin: 0;
       text-transform: uppercase;

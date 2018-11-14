@@ -1,13 +1,13 @@
 
 <ion-content [ngStyle]="{'background-image': 'url(' + backgroundImage +')'}" no-bounce overflow-scroll="false">
   <div class="login-container">
-    <img class="logo" src="assets/images/logo_4.png" />
+    <img class="logo" src="assets/images/gl_christmas.png" />
     
     <!--*********** Form ***********-->
     <form [formGroup]="loginForm" (submit)="login()" novalidate>
       <ion-item no-padding>
         <ion-label floating>Email</ion-label>
-        <ion-input tappable color="primary" #email type="email" formControlName="email" [class.invalid]="!loginForm.controls.email.valid &&loginForm.controls.email.dirty">
+        <ion-input tappable color="green" #email type="email" formControlName="email" [class.invalid]="!loginForm.controls.email.valid &&loginForm.controls.email.dirty">
         </ion-input>
         <p *ngIf="!loginForm.controls.email.valid  &&
         loginForm.controls.email.dirty">*Please enter a valid email.</p>
@@ -24,9 +24,9 @@
       
 
       <div class="submit-box">
-        <button ion-button block type="submit" color="primary">LOG IN</button>
+        <button ion-button block type="submit" color="green">LOG IN</button>
         
-        <button ion-button type="button" block icon-left color="primary" (click)="register()" margin-top>
+        <button ion-button type="button" block icon-left color="green" (click)="register()" margin-top>
            <ion-icon name="ios-create"></ion-icon> CREATE NEW ACCOUNT
         </button>
       </div>
@@ -35,5 +35,5 @@
 
 </ion-content>
 <ion-footer>
-  <button class="bottom" ion-button  type="button"  clear full color="light" (click)="passwordreset()">Forgot Your Password? </button>
+  <button class="bottom" ion-button  type="button"  clear full (click)="passwordreset()">Forgot Your Password? </button>
 </ion-footer>

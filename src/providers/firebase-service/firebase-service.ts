@@ -70,6 +70,7 @@ export class FirebaseServiceProvider {
       }
     });
     shared.forEach(element => {
+      console.log("This is for the element which should be the group: " + element);
       this.afDatabase.list(`groups/${this.userId}/${element}/lists`).remove(key);
       var members = this.afDatabase.list(`groups/${this.userId}/${element}/members`);
       members.subscribe((membs) => {

@@ -54,7 +54,7 @@
   </div>
 
   <!--***********  Segment tab ***********-->
-  <ion-segment mode="md" [(ngModel)]="segmentView" color="primary">
+  <ion-segment mode="md" [(ngModel)]="segmentView" color="green">
     <ion-segment-button value="one">
       <ion-icon name="contacts"></ion-icon>
     </ion-segment-button>
@@ -86,7 +86,7 @@
   <div *ngIf="segmentView==='two'">
     <ion-list no-lines padding>
       <ion-list-header>
-        <h2 text-center color="lightblue">Requests</h2>
+        <h2 text-center color="green">Requests</h2>
       </ion-list-header>
       <ion-item-sliding *ngFor="let request of myrequests" padding-bottom>
         <ion-item>
@@ -96,7 +96,7 @@
           <h2>{{request.displayName}}</h2>
         </ion-item>
         <ion-item-options>
-          <button ion-button color="secondary" (click)="accept(request)">
+          <button ion-button color="green" (click)="accept(request)">
             <ion-icon name="checkmark"></ion-icon>
             ADD
           </button>
@@ -121,17 +121,17 @@
       </ion-item>
     </ion-list>
     <div text-center><p text-center>Can't Find Your Friend? Invite Them To Join!</p>
-      <button ion-button icon-only (click)="regularShare()" color="primary" clear>
+      <button ion-button icon-only (click)="regularShare()" color="green" clear>
         <ion-icon icon-medium>
           <i class=" icon-share"></i>
         </ion-icon>
       </button>
-      <button ion-button icon-only (click)="facebookShare()" color="primary" clear>
+      <button ion-button icon-only (click)="facebookShare()" color="green" clear>
         <ion-icon icon-medium>
           <i class=" icon-facebook"></i>
         </ion-icon>
       </button>
-      <button ion-button icon-only (click)="twitterShare()" color="primary" clear>
+      <button ion-button icon-only (click)="twitterShare()" color="green" clear>
         <ion-icon icon-medium>
           <i class=" icon-twitter"></i>
         </ion-icon>

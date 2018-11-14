@@ -1,5 +1,6 @@
 <ion-header>
   <ion-navbar>
+    <ion-title text-align='center'>{{list.name}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only color="red" (click)="delete()">
         <ion-icon name="trash"></ion-icon>
@@ -10,9 +11,6 @@
 <ion-content no-bounce overflow-scroll="false">
   <ion-grid no-padding>
     <ion-row padding background-size container-header-image [ngStyle]="{'background-image': 'url(' + image + ')'}">
-      <ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-left>
-        <h2 header-titler>{{list.name}}</h2>
-      </ion-col>
     </ion-row>
     <!--Content-->
     <ion-row no-padding>
