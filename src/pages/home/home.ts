@@ -8,7 +8,8 @@ import { AdMobFreeBannerConfig, AdMobFree } from '@ionic-native/admob-free';
   templateUrl: 'home.html',
 })
 export class HomePage {
-  public backgroundImage: any = "assets/images/background_wlr.jpg";
+  public backgroundImage: any = "assets/images/simple_bg.jpg";
+  public newlistIcon: any = "assets/images/new_list.png";
   constructor(public navCtrl: NavController, public admob: AdMobFree) {
     this.showBanner();
   }
@@ -26,7 +27,7 @@ export class HomePage {
   }
 
   manual() {
-    this.navCtrl.push('ListCreatePage');
+    this.navCtrl.setRoot('ListCreatePage');
   }
 
   group() {

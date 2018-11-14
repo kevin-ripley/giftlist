@@ -1,32 +1,12 @@
 <ion-content [ngStyle]="{'background-image': 'url(' + backgroundImage +')'}" no-bounce overflow-scroll="false">
   
   <ion-grid>
-    <ion-row><ion-col offset-3><img no-padding class = "image_logo" src="assets/images/logo_4.png" /></ion-col></ion-row>
+    <ion-row><ion-col align-center><img no-padding class = "image_logo" src="assets/images/gl_christmas.png" /></ion-col></ion-row>
     <ion-row>
+      <ion-col col-6 tappable> <img no-padding class = "image_container" src="assets/images/new_list.png" (click)="manual()"/> 
+      </ion-col>
       <ion-col col-6 tappable> 
-        <div class="image-container" (click)="manual()">
-          <h1 text-wrap class ="icons">CREATE A NEW LIST</h1>
-      </div>
-      </ion-col>
-
-      <ion-col col-6>
-          <div class="image-container" (click)="group()">
-          <h1 text-wrap class ="icons">CREATE A NEW GROUP</h1>
-      </div>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col col-6>
-          <div class="image-container" (click)="items()">
-          <h1 text-wrap class ="icons"> FIND ITEMS FOR LISTS</h1>
-      </div>
-      </ion-col>
-
-      <ion-col col-6>
-          <div class="image-container" (click)="friends()">
-              <h1 text-wrap class ="icons"> SEARCH FOR FRIENDS </h1>
-      </div>
+        <img no-padding class = "image_container" src="assets/images/new_item.png" (click)="items()">
       </ion-col>
     </ion-row>
 

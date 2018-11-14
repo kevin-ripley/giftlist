@@ -81,23 +81,23 @@ $font-size-text:(
 // Global Colors
 $palettes: (
     mainColors: ( // Also used for backgrounds.
-        primary:   #0090d0, // Used for toolbars
+        primary:   #00b230, // Used for toolbars
         secondary:  #f7f7f7, // Used for various small elements
-        secondary-first:  #0091D2, // Used for gradient
+        secondary-first:  #00BF33, // Used for gradient
         accent:   #ffffff, //Used for icon-search-bar, loaders-spinners, checkbox-item, icon, button, span, input-field-icons
-        accent-first: #00c0e8,
-        accent-other: #00bee4, // Used for gradient
+        accent-first: #c00006,
+        accent-other: #009829, // Used for gradient
     ),
 
     textColors: ( // Used for text colors in all screens
-        primary: #00c0e8, // Used for text colors in: item-title, item-subtitle, header-title, header-subtitle
-        secondary: #0090d0, // Used for text colors in: buttons, header-title, subitem-title, subitem-subtitle
+        primary: #00b230, // Used for text colors in: item-title, item-subtitle, header-title, header-subtitle
+        secondary: #00b230, // Used for text colors in: buttons, header-title, subitem-title, subitem-subtitle
         accent:   #455B65, // Used for text colors in: header-title, header-subtitle
         accent-first: #ffffff,
     ),
     blendModes: ( // Used for blend modes
         primary:  #ffffff,
-        secondary: #0090d0
+        secondary: #00b230
     )
 );
 
@@ -331,7 +331,7 @@ $icon-size:(
 
 
 // Active Button For Ios
-$button-ios-outline-background-color-activated: #f7f7f7;
+$button-ios-outline-background-color-activated: #009829;
 
 // Fab Button Settings
 [button-ion-fab] {
