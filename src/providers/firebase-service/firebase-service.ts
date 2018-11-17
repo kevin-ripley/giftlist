@@ -64,6 +64,7 @@ export class FirebaseServiceProvider {
   removeList(key: string): void {
     const list = this.afDatabase.list(`lists/${this.userId}/${key}/listshared`);
     var shared = [];
+    var owners = [];
     list.subscribe((snapshots) => {
       for (var key in snapshots){
         shared.push(snapshots[key].groupname);
@@ -71,12 +72,19 @@ export class FirebaseServiceProvider {
     });
     shared.forEach(element => {
       console.log("This is for the element which should be the group: " + element);
-      this.afDatabase.list(`groups/${this.userId}/${element}/lists`).remove(key);
-      var members = this.afDatabase.list(`groups/${this.userId}/${element}/members`);
-      members.subscribe((membs) => {
-        for(var k in membs){
-          this.afDatabase.list(`groups/${membs[k].uid}/${element}/lists`).remove(key);
-        }
+      this.afDatabase.object(`groups/${firebase.auth().currentUser.uid}/${element}`).subscribe((snapshot) => {
+        owners.push(snapshot.creator);
+        console.log("TEMPOWNER: " + snapshot.creator);
+        var members = this.afDatabase.list(`groups/${snapshot.creator}/${element}/members`);
+        members.subscribe((membs) => {
+            for(var k in membs){
+              console.log(membs[k].uid);
+              this.afDatabase.list(`groups/${membs[k].uid}/${element}/lists`).remove(key).then(() => {
+                this.afDatabase.list(`groups/${snapshot.creator}/${element}/lists`).remove(key);
+              })
+            }
+          });
+      
       });
         
     });
