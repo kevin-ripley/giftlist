@@ -178,7 +178,7 @@ $list-background-color: theme-colors('mainColors', 'accent');
 //$list-md-background-color: #ffffff;
 
 $list-md-activated-background-color: theme-colors('mainColors', 'accent');
-$list-ios-activated-background-color: theme-colors('mainColors', 'accent');
+$list-ios-activated-background-color: theme-colors('mainColors', 'accent-first');
 
 
 // Black&White Avatar and Image
@@ -335,8 +335,8 @@ $button-ios-outline-background-color-activated: #009829;
 
 // Fab Button Settings
 [button-ion-fab] {
-  background-color: theme-colors('mainColors', 'accent-first') !important;
-  color: theme-colors('textColors', 'accent-first') !important;
+  background-color: theme-colors('mainColors', 'accent-other') !important;
+  color: theme-colors('mainColors', 'secondary') !important;
   bottom: 20px;
   right: 20px;
   -webkit-transition: all 300ms !important;
@@ -477,9 +477,9 @@ $text-input-md-highlight-color-invalid: red !important;
 $text-input-md-background-color: theme-colors('mainColors', 'accent') !important;
 // Input Settings Label
 $label-md-text-color: theme-colors('textColors', 'secondary') !important;
-$label-ios-text-color: theme-colors('textColors', 'secondary') !important;
+$label-ios-text-color: theme-colors('mainColors', 'primary') !important;
 $text-input-ios-highlight-color-invalid: red !important;
-$text-input-ios-highlight-color: theme-colors('textColors', 'secondary') !important;
+$text-input-ios-highlight-color: theme-colors('mainColors', 'secondary') !important;
 $text-input-ios-highlight-color-valid: theme-colors('textColors', 'secondary') !important;
 
 // Tabs Setting
@@ -488,15 +488,16 @@ $tabs-border-color: red!default;
 $tabs-color-active: red!default;
 
 $tabs-tab-color-active: #ffffff !default;
-$tabs-ios-tab-icon-color-active: theme-colors('textColors', 'primary');
+$tabs-ios-tab-icon-color-active: theme-colors('mainColors', 'secondary');
 $tabs-md-tab-icon-color-active: theme-colors('textColors', 'accent-first');
 $tabs-md-tab-text-color-active: theme-colors('textColors', 'accent-first');
 $tabs-ios-tab-color-inactive: theme-colors('textColors', 'accent');
+$tabs-ios-tab-text-color-active: theme-colors('mainColors', 'secondary');
 [tabs-title] {
-  color: theme-colors('textColors', 'accent-first');
+  color: theme-colors('mainColors', 'secondary');
 }
 [tabs-subtitle] {
-  color: theme-colors('textColors', 'accent-first');
+  color: theme-colors('mainColors', 'secondary');
 }
 
 // Search Bar Setting

@@ -71,14 +71,14 @@ export class FirebaseServiceProvider {
       }
     });
     shared.forEach(element => {
-      console.log("This is for the element which should be the group: " + element);
+      //element is the groupname
       this.afDatabase.object(`groups/${firebase.auth().currentUser.uid}/${element}`).subscribe((snapshot) => {
         owners.push(snapshot.creator);
-        console.log("TEMPOWNER: " + snapshot.creator);
+        //owners is an Array with creator/owner of Lists
         var members = this.afDatabase.list(`groups/${snapshot.creator}/${element}/members`);
         members.subscribe((membs) => {
             for(var k in membs){
-              console.log(membs[k].uid);
+              
               this.afDatabase.list(`groups/${membs[k].uid}/${element}/lists`).remove(key).then(() => {
                 this.afDatabase.list(`groups/${snapshot.creator}/${element}/lists`).remove(key);
               })
@@ -119,7 +119,7 @@ export class FirebaseServiceProvider {
             {
               text: 'Okay',
               handler: () => {
-                console.log('Okay Clicked!');
+                
               }
             }
           ]
@@ -134,7 +134,7 @@ export class FirebaseServiceProvider {
         {
           text: 'Okay',
           handler: () => {
-            console.log('Okay Clicked!');
+           
           }
         }
       ]
