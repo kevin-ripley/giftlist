@@ -34,9 +34,9 @@ export class ShopPage {
       spinner: 'crescent',
       content: ''
     });
-    loadingPopup.present();
+    loadingPopup.present(); 
     this.setFilteredItems();
-    this.searchControl.valueChanges.debounceTime(2000).subscribe(search => {
+    this.searchControl.valueChanges.debounceTime(4000).subscribe(search => {
       this.searching = false;
       this.setFilteredItems();
     });    

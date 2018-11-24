@@ -5,26 +5,25 @@
 </ion-header>
 
 <ion-content>
-    <div class="login-container">
+  <div class="login-container">
 
-  <img class="group_default" src="{{newgroup.groupPic}}" (click)="editImage()" />
+    <form [formGroup]="groupNameForm" (submit)="createGroup()" novalidate>
+      <h3 text-center><i>First Type In A Group Name, Then Tap the Picture To Upload A Group Picture</i></h3>
+      <ion-item>
+        <ion-label floating>Group Name</ion-label>
+        <ion-input formControlName="groupName" type="text" tappable color="green" [class.invalid]="!groupNameForm.controls.groupName.valid && groupNameForm.controls.groupName.dirty"></ion-input>
+      </ion-item>
+      <p text-center><b>Group Name Must Be A Word followed by 2-3 Numbers (ex: GroupName18)</b></p>
+      <p text-center *ngIf="!groupNameForm.controls.groupName.valid  &&
+            groupNameForm.controls.groupName.dirty">*Please
+        Enter A Valid Group Name</p>
+      <img class="group_default" src="{{newgroup.groupPic}}" (click)="editImage()" />
 
-  <form [formGroup]="groupNameForm" (submit)="createGroup()" novalidate>
-    <p text-center>First Type In A Group Name, Then Tap the Picture To Update Group Picture</p>
-    <ion-item>
-      <ion-label floating>Group Name</ion-label>
-      <ion-input formControlName="groupName" type="text" tappable color="green" [class.invalid]="!groupNameForm.controls.groupName.valid && groupNameForm.controls.groupName.dirty"></ion-input>
-    </ion-item>
+      <button ion-button outline block color="green" type="submit">
+        Create New Group
+      </button>
 
-    <p text-center>Group Name Must Be A Word followed by 2-3 Numbers (ex: GroupName18)</p>
-    <p text-center *ngIf="!groupNameForm.controls.groupName.valid  &&
-            groupNameForm.controls.groupName.dirty">*Please Enter A Valid Group Name</p>
+    </form>
 
-    <button ion-button clear full color="dark" type="submit">
-      Create an Account
-    </button>
-
-  </form>
-
-</div>
+  </div>
 </ion-content>

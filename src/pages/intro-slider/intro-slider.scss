@@ -9,14 +9,9 @@ page-intro-slider {
     border-radius: 4px;
     position: relative;
     overflow: hidden;
-    @include darkening-blend-mode;
+
   }
 
-  [default-button] {
-    width: 90%;
-    margin: 0 auto;
-    display: block;
-  }
 
   .swiper-pagination {
     bottom: 15px !important;
@@ -26,27 +21,24 @@ page-intro-slider {
     }
   }
 
-  ion-slides {
-    height: 88%;
-    margin-top: 20px;
+
+  ion-slide img {
+    height: 70vh !important;
+    width: auto !important;
   }
 
-  [wizard-title] {
-    z-index: 2;
-    position: relative;
+  ion-slide {
+
+    [wizard-title] {
+      z-index: 2;
+      position: relative;
+      color: black;
+    }
   }
 
   .swiper-pagination {
-    bottom: 20px;
+    bottom: 10px;
   }
 
-  .swiper-wrapper {
-    height: 90%;
-  }
 
-  .swiper-container {
-    width: 90%;
-    height: 100%;
-    margin: 0 auto;
-  }
 }

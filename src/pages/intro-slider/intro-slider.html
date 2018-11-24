@@ -1,17 +1,48 @@
-<!--Theme Wizard Simple + icon-->
 
-<!--Content -->
 <ion-content>
-<ion-slides (ionSlideDidChange)="slideHasChanged()" pager="true" *ngIf="data != null">
-    <ion-slide background-size *ngFor="let item of data.items;" [ngStyle]="{'background-image': 'url(' + item.backgroundImage + ')'}">
-        <h1 wizard-title>{{item.title}}</h1>
-    </ion-slide>
-</ion-slides>
+      
+<ion-slides pager="true">
+        <ion-slide>
+                <img src="assets/images/tutorials/ListPage.png" />
+                <h1 wizard-title>Select + To Create Lists</h1>
+              </ion-slide>
+             
+              <ion-slide>
+                <img src="assets/images/tutorials/NewList.png" />
+                <h1 wizard-title>Add Name, Expire Date, and Occasion</h1>
+              </ion-slide>
+             
+              <ion-slide>
+                <img src="assets/images/tutorials/AddFriend.png" />
+                <h1 wizard-title>Add Friends By Sliding Request to the Left</h1>
+              </ion-slide>
 
-<!--Button section-->
+              <ion-slide>
+                    <img src="assets/images/tutorials/AddList.png" />
+                    <h1 wizard-title>Add Items To A List 3 Ways</h1>
+                  </ion-slide>
+             
+              <ion-slide>
+                <ion-row>
+                  <ion-col>
+                    <img src="assets/images/tutorials/ShareList.png" />
+                    <h1 wizard-title>Share List To Group or to Social Media</h1>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <button ion-button color="light" (click)="goToHome()">Finish</button>
+                  </ion-col>
+                </ion-row>
+              </ion-slide>
+             
+            </ion-slides>
+    
+
+<!-- Button section
 <div *ngIf="data != null">
-    <button ion-button button-clear clear right (click)="onEvent('onFinish')" *ngIf="finish">
+    <button ion-button button-clear clear right (click)="onEvent('onFinish')" >
         {{data.btnFinish}}
     </button>
-</div>
+</div> -->
 </ion-content>
